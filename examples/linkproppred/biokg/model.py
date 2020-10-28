@@ -177,10 +177,11 @@ class KGEModel(nn.Module):
 
     def ConnE(self, head, relation, tail, mode):
         score = head - tail
-        score2 = head + (relation - tail)
+        relnorm = torch.norm(relation, p=2, dim=2)
+        normrel = torch.div( relation, torch.sqrt( relnorm + torch.ones_like(relnorm) ) )
 #        print( score.size(), relation.size(), torch.einsum( 'mpi,mni->mn', relation, score ).size() )
-        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2) - torch.einsum( 'mpi,mni->mn', relation, score )
-        return score - torch.abs( torch.atanh( torch.norm(relation, p=self.pnorm, dim=2) ) )
+        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2) - torch.einsum( 'mpi,mni->mn', normrel, score )
+        return score
 
     def DistMult(self, head, relation, tail, mode):
         if mode == 'head-batch':
