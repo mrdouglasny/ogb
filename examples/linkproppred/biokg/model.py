@@ -177,7 +177,9 @@ class KGEModel(nn.Module):
 
     def ConnE(self, head, relation, tail, mode):
         score = head - tail
-        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2) - torch.dot( relation, score )
+        score2 = head + (relation - tail)
+#        print( score.size(), relation.size(), torch.einsum( 'mpi,mni->mn', relation, score ).size() )
+        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2) - torch.einsum( 'mpi,mni->mn', relation, score )
         return score - torch.abs( torch.atanh( torch.norm(relation, p=self.pnorm, dim=2) ) )
 
     def DistMult(self, head, relation, tail, mode):
