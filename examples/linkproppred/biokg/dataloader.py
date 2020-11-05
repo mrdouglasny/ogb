@@ -76,6 +76,7 @@ class TestDataset(Dataset):
                 negative_sample = torch.cat([torch.LongTensor([head + self.entity_dict[head_type][0]]), 
                         torch.from_numpy(self.triples['head_neg'][idx] + self.entity_dict[head_type][0])])
             else:
+		print( 'DEBUG: head neg_size=', self.neg_size )
                 negative_sample = torch.cat([torch.LongTensor([head + self.entity_dict[head_type][0]]), 
                         torch.randint(self.entity_dict[head_type][0], self.entity_dict[head_type][1], size=(self.neg_size,))])
         elif self.mode == 'tail-batch':
@@ -83,6 +84,7 @@ class TestDataset(Dataset):
                 negative_sample = torch.cat([torch.LongTensor([tail + self.entity_dict[tail_type][0]]), 
                         torch.from_numpy(self.triples['tail_neg'][idx] + self.entity_dict[tail_type][0])])
             else:
+		print( 'DEBUG: tail neg_size=', self.neg_size )
                 negative_sample = torch.cat([torch.LongTensor([tail + self.entity_dict[tail_type][0]]), 
                         torch.randint(self.entity_dict[tail_type][0], self.entity_dict[tail_type][1], size=(self.neg_size,))])
 
