@@ -27,6 +27,9 @@ class KGEModel(nn.Module):
         self.nrelation = nrelation
         self.hidden_dim = hidden_dim
         self.epsilon = 2.0
+        self.pnorm = 1
+        if model_name in ['TransE2', 'ConnE2']:
+            self.pnorm = 2            
         
         self.gamma = nn.Parameter(
             torch.Tensor([gamma]), 
@@ -56,7 +59,7 @@ class KGEModel(nn.Module):
         )
         
         #Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['TransE', 'DistMult', 'ComplEx', 'RotatE']:
+        if model_name not in ['TransE', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE']:
             raise ValueError('model %s not supported' % model_name)
             
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -148,6 +151,9 @@ class KGEModel(nn.Module):
             
         model_func = {
             'TransE': self.TransE,
+            'ConnE': self.ConnE,
+            'TransE2': self.TransE,
+            'ConnE2': self.ConnE,
             'DistMult': self.DistMult,
             'ComplEx': self.ComplEx,
             'RotatE': self.RotatE,
@@ -166,7 +172,15 @@ class KGEModel(nn.Module):
         else:
             score = (head + relation) - tail
 
-        score = self.gamma.item() - torch.norm(score, p=1, dim=2)
+        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2)
+        return score
+
+    def ConnE(self, head, relation, tail, mode):
+        score = head - tail
+        relnorm = torch.norm(relation, p=2, dim=2)
+        normrel = torch.div( relation, torch.sqrt( relnorm + torch.ones_like(relnorm) ) )
+#        print( score.size(), relation.size(), torch.einsum( 'mpi,mni->mn', relation, score ).size() )
+        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2) - torch.einsum( 'mpi,mni->mn', normrel, score )
         return score
 
     def DistMult(self, head, relation, tail, mode):
