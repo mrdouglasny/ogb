@@ -61,6 +61,7 @@ class TestDataset(Dataset):
         self.random_sampling = random_sampling
         if random_sampling:
             self.neg_size = args.neg_size_eval_train
+	self.test_eval_all = args.test_eval_all
         self.entity_dict = entity_dict
 
     def __len__(self):
@@ -76,17 +77,23 @@ class TestDataset(Dataset):
                 negative_sample = torch.cat([torch.LongTensor([head + self.entity_dict[head_type][0]]), 
                         torch.from_numpy(self.triples['head_neg'][idx] + self.entity_dict[head_type][0])])
             else:
-		print( 'DEBUG: head neg_size=', self.neg_size )
-                negative_sample = torch.cat([torch.LongTensor([head + self.entity_dict[head_type][0]]), 
-                        torch.randint(self.entity_dict[head_type][0], self.entity_dict[head_type][1], size=(self.neg_size,))])
+		if self.test_eval_all or self.neg_size >= self.entity_dict[head_type][1] - self.entity_dict[head_type][0]:
+			print( 'DEBUG: generating full test set' )
+			heads = torch.tensor( range( self.entity_dict[head_type][0], self.entity_dict[head_type][1] ) )
+		else:
+                        heads = torch.randint(self.entity_dict[head_type][0], self.entity_dict[head_type][1], size=(self.neg_size,))
+                negative_sample = torch.cat([torch.LongTensor([head + self.entity_dict[head_type][0]]), heads])
         elif self.mode == 'tail-batch':
             if not self.random_sampling:
                 negative_sample = torch.cat([torch.LongTensor([tail + self.entity_dict[tail_type][0]]), 
                         torch.from_numpy(self.triples['tail_neg'][idx] + self.entity_dict[tail_type][0])])
             else:
-		print( 'DEBUG: tail neg_size=', self.neg_size )
-                negative_sample = torch.cat([torch.LongTensor([tail + self.entity_dict[tail_type][0]]), 
-                        torch.randint(self.entity_dict[tail_type][0], self.entity_dict[tail_type][1], size=(self.neg_size,))])
+		if self.test_eval_all or self.neg_size >= self.entity_dict[tail_type][1] - self.entity_dict[tail_type][0]:
+			print( 'DEBUG: generating full test set' )
+			tails = torch.tensor( range( self.entity_dict[tail_type][0], self.entity_dict[tail_type][1] ) )
+		else:
+                        tails = torch.randint(self.entity_dict[tail_type][0], self.entity_dict[tail_type][1], size=(self.neg_size,))
+                negative_sample = torch.cat([torch.LongTensor([tail + self.entity_dict[tail_type][0]]), tails])
 
         return positive_sample, negative_sample, self.mode
     
