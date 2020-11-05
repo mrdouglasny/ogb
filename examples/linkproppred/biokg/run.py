@@ -351,8 +351,8 @@ def main(args):
     
     if args.do_test:
         logging.info('Evaluating on Test Dataset...')
-	if args.test_random_sample>0:
-	    args.neg_size_eval_train = args.test_random_sample
+        if args.test_random_sample>0:
+            args.neg_size_eval_train = args.test_random_sample
         metrics = kge_model.test_step(kge_model, test_triples, args, entity_dict, random_sampling=args.test_random_sample>0)
         log_metrics('Test', step, metrics, writer)
     
