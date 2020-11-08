@@ -73,6 +73,8 @@ def parse_args(args=None):
     parser.add_argument('--print_on_screen', action='store_true', help='log on screen or not')
     parser.add_argument('--ntriples_eval_train', type=int, default=200000, help='number of training triples to evaluate eventually')
     parser.add_argument('--neg_size_eval_train', type=int, default=500, help='number of negative samples when evaluating training triples')
+    parser.add_argument('--test_random_sample', type=int, default=0, help='number of negative samples when evaluating testing triples')
+    parser.add_argument('--test_eval_all', action='store_true')
     return parser.parse_args(args)
 
 def override_config(args):
@@ -331,7 +333,9 @@ def main(args):
     
     if args.do_test:
         logging.info('Evaluating on Test Dataset...')
-        metrics = kge_model.test_step(kge_model, test_triples, args)
+        if args.test_random_sample>0:
+            args.neg_size_eval_train = args.test_random_sample
+        metrics = kge_model.test_step(kge_model, test_triples, args, random_sampling=args.test_random_sample>0 or args.test_eval_all)
         log_metrics('Test', step, metrics, writer)
     
     if args.evaluate_train:
