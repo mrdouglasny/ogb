@@ -244,16 +244,14 @@ class KGEModel(nn.Module):
         return score
 
     def PairRE(self, head, relation, tail, mode):
-        relation_h, relation_t = torch.chunk(relation, 2, dim=2)
-        if mode == 'head-batch':
-            t = tail * relation_t
-            score = head * relation_h - t
-        else:
-            h = head * relation_h
-            score = h - tail * relation_t
-        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2)**2
-        return score
+        re_head, re_tail = torch.chunk(relation, 2, dim=2)
 
+        head = F.normalize(head, 2, -1)
+        tail = F.normalize(tail, 2, -1)
+
+        score = head * re_head - tail * re_tail
+        score = self.gamma.item() - torch.norm(score, p=1, dim=2)
+        return score
 
     @staticmethod
     def train_step(model, optimizer, train_iterator, args):
