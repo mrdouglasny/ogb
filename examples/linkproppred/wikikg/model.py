@@ -28,7 +28,7 @@ class KGEModel(nn.Module):
         self.hidden_dim = hidden_dim
         self.epsilon = 2.0
         self.pnorm = 1
-        if model_name in ['TransE2', 'ConnE2']:
+        if model_name in ['TransE2', 'ConnE2', 'PairRE']:
             self.pnorm = 2            
         
         self.gamma = nn.Parameter(
@@ -59,7 +59,7 @@ class KGEModel(nn.Module):
         )
         
         #Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['TransE', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE']:
+        if model_name not in ['TransE', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
             raise ValueError('model %s not supported' % model_name)
             
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -67,6 +67,9 @@ class KGEModel(nn.Module):
 
         if model_name == 'ComplEx' and (not double_entity_embedding or not double_relation_embedding):
             raise ValueError('ComplEx should use --double_entity_embedding and --double_relation_embedding')
+
+        if model_name == 'PairRE' and not double_relation_embedding:
+            raise ValueError('ComplEx should use --double_relation_embedding')
 
         self.evaluator = evaluator
         
@@ -157,6 +160,7 @@ class KGEModel(nn.Module):
             'DistMult': self.DistMult,
             'ComplEx': self.ComplEx,
             'RotatE': self.RotatE,
+            'PairRE': self.PairRE,
         }
         
         if self.model_name in model_func:
@@ -238,6 +242,18 @@ class KGEModel(nn.Module):
 
         score = self.gamma.item() - score.sum(dim = 2)
         return score
+
+    def PairRE(self, head, relation, tail, mode):
+        relation_h, relation_t = torch.chunk(relation, 2, dim=2)
+        if mode == 'head-batch':
+            t = tail * relation_t
+            score = head * relation_h - t
+        else:
+            h = head * relation
+            score = h - tail * relation_t
+        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2)**2
+        return score
+
 
     @staticmethod
     def train_step(model, optimizer, train_iterator, args):
