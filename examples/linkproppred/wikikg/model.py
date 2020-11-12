@@ -367,12 +367,14 @@ class KGEModel(nn.Module):
 
         if dump_all:
             dump = open(args.dump_filename, "w")
-            hist = numpy.zeros( args.test_dump_hist, dtype=int )
             min_val = -15.0
             range_val = (5.0-min_val)
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
+                if args.test_dump_hist>0:
+                    hist = numpy.zeros( args.test_dump_hist, dtype=int )
+                    print( "step i score" )
                 for positive_sample, negative_sample, mode in test_dataset:
                     if args.cuda:
                         positive_sample = positive_sample.cuda()
@@ -406,14 +408,15 @@ class KGEModel(nn.Module):
                                      (step, total_steps))
 
                     step += 1
+                if dump_all and args.test_dump_hist>0:
+                    print( "\nstart counts" )
+                    for n in range(0,args.test_dump_hist):
+                        print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
+                    print( "\n" )
 
             metrics = {}
             for metric in test_logs:
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
 
-        if dump_all and args.test_dump_hist>0:
-            print( "\nstart counts" )
-            for n in range(0,args.test_dump_hist):
-                print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
 
         return metrics
