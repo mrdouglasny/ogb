@@ -372,7 +372,7 @@ class KGEModel(nn.Module):
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
-                if args.test_dump_hist>0:
+                if dump_all and args.test_dump_hist>0:
                     hist = np.zeros( args.test_dump_hist, dtype=int )
                     print( "step i score", file=dump )
                 for positive_sample, negative_sample, mode in test_dataset:
