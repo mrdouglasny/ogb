@@ -374,7 +374,7 @@ class KGEModel(nn.Module):
             for test_dataset in test_dataset_list:
                 if args.test_dump_hist>0:
                     hist = np.zeros( args.test_dump_hist, dtype=int )
-                    print( "step i score" )
+                    print( "step i score", file=dump )
                 for positive_sample, negative_sample, mode in test_dataset:
                     if args.cuda:
                         positive_sample = positive_sample.cuda()
@@ -394,10 +394,10 @@ class KGEModel(nn.Module):
                                 if args.test_dump_hist>0:
                                     n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
                                     if n<0:
-                                        print( 'score', s[i].item(), 'less than', min_val )
+                                        print( 'score', s[i].item(), 'less than', min_val, file=dump )
                                         n = 0
                                     if n>=args.test_dump_hist:
-                                        print( 'score', s[i].item(), 'greater than', range_val-min_val )
+                                        print( 'score', s[i].item(), 'greater than', range_val-min_val, file=dump )
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
                                 if args.test_dump_hist==0 or i==0:
@@ -409,14 +409,13 @@ class KGEModel(nn.Module):
 
                     step += 1
                 if dump_all and args.test_dump_hist>0:
-                    print( "\nstart counts" )
+                    print( "\nstart counts", file=dump )
                     for n in range(0,args.test_dump_hist):
                         print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
-                    print( "\n" )
+                    print( "\n", file=dump )
 
             metrics = {}
             for metric in test_logs:
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
-
 
         return metrics
