@@ -395,18 +395,23 @@ class KGEModel(nn.Module):
                                 if args.test_dump_hist>0:
                                     n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
                                     if n<0:
-                                        print( 'score', s[i].item(), 'less than', min_val, file=dump )
+                                        print( '# score', s[i].item(), 'less than', min_val, file=dump )
                                         n = 0
                                     if n>=args.test_dump_hist:
-                                        print( 'score', s[i].item(), 'greater than', range_val+min_val, file=dump )
+                                        print( '# score', s[i].item(), 'greater than', range_val+min_val, file=dump )
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
                                 if args.test_dump_hist==0:
                                     print( step, i, s[i].item(), file=dump)
 			    if args.test_dump_hist>0:
-			        for n in range(0,args.test_dump_hist):
-				    print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
-			        print( "\n", file=dump )
+			        print( "c(c(", end='', file=dump )
+				print( "{:.2f}".format(min_val + 0*range_val/args.test_dump_hist), ",", end='', file=dump` )
+                                for n in range(1,args.test_dump_hist):
+				    print( ",{:.2f}".format(min_val + n*range_val/args.test_dump_hist), end='', file=dump )
+                                print( "),c(", hist[0], end='', file=dump )
+                                for n in range(1,args.test_dump_hist):
+                                    print( ",", hist[n], end='', file=dump )
+			        print( "))\n", file=dump )
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
