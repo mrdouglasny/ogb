@@ -382,6 +382,7 @@ class KGEModel(nn.Module):
 
                     batch_size = positive_sample.size(0)
                     score = model((positive_sample, negative_sample), mode)
+                    print( 'score = ', score )
 
                     batch_results = model.evaluator.eval({'y_pred_pos': score[:, 0],
                                                           'y_pred_neg': score[:, 1:]})
@@ -389,7 +390,8 @@ class KGEModel(nn.Module):
                         test_logs[metric].append(batch_results[metric])
 
                     if dump_all:
-                        for s in score:
+                        score2 = score.to(torch.device("cpu"))
+                        for s in score2:
                             for i in range(len(s)):
                                 if args.test_dump_hist>0:
                                     n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
