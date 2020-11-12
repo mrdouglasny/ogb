@@ -326,7 +326,7 @@ class KGEModel(nn.Module):
         return log
 
     @staticmethod
-    def test_step(model, test_triples, args, random_sampling=False):
+    def test_step(model, test_triples, args, random_sampling=False, dump_all=False):
         '''
         Evaluate the model on test or valid datasets
         '''
@@ -365,7 +365,7 @@ class KGEModel(nn.Module):
         step = 0
         total_steps = sum([len(dataset) for dataset in test_dataset_list])
 
-        if args.test_dump_all:
+        if dump_all:
             dump = open(args.dump_filename, "w")
 
         with torch.no_grad():
@@ -383,10 +383,10 @@ class KGEModel(nn.Module):
                     for metric in batch_results:
                         test_logs[metric].append(batch_results[metric])
 
-                    if args.test_dump_all:
+                    if dump_all:
                         for s in score:
                             for i in range(len(s)):
-                                print( step, ' ', i, ' ', s[i], '\n', file=dump)
+                                print( step, i, s[i].item(), file=dump)
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
