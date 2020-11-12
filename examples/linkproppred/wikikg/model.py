@@ -391,12 +391,12 @@ class KGEModel(nn.Module):
                             for i in range(len(s)):
                                 if args.test_dump_hist>0:
                                     n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
-				    if n<0:
+                                    if n<0:
                                         print( 'score', s[i].item(), 'less than', min_val )
-					n = 0
-				    if n>=args.test_dump_hist:
+                                        n = 0
+                                if n>=args.test_dump_hist:
                                         print( 'score', s[i].item(), 'greater than', range_val-min_val )
-					n = args.test_dump_hist-1
+                                        n = args.test_dump_hist-1
                                     hist[n] += 1
                                 else:
                                     print( step, i, s[i].item(), file=dump)
@@ -411,7 +411,7 @@ class KGEModel(nn.Module):
             for metric in test_logs:
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
 
-	if dump_all and args.test_dump_hist>0:
+        if dump_all and args.test_dump_hist>0:
             for n in range(0,args.test_dump_hist):
                 print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump` )
 
