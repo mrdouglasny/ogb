@@ -75,6 +75,7 @@ def parse_args(args=None):
     parser.add_argument('--neg_size_eval_train', type=int, default=500, help='number of negative samples when evaluating training triples')
     parser.add_argument('--test_random_sample', type=int, default=0, help='number of negative samples when evaluating testing triples')
     parser.add_argument('--test_dump_all', action='store_true')
+    parser.add_argument('--test_dump_hist', type=int, default=0, help='number of bins for histogram of testing scores')
     parser.add_argument('--dump_filename', type=str)
     parser.add_argument('--test_first_sample', type=int, default=0, help='first negative sample')
     return parser.parse_args(args)
