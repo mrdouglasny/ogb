@@ -372,9 +372,6 @@ class KGEModel(nn.Module):
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
-                if dump_all and args.test_dump_hist>0:
-                    hist = np.zeros( args.test_dump_hist, dtype=int )
-                    print( "step i score", file=dump )
                 for positive_sample, negative_sample, mode in test_dataset:
                     if args.cuda:
                         positive_sample = positive_sample.cuda()
@@ -382,7 +379,7 @@ class KGEModel(nn.Module):
 
                     batch_size = positive_sample.size(0)
                     score = model((positive_sample, negative_sample), mode)
-                    print( 'score = ', score )
+#                    print( 'score = ', score )
 
                     batch_results = model.evaluator.eval({'y_pred_pos': score[:, 0],
                                                           'y_pred_neg': score[:, 1:]})
@@ -392,7 +389,9 @@ class KGEModel(nn.Module):
                     if dump_all:
                         score2 = score.to(torch.device("cpu"))
                         for s in score2:
-                            for i in range(len(s)):
+                            hist = np.zeros( args.test_dump_hist, dtype=int )
+                            print( 'item', step, 0, s[0].item(), file=dump)
+                            for i in range(1,len(s)):
                                 if args.test_dump_hist>0:
                                     n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
                                     if n<0:
@@ -402,19 +401,18 @@ class KGEModel(nn.Module):
                                         print( 'score', s[i].item(), 'greater than', range_val+min_val, file=dump )
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
-                                if args.test_dump_hist==0 or i==0:
+                                if args.test_dump_hist==0:
                                     print( step, i, s[i].item(), file=dump)
+			    if args.test_dump_hist>0:
+			        for n in range(0,args.test_dump_hist):
+				    print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
+			        print( "\n", file=dump )
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
                                      (step, total_steps))
 
                     step += 1
-                if dump_all and args.test_dump_hist>0:
-                    print( "\nstart counts", file=dump )
-                    for n in range(0,args.test_dump_hist):
-                        print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
-                    print( "\n", file=dump )
 
             metrics = {}
             for metric in test_logs:
