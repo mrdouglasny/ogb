@@ -389,24 +389,28 @@ class KGEModel(nn.Module):
                     if dump_all:
                         score2 = score.to(torch.device("cpu"))
                         for s in score2:
-                            hist = np.zeros( args.test_dump_hist, dtype=int )
-                            print( 'item', step, 0, s[0].item(), file=dump)
-                            for i in range(1,len(s)):
-                                if args.test_dump_hist>0:
-                                    n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
-                                    if n<0:
-                                        print( 'score', s[i].item(), 'less than', min_val, file=dump )
+                            hist = np.zeros(args.test_dump_hist, dtype=int)
+                            print('item', step, 0, s[0].item(), file=dump)
+                            for i in range(1, len(s)):
+                                if args.test_dump_hist > 0:
+                                    n = int(args.test_dump_hist *
+                                            (s[i].item()-min_val)/range_val)
+                                    if n < 0:
+                                        print('score', s[i].item(
+                                        ), 'less than', min_val, file=dump)
                                         n = 0
-                                    if n>=args.test_dump_hist:
-                                        print( 'score', s[i].item(), 'greater than', range_val+min_val, file=dump )
+                                    if n >= args.test_dump_hist:
+                                        print('score', s[i].item(
+                                        ), 'greater than', range_val+min_val, file=dump)
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
-                                if args.test_dump_hist==0:
-                                    print( step, i, s[i].item(), file=dump)
-			    if args.test_dump_hist>0:
-			        for n in range(0,args.test_dump_hist):
-				    print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
-			        print( "\n", file=dump )
+                                if args.test_dump_hist == 0:
+                                    print(step, i, s[i].item(), file=dump)
+                            if args.test_dump_hist > 0:
+                                for n in range(0, args.test_dump_hist):
+                                    print(min_val + n*range_val /
+                                          args.test_dump_hist, hist[n], file=dump)
+                                print("\n", file=dump)
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
