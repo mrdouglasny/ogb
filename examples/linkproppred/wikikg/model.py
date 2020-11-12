@@ -394,7 +394,7 @@ class KGEModel(nn.Module):
                                     if n<0:
                                         print( 'score', s[i].item(), 'less than', min_val )
                                         n = 0
-                                if n>=args.test_dump_hist:
+                                    if n>=args.test_dump_hist:
                                         print( 'score', s[i].item(), 'greater than', range_val-min_val )
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
