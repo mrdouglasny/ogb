@@ -405,13 +405,13 @@ class KGEModel(nn.Module):
                                     print( step, i, s[i].item(), file=dump)
 			    if args.test_dump_hist>0:
 			        print( "c(c(", end='', file=dump )
-				print( "{:.2f}".format(min_val + 0*range_val/args.test_dump_hist), ",", end='', file=dump` )
+				print( "{:.2f}".format(min_val + 0*range_val/args.test_dump_hist), ",", end='', file=dump )
                                 for n in range(1,args.test_dump_hist):
 				    print( ",{:.2f}".format(min_val + n*range_val/args.test_dump_hist), end='', file=dump )
                                 print( "),c(", hist[0], end='', file=dump )
                                 for n in range(1,args.test_dump_hist):
                                     print( ",", hist[n], end='', file=dump )
-			        print( "))\n", file=dump )
+                                print( "))\n", file=dump )
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
