@@ -352,8 +352,8 @@ class KGEModel(nn.Module):
         step = 0
         total_steps = sum([len(dataset) for dataset in test_dataset_list])
 
-	if args.test_dump_all:
-	    dump = open( args.dump_filename, "w" )
+        if args.test_dump_all:
+            dump = open( args.dump_filename, "w" )
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
