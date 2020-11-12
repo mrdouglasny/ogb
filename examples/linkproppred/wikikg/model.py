@@ -352,6 +352,9 @@ class KGEModel(nn.Module):
         step = 0
         total_steps = sum([len(dataset) for dataset in test_dataset_list])
 
+	if args.test_dump_all:
+	    dump = open( args.dump_filename, "w" )
+
         with torch.no_grad():
             for test_dataset in test_dataset_list:
                 for positive_sample, negative_sample, mode in test_dataset:
@@ -366,6 +369,11 @@ class KGEModel(nn.Module):
                                                 'y_pred_neg': score[:, 1:]})
                     for metric in batch_results:
                         test_logs[metric].append(batch_results[metric])
+
+		    if args.test_dump_all:
+			for s in score:
+			    for i in range(len(s)):
+				print( file=dump, step, ' ', i, ' ', s[i], '\n' )
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' % (step, total_steps))
