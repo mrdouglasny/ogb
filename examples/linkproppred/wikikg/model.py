@@ -413,6 +413,6 @@ class KGEModel(nn.Module):
 
         if dump_all and args.test_dump_hist>0:
             for n in range(0,args.test_dump_hist):
-                print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump` )
+                print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
 
         return metrics
