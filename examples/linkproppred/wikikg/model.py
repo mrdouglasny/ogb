@@ -398,7 +398,7 @@ class KGEModel(nn.Module):
                                         print( 'score', s[i].item(), 'greater than', range_val-min_val )
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
-                                else:
+                                if args.test_dump_hist=0 or i==0:
                                     print( step, i, s[i].item(), file=dump)
 
                     if step % args.test_log_steps == 0:
@@ -412,6 +412,7 @@ class KGEModel(nn.Module):
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
 
         if dump_all and args.test_dump_hist>0:
+            print( "\nstart counts" )
             for n in range(0,args.test_dump_hist):
                 print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump )
 
