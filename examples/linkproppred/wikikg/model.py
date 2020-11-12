@@ -367,6 +367,9 @@ class KGEModel(nn.Module):
 
         if dump_all:
             dump = open(args.dump_filename, "w")
+            hist = numpy.zeros( args.test_dump_hist, dtype=int )
+            min_val = -15.0
+            range_val = (5.0-min_val)
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
@@ -386,7 +389,17 @@ class KGEModel(nn.Module):
                     if dump_all:
                         for s in score:
                             for i in range(len(s)):
-                                print( step, i, s[i].item(), file=dump)
+                                if args.test_dump_hist>0:
+                                    n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
+				    if n<0:
+                                        print( 'score', s[i].item(), 'less than', min_val )
+					n = 0
+				    if n>=args.test_dump_hist:
+                                        print( 'score', s[i].item(), 'greater than', range_val-min_val )
+					n = args.test_dump_hist-1
+                                    hist[n] += 1
+                                else:
+                                    print( step, i, s[i].item(), file=dump)
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
@@ -397,5 +410,9 @@ class KGEModel(nn.Module):
             metrics = {}
             for metric in test_logs:
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
+
+	if dump_all and args.test_dump_hist>0:
+            for n in range(0,args.test_dump_hist):
+                print( min_val + n*range_val/args.test_dump_hist, hist[n], file=dump` )
 
         return metrics
