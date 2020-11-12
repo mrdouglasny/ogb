@@ -373,7 +373,7 @@ class KGEModel(nn.Module):
         with torch.no_grad():
             for test_dataset in test_dataset_list:
                 if args.test_dump_hist>0:
-                    hist = numpy.zeros( args.test_dump_hist, dtype=int )
+                    hist = np.zeros( args.test_dump_hist, dtype=int )
                     print( "step i score" )
                 for positive_sample, negative_sample, mode in test_dataset:
                     if args.cuda:
