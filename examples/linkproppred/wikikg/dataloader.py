@@ -84,7 +84,7 @@ class TestDataset(Dataset):
         self.random_sampling = random_sampling
         if random_sampling:
             self.neg_size = args.neg_size_eval_train
-        self.test_eval_all = args.test_eval_all
+        self.test_first_sample = args.test_first_sample
 
     def __len__(self):
         return self.len
@@ -97,8 +97,8 @@ class TestDataset(Dataset):
             if not self.random_sampling:
                 negative_sample = torch.cat([torch.LongTensor([head]), torch.from_numpy(self.triples['head_neg'][idx])])
             else:
-                if self.test_eval_all:
-                        heads = torch.tensor( range( 0, self.nentity ) )
+                if self.test_first_sample:
+                        heads = torch.tensor( range( self.test_first_sample, min(self.nentity,self.test_first_sample+self.neg_size) ) )
                 else:
                         heads = torch.randint(0, self.nentity, size=(self.neg_size,))
                 negative_sample = torch.cat([torch.LongTensor([head]), heads])
@@ -106,8 +106,8 @@ class TestDataset(Dataset):
             if not self.random_sampling:
                 negative_sample = torch.cat([torch.LongTensor([tail]), torch.from_numpy(self.triples['tail_neg'][idx])])
             else:
-                if self.test_eval_all:
-                        tails = torch.tensor( range( 0, self.nentity ) )
+                if self.test_first_sample:
+                        tails = torch.tensor( range( self.test_first_sample, min(self.nentity,self.test_first_sample+self.neg_size) ) )
                 else:
                         tails = torch.randint(0, self.nentity, size=(self.neg_size,))
                 negative_sample = torch.cat([torch.LongTensor([tail]), tails])
