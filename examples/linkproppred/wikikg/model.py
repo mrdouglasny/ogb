@@ -367,8 +367,8 @@ class KGEModel(nn.Module):
 
         if dump_all:
             dump = open(args.dump_filename, "w")
-            min_val = -15.0
-            range_val = (5.0-min_val)
+            min_val = -20.0
+            range_val = (10.0-min_val)
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
@@ -399,7 +399,7 @@ class KGEModel(nn.Module):
                                         print( 'score', s[i].item(), 'less than', min_val, file=dump )
                                         n = 0
                                     if n>=args.test_dump_hist:
-                                        print( 'score', s[i].item(), 'greater than', range_val-min_val, file=dump )
+                                        print( 'score', s[i].item(), 'greater than', range_val+min_val, file=dump )
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
                                 if args.test_dump_hist==0 or i==0:
