@@ -400,7 +400,7 @@ class KGEModel(nn.Module):
                                         print( 'score', s[i].item(), 'greater than', range_val-min_val )
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
-                                if args.test_dump_hist=0 or i==0:
+                                if args.test_dump_hist==0 or i==0:
                                     print( step, i, s[i].item(), file=dump)
 
                     if step % args.test_log_steps == 0:
