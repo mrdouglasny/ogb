@@ -83,7 +83,7 @@ class Evaluator:
 
             return y_pred_pos, y_pred_neg, type_info
 
-        elif 'mrr' == self.eval_metric:
+        elif 'mrr' == self.eval_metric or 'hist' == self.eval_metric:
 
             if not 'y_pred_pos' in input_dict:
                 RuntimeError('Missing key of y_pred_pos')
@@ -151,6 +151,9 @@ class Evaluator:
         elif self.eval_metric == 'mrr':
             y_pred_pos, y_pred_neg, type_info = self._parse_and_check_input(input_dict)
             return self._eval_mrr(y_pred_pos, y_pred_neg, type_info)
+        elif self.eval_metric == 'hist':
+            y_pred_pos, y_pred_neg, type_info = self._parse_and_check_input(input_dict)
+            return self._eval_hist(y_pred_pos, y_pred_neg, type_info)
             
         else:
             raise ValueError('Undefined eval metric %s' % (self.eval_metric))
@@ -260,6 +263,9 @@ class Evaluator:
                      'mrr_list': mrr_list}
 
 
+    def _eval_hist(self, y_pred_pos, y_pred_neg, type_info):
+            raise ValueError( 'NYI' )
+		
 if __name__ == '__main__':
     ### hits case
     evaluator = Evaluator(name = 'ogbl-ddi')
