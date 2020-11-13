@@ -387,10 +387,16 @@ class KGEModel(nn.Module):
                         test_logs[metric].append(batch_results[metric])
 
                     if dump_all:
+			if args.test_dump_hist>0:
+                            print( "brks<-c(", end='', file=dump )
+                            print( "{:.2f}".format(min_val + 0*range_val/args.test_dump_hist), end='', file=dump )
+                            for n in range(1,args.test_dump_hist):
+			        print( ",{:.2f}".format(min_val + n*range_val/args.test_dump_hist), end='', file=dump )
+                            print( ")", file=dump )
                         score2 = score.to(torch.device("cpu"))
                         for s in score2:
                             hist = np.zeros( args.test_dump_hist, dtype=int )
-                            print( 'item', step, 0, s[0].item(), file=dump)
+                            print( 'item(', step, s[0].item(), sep=',', file=dump)
                             for i in range(1,len(s)):
                                 if args.test_dump_hist>0:
                                     n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
@@ -404,11 +410,7 @@ class KGEModel(nn.Module):
                                 if args.test_dump_hist==0:
                                     print( step, i, s[i].item(), file=dump)
 			    if args.test_dump_hist>0:
-			        print( "c(c(", end='', file=dump )
-				print( "{:.2f}".format(min_val + 0*range_val/args.test_dump_hist), ",", end='', file=dump )
-                                for n in range(1,args.test_dump_hist):
-				    print( ",{:.2f}".format(min_val + n*range_val/args.test_dump_hist), end='', file=dump )
-                                print( "),c(", hist[0], end='', file=dump )
+                                print( ", c(", hist[0], end='', file=dump )
                                 for n in range(1,args.test_dump_hist):
                                     print( ",", hist[n], end='', file=dump )
                                 print( "))\n", file=dump )
