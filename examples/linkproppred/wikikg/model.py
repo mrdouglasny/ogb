@@ -396,7 +396,7 @@ class KGEModel(nn.Module):
                         score2 = score.to(torch.device("cpu"))
                         for s in score2:
                             hist = np.zeros( args.test_dump_hist, dtype=int )
-                            print( 'item(', step, s[0].item(), sep=',', file=dump)
+                            print( 'item(', step, ",", s[0].item(), file=dump)
                             for i in range(1,len(s)):
                                 if args.test_dump_hist>0:
                                     n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
