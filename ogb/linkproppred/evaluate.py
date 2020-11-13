@@ -9,7 +9,7 @@ except ImportError:
 
 ### Evaluator for link property prediction
 class Evaluator:
-    def __init__(self, name):
+    def __init__(self, name, metric=''):
         self.name = name
 
         meta_info = pd.read_csv(os.path.join(os.path.dirname(__file__), 'master.csv'), index_col = 0)
@@ -20,7 +20,7 @@ class Evaluator:
             error_mssg += '\n'.join(meta_info.keys())
             raise ValueError(error_mssg)
 
-        self.eval_metric = meta_info[self.name]['eval metric']
+        self.eval_metric = metric if metric!='' else meta_info[self.name]['eval metric']
 
         if 'hits@' in self.eval_metric:
             ### Hits@K

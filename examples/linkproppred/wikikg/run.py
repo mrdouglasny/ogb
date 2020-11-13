@@ -38,6 +38,7 @@ def parse_args(args=None):
     parser.add_argument('--do_valid', action='store_true')
     parser.add_argument('--do_test', action='store_true')
     parser.add_argument('--evaluate_train', action='store_true', help='Evaluate on training data')
+    parser.add_argument('--evaluator', type=str, default='', help='name of evaluator')
     
     parser.add_argument('--dataset', type=str, default='ogbl-wikikg', help='dataset name, default to wikikg')
     parser.add_argument('--model', default='TransE', type=str)
@@ -77,7 +78,7 @@ def parse_args(args=None):
     parser.add_argument('--test_dump_all', action='store_true')
     parser.add_argument('--test_dump_hist', type=int, default=0, help='number of bins for histogram of testing scores')
     parser.add_argument('--dump_filename', type=str)
-    parser.add_argument('--test_first_sample', type=int, default=0, help='first negative sample')
+    parser.add_argument('--test_first_sample', type=int, default=-1, help='first negative sample')
     return parser.parse_args(args)
 
 def override_config(args):
@@ -171,7 +172,7 @@ def main(args):
     # Write logs to checkpoint and console
     set_logger(args)
     
-    dataset = LinkPropPredDataset(name = args.dataset)
+    dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator)
     split_dict = dataset.get_edge_split()
     nentity = dataset.graph['num_nodes']
     nrelation = int(max(dataset.graph['edge_reltype'])[0])+1
