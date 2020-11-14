@@ -6,7 +6,7 @@ from ogb.io.read_graph_raw import read_csv_graph_raw, read_csv_heterograph_raw, 
 import torch
 import numpy as np
 
-class LinkPropPredDataset(object):
+class LinkPropPredDataset(object, metric=''):
     def __init__(self, name, root = 'dataset', meta_dict = None):
         '''
             - name (str): name of the dataset
@@ -50,7 +50,7 @@ class LinkPropPredDataset(object):
                 shutil.rmtree(self.root)
 
         self.task_type = self.meta_info['task type']
-        self.eval_metric = self.meta_info['eval metric']
+        self.eval_metric = self.meta_info['eval metric'] if metric=='' else metric
         
         self.is_hetero = self.meta_info['is hetero'] == 'True'
         self.binary = self.meta_info['binary'] == 'True'
