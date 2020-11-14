@@ -1,0 +1,56 @@
+1. Understand testing and N dependence.
+
+Many runs varying N - fits seem to lead to N^\alpha with \alpha \sim 0.1
+
+Surprising as one might expect 1/N.
+
+Dumped histograms of runs with 5000 negatives, and their scores are normally distributed.
+Got distribution of t values which also suggests 1/N.
+
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604848303.3771045/config.json:{ple": 5000, "test_eval_all": false}
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849174.6068788/config.json:{ple": 5000, "test_eval_all": false}
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849560.972968/config.json:{ple": 3000, "test_eval_all": false}
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849586.7561214/config.json:{ple": 7000, "test_eval_all": false}
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854324.0586126/config.json:{ple": 4000, "test_eval_all": false}
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854330.6948304/config.json:{ple": 6000, "test_eval_all": false}
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854337.6410081/config.json:{ple": 8000, "test_eval_all": false}
+
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604848303.3771045/train.log:2020-11-08 10:22:28 INFO     Test hits@1_list at step 199999: 0.357346
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604848303.3771045/train.log:2020-11-08 10:22:28 INFO     Test hits@3_list at step 199999: 0.397627
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604848303.3771045/train.log:2020-11-08 10:22:28 INFO     Test hits@10_list at step 199999: 0.421592
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849174.6068788/train.log:2020-11-08 10:37:01 INFO     Test hits@1_list at step 199999: 0.357237
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849174.6068788/train.log:2020-11-08 10:37:01 INFO     Test hits@3_list at step 199999: 0.397562
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849174.6068788/train.log:2020-11-08 10:37:01 INFO     Test hits@10_list at step 199999: 0.421653
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849560.972968/train.log:2020-11-08 10:41:39 INFO     Test hits@1_list at step 199999: 0.371354
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849560.972968/train.log:2020-11-08 10:41:39 INFO     Test hits@3_list at step 199999: 0.407271
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849560.972968/train.log:2020-11-08 10:41:39 INFO     Test hits@10_list at step 199999: 0.430911
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849586.7561214/train.log:2020-11-08 10:45:05 INFO     Test hits@1_list at step 199999: 0.347145
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849586.7561214/train.log:2020-11-08 10:45:05 INFO     Test hits@3_list at step 199999: 0.390928
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604849586.7561214/train.log:2020-11-08 10:45:05 INFO     Test hits@10_list at step 199999: 0.415775
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854324.0586126/train.log:2020-11-08 12:02:28 INFO     Test hits@1_list at step 199999: 0.363738
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854324.0586126/train.log:2020-11-08 12:02:28 INFO     Test hits@3_list at step 199999: 0.401834
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854324.0586126/train.log:2020-11-08 12:02:28 INFO     Test hits@10_list at step 199999: 0.425647
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854330.6948304/train.log:2020-11-08 12:03:26 INFO     Test hits@1_list at step 199999: 0.351716
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854330.6948304/train.log:2020-11-08 12:03:26 INFO     Test hits@3_list at step 199999: 0.393978
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854330.6948304/train.log:2020-11-08 12:03:26 INFO     Test hits@10_list at step 199999: 0.418472
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854337.6410081/train.log:2020-11-08 12:05:28 INFO     Test hits@1_list at step 199999: 0.342763
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854337.6410081/train.log:2020-11-08 12:05:28 INFO     Test hits@3_list at step 199999: 0.387993
+test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604854337.6410081/train.log:2020-11-08 12:05:28 INFO     Test hits@10_list at step 199999: 0.413585
+
+hits@1 not strongly dependent on N.
+
+Cut batch size and run with large N.
+
+2020-11-14 10:20:18 INFO     Test hits@1_list at step 199999: 0.277657
+2020-11-14 10:20:18 INFO     Summary name Test_hits@1_list is illegal; using Test_hits_1_list instead.
+2020-11-14 10:20:18 INFO     Test hits@3_list at step 199999: 0.345486
+2020-11-14 10:20:18 INFO     Summary name Test_hits@3_list is illegal; using Test_hits_3_list instead.
+2020-11-14 10:20:18 INFO     Test hits@10_list at step 199999: 0.382409
+2020-11-14 10:20:18 INFO     Summary name Test_hits@10_list is illegal; using Test_hits_10_list instead.
+2020-11-14 10:20:18 INFO     Test mrr_list at step 199999: 0.317288
+
+Run with large N and dump entire rank distribution.
+Looks more reasonable, about 30% are top ranked among all negatives.
+but it is not uniform, first 100000 only seem to have 2.5% ???
+
+margin top - next score is log uniform distributed leaving out outliers
