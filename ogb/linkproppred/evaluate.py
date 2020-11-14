@@ -243,10 +243,14 @@ class Evaluator:
             mrr_list = 1./ranking_list.to(torch.float)
             if self.eval_metric == 'mrr2':
                 toparg = argsort[:,0]
+                y_neg_mean = torch.mean(y_pred_neg,1)
+                y_neg_sd = torch.std(y_pred_neg,1)
+                print( 'score', 'rank', 'topscore', 'toparg', 'mean', 'sd' )
                 for i in range(len(ranking_list)):
-                    print( 'score', y_pred_pos[i].item(), 'rank', ranking_list[i].item(), 
-                           'topscore', y_pred[i,toparg[i].item()].item(), 'toparg', toparg[i].item() )
-                print( 'hits1', hits1_list, 'hits10', hits10_list )
+                    print( y_pred_pos[i].item(), ranking_list[i].item(), 
+                           y_pred[i,toparg[i].item()].item(), toparg[i].item(),
+                           y_neg_mean[i], y_neg_sd[i] )
+            #    print( 'hits1', hits1_list, 'hits10', hits10_list )
 
             return {'hits@1_list': hits1_list, 
                      'hits@3_list': hits3_list,
