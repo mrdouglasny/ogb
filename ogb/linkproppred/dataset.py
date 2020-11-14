@@ -6,8 +6,8 @@ from ogb.io.read_graph_raw import read_csv_graph_raw, read_csv_heterograph_raw, 
 import torch
 import numpy as np
 
-class LinkPropPredDataset(object, metric=''):
-    def __init__(self, name, root = 'dataset', meta_dict = None):
+class LinkPropPredDataset(object):
+    def __init__(self, name, root = 'dataset', meta_dict = None, metric=''):
         '''
             - name (str): name of the dataset
             - root (str): root directory to store the dataset folder
