@@ -243,8 +243,7 @@ class Evaluator:
             mrr_list = 1./ranking_list.to(torch.float)
             if self.eval_metric == 'mrr2':
                 toparg = argsort[:,0]
-                nextarg = (argsort == 1).nonzero()
-                nextarg = nextarg[:, 1]
+                nextarg = argsort[:,1]
                 y_neg_mean = torch.mean(y_pred_neg,1)
                 y_neg_sd = torch.std(y_pred_neg,1)
                 print( 'score', 'rank', 'topscore', 'toparg', 'mean', 'sd', 'nextscore', 'nextarg' )
