@@ -245,7 +245,7 @@ class Evaluator:
                 toparg = argsort[:,0]
                 for i in range(len(ranking_list)):
                     print( 'score', y_pred_pos[i].item(), 'rank', ranking_list[i].item(), 
-                           'topscore', y_pred[i,toparg[i].item()], 'toparg', toparg[i].item() )
+                           'topscore', y_pred[i,toparg[i].item()].item(), 'toparg', toparg[i].item() )
 
             return {'hits@1_list': hits1_list, 
                      'hits@3_list': hits3_list,
