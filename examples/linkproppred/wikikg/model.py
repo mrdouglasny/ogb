@@ -408,12 +408,14 @@ class KGEModel(nn.Module):
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
                                 if args.test_dump_hist==0:
-                                    print( step, i, s[i].item(), file=dump)
+                                    print( ',', s[i].item(), file=dump)
 			    if args.test_dump_hist>0:
                                 print( ", c(", hist[0], end='', file=dump )
                                 for n in range(1,args.test_dump_hist):
                                     print( ",", hist[n], end='', file=dump )
                                 print( "))\n", file=dump )
+                            else:
+                                print( ")\n", file=dump )
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
