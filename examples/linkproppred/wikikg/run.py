@@ -178,7 +178,10 @@ def main(args):
     nentity = dataset.graph['num_nodes']
     nrelation = int(max(dataset.graph['edge_reltype'])[0])+1
 
-    evaluator = Evaluator(name = args.dataset)
+    if args.evaluator!='':
+        evaluator = Evaluator(name = args.dataset, metric=args.evaluator)
+    else:
+        evaluator = Evaluator(name = args.dataset)
 
     args.nentity = nentity
     args.nrelation = nrelation
