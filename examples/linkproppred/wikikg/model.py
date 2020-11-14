@@ -387,35 +387,40 @@ class KGEModel(nn.Module):
                         test_logs[metric].append(batch_results[metric])
 
                     if dump_all:
-			if args.test_dump_hist>0:
-                            print( "brks<-c(", end='', file=dump )
-                            print( "{:.2f}".format(min_val + 0*range_val/args.test_dump_hist), end='', file=dump )
-                            for n in range(1,args.test_dump_hist):
-			        print( ",{:.2f}".format(min_val + n*range_val/args.test_dump_hist), end='', file=dump )
-                            print( ")", file=dump )
+                        if args.test_dump_hist > 0:
+                            print("brks<-c(", end='', file=dump)
+                            print("{:.2f}".format(min_val + 0*range_val /
+                                                  args.test_dump_hist), end='', file=dump)
+                            for n in range(1, args.test_dump_hist):
+                                print(",{:.2f}".format(
+                                    min_val + n*range_val/args.test_dump_hist), end='', file=dump)
+                            print(")", file=dump)
                         score2 = score.to(torch.device("cpu"))
                         for s in score2:
-                            hist = np.zeros( args.test_dump_hist, dtype=int )
-                            print( 'item(', step, ",", s[0].item(), file=dump)
-                            for i in range(1,len(s)):
-                                if args.test_dump_hist>0:
-                                    n = int(args.test_dump_hist*(s[i].item()-min_val)/range_val)
-                                    if n<0:
-                                        print( '# score', s[i].item(), 'less than', min_val, file=dump )
+                            hist = np.zeros(args.test_dump_hist, dtype=int)
+                            print('item(', step, ",", s[0].item(), file=dump)
+                            for i in range(1, len(s)):
+                                if args.test_dump_hist > 0:
+                                    n = int(args.test_dump_hist *
+                                            (s[i].item()-min_val)/range_val)
+                                    if n < 0:
+                                        print('# score', s[i].item(
+                                        ), 'less than', min_val, file=dump)
                                         n = 0
-                                    if n>=args.test_dump_hist:
-                                        print( '# score', s[i].item(), 'greater than', range_val+min_val, file=dump )
+                                    if n >= args.test_dump_hist:
+                                        print('# score', s[i].item(
+                                        ), 'greater than', range_val+min_val, file=dump)
                                         n = args.test_dump_hist-1
                                     hist[n] += 1
-                                if args.test_dump_hist==0:
-                                    print( ',', s[i].item(), file=dump)
-			    if args.test_dump_hist>0:
-                                print( ", c(", hist[0], end='', file=dump )
-                                for n in range(1,args.test_dump_hist):
-                                    print( ",", hist[n], end='', file=dump )
-                                print( "))\n", file=dump )
+                                if args.test_dump_hist == 0:
+                                    print(',', s[i].item(), file=dump)
+                            if args.test_dump_hist > 0:
+                                print(", c(", hist[0], end='', file=dump)
+                                for n in range(1, args.test_dump_hist):
+                                    print(",", hist[n], end='', file=dump)
+                                print("))\n", file=dump)
                             else:
-                                print( ")\n", file=dump )
+                                print(")\n", file=dump)
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
