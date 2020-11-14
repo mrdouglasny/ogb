@@ -172,8 +172,8 @@ def main(args):
     # Write logs to checkpoint and console
     set_logger(args)
     
-#    dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator)
-    dataset = LinkPropPredDataset(name = args.dataset)
+    dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator)
+#    dataset = LinkPropPredDataset(name = args.dataset)
     split_dict = dataset.get_edge_split()
     nentity = dataset.graph['num_nodes']
     nrelation = int(max(dataset.graph['edge_reltype'])[0])+1

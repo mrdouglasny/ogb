@@ -83,7 +83,7 @@ class Evaluator:
 
             return y_pred_pos, y_pred_neg, type_info
 
-        elif 'mrr' == self.eval_metric or 'hist' == self.eval_metric:
+        elif 'mrr' == self.eval_metric or 'mrr2' == self.eval_metric:
 
             if not 'y_pred_pos' in input_dict:
                 RuntimeError('Missing key of y_pred_pos')
@@ -148,7 +148,7 @@ class Evaluator:
         if 'hits@' in self.eval_metric:
             y_pred_pos, y_pred_neg, type_info = self._parse_and_check_input(input_dict)
             return self._eval_hits(y_pred_pos, y_pred_neg, type_info)
-        elif self.eval_metric == 'mrr':
+        elif self.eval_metric == 'mrr' or self.eval_metric == 'mrr2':
             y_pred_pos, y_pred_neg, type_info = self._parse_and_check_input(input_dict)
             return self._eval_mrr(y_pred_pos, y_pred_neg, type_info)
         elif self.eval_metric == 'hist':
@@ -241,6 +241,11 @@ class Evaluator:
             hits3_list = (ranking_list <= 3).to(torch.float)
             hits10_list = (ranking_list <= 10).to(torch.float)
             mrr_list = 1./ranking_list.to(torch.float)
+            if self.eval_metric == 'mrr2':
+                toparg = argsort[:,0]
+                for i in range(len(ranking_list)):
+                    print( 'score', y_pred_pos[i].item(), 'rank', ranking_list[i].item(), 
+                           'topscore', y_pred[i,toparg[i].item()], 'toparg', toparg[i].item() )
 
             return {'hits@1_list': hits1_list, 
                      'hits@3_list': hits3_list,
