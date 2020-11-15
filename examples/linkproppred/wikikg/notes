@@ -52,5 +52,7 @@ Cut batch size and run with large N.
 Run with large N and dump entire rank distribution.
 Looks more reasonable, about 30% are top ranked among all negatives.
 but it is not uniform, first 100000 only seem to have 2.5% ???
+later groups have many more - probably, depends on relation type !  need to load these.
 
 margin top - next score is log uniform distributed leaving out outliers
+
