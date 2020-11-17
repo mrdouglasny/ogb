@@ -445,7 +445,7 @@ class KGEModel(nn.Module):
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
                                      (step, total_steps))
-                        if args.test_dump_byrel:
+                        if step>0 and args.test_dump_byrel:
                             print('--- step', step, file=dump)
                             for i in range(1):
                                 for j in range(args.nrelation):
