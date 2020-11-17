@@ -62,7 +62,7 @@ class KGEModel(nn.Module):
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['TransE', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
+        if model_name not in ['BasE', 'TransE', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
             raise ValueError('model %s not supported' % model_name)
 
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -159,6 +159,7 @@ class KGEModel(nn.Module):
             raise ValueError('mode %s not supported' % mode)
 
         model_func = {
+            'BasE': self.BasE,
             'TransE': self.TransE,
             'ConnE': self.ConnE,
             'TransE2': self.TransE,
@@ -174,6 +175,11 @@ class KGEModel(nn.Module):
         else:
             raise ValueError('model %s not supported' % self.model_name)
 
+        return score
+
+    def BasE(self, head, relation, tail, mode):
+        score = head - tail
+        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2)
         return score
 
     def TransE(self, head, relation, tail, mode):
@@ -299,7 +305,11 @@ class KGEModel(nn.Module):
                 (subsampling_weight * negative_score).sum() / \
                 subsampling_weight.sum()
 
-        loss = (positive_sample_loss + negative_sample_loss)/2
+#        if args.contact_loss:
+#            c_loss = F.logsigmoid(self.gamma.item() - negative_score).sum(dim=1)
+#            loss = (positive_sample_loss + negative_sample_loss)/2 + args.contact_alpha*c_loss
+#        else:
+#            loss = (positive_sample_loss + negative_sample_loss)/2
 
         if args.regularization != 0.0:
             # Use L3 regularization for ComplEx and DistMult
@@ -367,8 +377,11 @@ class KGEModel(nn.Module):
 
         if dump_all:
             dump = open(args.dump_filename, "w")
-            min_val = -20.0
-            range_val = (10.0-min_val)
+            min_val = args.hist_minval
+            range_val = args.hist_maxval - min_val
+
+        if args.dump_byrel:
+            hist_byrel = np.zeros((2,self.nrelation,args.test_dump_hist), dtype=int)
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
@@ -379,7 +392,6 @@ class KGEModel(nn.Module):
 
                     batch_size = positive_sample.size(0)
                     score = model((positive_sample, negative_sample), mode)
-#                    print( 'score = ', score )
 
                     batch_results = model.evaluator.eval({'y_pred_pos': score[:, 0],
                                                           'y_pred_neg': score[:, 1:]})
@@ -387,6 +399,7 @@ class KGEModel(nn.Module):
                         test_logs[metric].append(batch_results[metric])
 
                     if dump_all:
+                        rels = positive_sample[:,1].to(torch.device("cpu"))
                         if args.test_dump_hist > 0:
                             print("brks<-c(", end='', file=dump)
                             print("{:.2f}".format(min_val + 0*range_val /
@@ -396,10 +409,13 @@ class KGEModel(nn.Module):
                                     min_val + n*range_val/args.test_dump_hist), end='', file=dump)
                             print(")", file=dump)
                         score2 = score.to(torch.device("cpu"))
-                        for s in score2:
-                            hist = np.zeros(args.test_dump_hist, dtype=int)
-                            print('item(', step, ",", s[0].item(), file=dump)
-                            for i in range(1, len(s)):
+                        for j in range(len(score2)):
+                            s = score2[j]
+                            rel = rels[j].item()
+                            if not args.dump_byrel:
+                                hist = np.zeros(args.test_dump_hist, dtype=int)
+                                print('item(', step, ",", s[0].item(), file=dump)
+                            for i in range(0 if args.dump_byrel else 1, len(s)):
                                 if args.test_dump_hist > 0:
                                     n = int(args.test_dump_hist *
                                             (s[i].item()-min_val)/range_val)
@@ -411,16 +427,20 @@ class KGEModel(nn.Module):
                                         print('# score', s[i].item(
                                         ), 'greater than', range_val+min_val, file=dump)
                                         n = args.test_dump_hist-1
-                                    hist[n] += 1
-                                if args.test_dump_hist == 0:
-                                    print(',', s[i].item(), file=dump)
-                            if args.test_dump_hist > 0:
-                                print(", c(", hist[0], end='', file=dump)
-                                for n in range(1, args.test_dump_hist):
-                                    print(",", hist[n], end='', file=dump)
-                                print("))\n", file=dump)
-                            else:
-                                print(")\n", file=dump)
+                                    if args.dump_byrel:
+                                        hist_byrel[0 if i==0 else 1][rel][n] += 1
+                                    else:
+                                        hist[n] += 1
+                                        if args.test_dump_hist == 0:
+                                            print(',', s[i].item(), file=dump)
+                            if not args.dump_byrel:
+                                if args.test_dump_hist > 0:
+                                    print(", c(", hist[0], end='', file=dump)
+                                    for n in range(1, args.test_dump_hist):
+                                        print(",", hist[n], end='', file=dump)
+                                    print("))\n", file=dump)
+                                else:
+                                    print(")\n", file=dump)
 
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
@@ -431,5 +451,10 @@ class KGEModel(nn.Module):
             metrics = {}
             for metric in test_logs:
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
+
+            if args.dump_byrel:
+                for i in range(1):
+                    for j in range(args.nrelations):
+                        print(i, j, hist_rel[i][j], file=dump)
 
         return metrics
