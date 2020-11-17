@@ -445,8 +445,15 @@ class KGEModel(nn.Module):
                     if step % args.test_log_steps == 0:
                         logging.info('Evaluating the model... (%d/%d)' %
                                      (step, total_steps))
+                        if args.test_dump_byrel:
+                            print('--- step', step, file=dump)
+                            for i in range(1):
+                                for j in range(args.nrelation):
+                                    print(i, j, hist_rel[i][j], file=dump)
+                            print('---', file=dump)
 
                     step += 1
+
 
             metrics = {}
             for metric in test_logs:
@@ -454,7 +461,7 @@ class KGEModel(nn.Module):
 
             if args.test_dump_byrel:
                 for i in range(1):
-                    for j in range(args.nrelations):
+                    for j in range(args.nrelation):
                         print(i, j, hist_rel[i][j], file=dump)
 
         return metrics
