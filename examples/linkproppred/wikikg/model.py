@@ -459,9 +459,4 @@ class KGEModel(nn.Module):
             for metric in test_logs:
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
 
-            if args.test_dump_byrel:
-                for i in range(1):
-                    for j in range(args.nrelation):
-                        print(i, j, hist_rel[i][j], file=dump)
-
         return metrics
