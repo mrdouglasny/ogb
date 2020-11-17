@@ -179,7 +179,7 @@ class KGEModel(nn.Module):
 
     def BasE(self, head, relation, tail, mode):
         score = head - tail
-        score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2)
+        score = torch.norm(score, p=self.pnorm, dim=2)
         return score
 
     def TransE(self, head, relation, tail, mode):
@@ -447,7 +447,7 @@ class KGEModel(nn.Module):
                                      (step, total_steps))
                         if step>0 and args.test_dump_byrel:
                             print('--- step', step, file=dump)
-                            for i in range(1):
+                            for i in range(2):
                                 for j in range(args.nrelation):
                                     print(i, j, hist_byrel[i][j], file=dump)
                             print('---', file=dump)

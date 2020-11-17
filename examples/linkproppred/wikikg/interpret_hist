@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# turn output file with entries n n [ ... ] into single lines
+
+cat $* | tr -d '[' | sed 's/\]/\
+/' | awk '/^$/ { print data; data = ""; next } { data = data " " $0 }'
