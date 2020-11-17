@@ -381,7 +381,7 @@ class KGEModel(nn.Module):
             range_val = args.hist_maxval - min_val
 
         if args.test_dump_byrel:
-            hist_byrel = np.zeros((2,self.nrelation,args.test_dump_hist), dtype=int)
+            hist_byrel = np.zeros((2,args.nrelation,args.test_dump_hist), dtype=int)
 
         with torch.no_grad():
             for test_dataset in test_dataset_list:
