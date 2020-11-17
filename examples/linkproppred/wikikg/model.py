@@ -380,7 +380,7 @@ class KGEModel(nn.Module):
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
 
-        if args.dump_byrel:
+        if args.test_dump_byrel:
             hist_byrel = np.zeros((2,self.nrelation,args.test_dump_hist), dtype=int)
 
         with torch.no_grad():
@@ -412,10 +412,10 @@ class KGEModel(nn.Module):
                         for j in range(len(score2)):
                             s = score2[j]
                             rel = rels[j].item()
-                            if not args.dump_byrel:
+                            if not args.test_dump_byrel:
                                 hist = np.zeros(args.test_dump_hist, dtype=int)
                                 print('item(', step, ",", s[0].item(), file=dump)
-                            for i in range(0 if args.dump_byrel else 1, len(s)):
+                            for i in range(0 if args.test_dump_byrel else 1, len(s)):
                                 if args.test_dump_hist > 0:
                                     n = int(args.test_dump_hist *
                                             (s[i].item()-min_val)/range_val)
@@ -427,13 +427,13 @@ class KGEModel(nn.Module):
                                         print('# score', s[i].item(
                                         ), 'greater than', range_val+min_val, file=dump)
                                         n = args.test_dump_hist-1
-                                    if args.dump_byrel:
+                                    if args.test_dump_byrel:
                                         hist_byrel[0 if i==0 else 1][rel][n] += 1
                                     else:
                                         hist[n] += 1
                                         if args.test_dump_hist == 0:
                                             print(',', s[i].item(), file=dump)
-                            if not args.dump_byrel:
+                            if not args.test_dump_byrel:
                                 if args.test_dump_hist > 0:
                                     print(", c(", hist[0], end='', file=dump)
                                     for n in range(1, args.test_dump_hist):
@@ -452,7 +452,7 @@ class KGEModel(nn.Module):
             for metric in test_logs:
                 metrics[metric] = torch.cat(test_logs[metric]).mean().item()
 
-            if args.dump_byrel:
+            if args.test_dump_byrel:
                 for i in range(1):
                     for j in range(args.nrelations):
                         print(i, j, hist_rel[i][j], file=dump)
