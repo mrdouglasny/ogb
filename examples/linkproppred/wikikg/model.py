@@ -386,7 +386,7 @@ class KGEModel(nn.Module):
                 for n in range(1, args.test_dump_hist):
                     print(",{:.2f}".format(
                         min_val + n*range_val/args.test_dump_hist), end='', file=dump)
-                    print(")", file=dump)
+                print(")", file=dump)
 
         if args.test_dump_byrel:
             hist_byrel = np.zeros((2,args.nrelation,args.test_dump_hist), dtype=int)
@@ -412,7 +412,7 @@ class KGEModel(nn.Module):
                         for j in range(len(score2)):
                             s = score2[j]
                             rel = rels[j].item()
-                            print( 'step', step, 'item', j, 'relation', rel, file=dump)
+#                            print( 'step', step, 'item', j, 'relation', rel, file=dump)
                             if not args.test_dump_byrel:
                                 hist = np.zeros(args.test_dump_hist, dtype=int)
                                 print('item(', step, ",", s[0].item(), file=dump)
@@ -421,12 +421,11 @@ class KGEModel(nn.Module):
                                     n = int(args.test_dump_hist *
                                             (s[i].item()-min_val)/range_val)
                                     if n < 0:
-                                        print('# score', s[i].item(
-                                        ), 'less than', min_val, file=dump)
+                                        print('# score', s[i].item(), 'less than', min_val, file=dump)
                                         n = 0
                                     if n >= args.test_dump_hist:
-                                        print('# score', s[i].item(
-                                        ), 'greater than', range_val+min_val, file=dump)
+                                        print('# score', s[i].item(), 'greater than',
+                                              range_val+min_val, file=dump)
                                         n = args.test_dump_hist-1
                                     if args.test_dump_byrel:
                                         hist_byrel[0 if i==0 else 1][rel][n] += 1
