@@ -379,6 +379,14 @@ class KGEModel(nn.Module):
             dump = open(args.dump_filename, "w")
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
+            if args.test_dump_hist > 0:
+                print("brks<-c(", end='', file=dump)
+                print("{:.2f}".format(min_val + 0*range_val /
+                                      args.test_dump_hist), end='', file=dump)
+                for n in range(1, args.test_dump_hist):
+                    print(",{:.2f}".format(
+                        min_val + n*range_val/args.test_dump_hist), end='', file=dump)
+                    print(")", file=dump)
 
         if args.test_dump_byrel:
             hist_byrel = np.zeros((2,args.nrelation,args.test_dump_hist), dtype=int)
@@ -400,18 +408,11 @@ class KGEModel(nn.Module):
 
                     if dump_all:
                         rels = positive_sample[:,1].to(torch.device("cpu"))
-                        if args.test_dump_hist > 0:
-                            print("brks<-c(", end='', file=dump)
-                            print("{:.2f}".format(min_val + 0*range_val /
-                                                  args.test_dump_hist), end='', file=dump)
-                            for n in range(1, args.test_dump_hist):
-                                print(",{:.2f}".format(
-                                    min_val + n*range_val/args.test_dump_hist), end='', file=dump)
-                            print(")", file=dump)
                         score2 = score.to(torch.device("cpu"))
                         for j in range(len(score2)):
                             s = score2[j]
                             rel = rels[j].item()
+                            print( 'step', step, 'item', j, 'relation', rel, file=dump)
                             if not args.test_dump_byrel:
                                 hist = np.zeros(args.test_dump_hist, dtype=int)
                                 print('item(', step, ",", s[0].item(), file=dump)
