@@ -449,7 +449,7 @@ class KGEModel(nn.Module):
                             print('--- step', step, file=dump)
                             for i in range(1):
                                 for j in range(args.nrelation):
-                                    print(i, j, hist_rel[i][j], file=dump)
+                                    print(i, j, hist_byrel[i][j], file=dump)
                             print('---', file=dump)
 
                     step += 1
