@@ -77,6 +77,7 @@ def parse_args(args=None):
     parser.add_argument('--test_random_sample', type=int, default=0, help='number of negative samples when evaluating testing triples')
     parser.add_argument('--test_dump_all', action='store_true')
     parser.add_argument('--test_dump_byrel', action='store_true')
+    parser.add_argument('--test_change_model', action='store_true')
     parser.add_argument('--test_dump_hist', type=int, default=0, help='number of bins for histogram of testing scores')
     parser.add_argument('--dump_filename', type=str)
     parser.add_argument('--test_first_sample', type=int, default=-1, help='first negative sample')
@@ -93,7 +94,8 @@ def override_config(args):
         argparse_dict = json.load(fjson)
     
     args.dataset = argparse_dict['dataset']
-    args.model = argparse_dict['model']
+    if not args.test_change_model:
+        args.model = argparse_dict['model']
     args.double_entity_embedding = argparse_dict['double_entity_embedding']
     args.double_relation_embedding = argparse_dict['double_relation_embedding']
     args.hidden_dim = argparse_dict['hidden_dim']
