@@ -268,7 +268,7 @@ class KGEModel(nn.Module):
         return score
 
     def print_relation_embedding(self, dump):
-        rel = self.relation_embedding.to(torch.device("cpu"))
+        rel = self.relation_embedding.to(torch.device("cpu")).detach()
         for r in rel:
             print( r.numpy(), file=dump )
                 
