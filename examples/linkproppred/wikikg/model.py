@@ -268,7 +268,9 @@ class KGEModel(nn.Module):
         return score
 
     def print_relation_embedding(self, dump):
-        print( self.relation_embedding, file=dump )
+        rel = self.relation_embedding.to(torch.device("cpu"))
+        for r in rel:
+            print( r.numpy(), file=dump )
                 
     @staticmethod
     def train_step(model, optimizer, train_iterator, args):
