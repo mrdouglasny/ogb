@@ -406,6 +406,14 @@ class KGEModel(nn.Module):
                     for metric in batch_results:
                         test_logs[metric].append(batch_results[metric])
 
+                    if dump_sample>=0 and dump_sample<len(score2):
+                        j = dump_sample
+#                        h = positive_sample[j,0].item()
+#                        r = positive_sample[j,1].item()
+#                        t = positive_sample[j,2].item()
+                        s = score.to(torch.device("cpu"))[j]
+                        print( mode, positive_sample[j].numpy(), negative_sample[j].numpy(), s[j].numpy() )
+                        
                     if dump_all:
                         rels = positive_sample[:,1].to(torch.device("cpu"))
                         score2 = score.to(torch.device("cpu"))
