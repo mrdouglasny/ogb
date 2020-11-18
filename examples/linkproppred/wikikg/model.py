@@ -267,6 +267,9 @@ class KGEModel(nn.Module):
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
         return score
 
+    def print_relation_embedding(self, dump):
+        print( self.relation_embedding, file=dump )
+                
     @staticmethod
     def train_step(model, optimizer, train_iterator, args):
         '''
@@ -357,7 +360,7 @@ class KGEModel(nn.Module):
                 print(")", file=dump)
 
         if args.print_relation_embedding:
-            print( self.relation_embedding, file=dump )
+            print_relation_embedding( dump )
             print( 'printed relation embedding' )
             
         # Prepare dataloader for evaluation
