@@ -358,6 +358,7 @@ class KGEModel(nn.Module):
 
         if args.print_relation_embedding:
             print( self.relation_embedding, file=dump )
+            print( 'printed relation embedding' )
             
         # Prepare dataloader for evaluation
         test_dataloader_head = DataLoader(
