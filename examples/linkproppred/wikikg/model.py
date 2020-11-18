@@ -394,6 +394,9 @@ class KGEModel(nn.Module):
         with torch.no_grad():
             for test_dataset in test_dataset_list:
                 for positive_sample, negative_sample, mode in test_dataset:
+                    if args.dump_sample>=0 and args.dump_sample<len(score):
+                        (ps,ns) = (positive_sample, negative_sample)
+                        
                     if args.cuda:
                         positive_sample = positive_sample.cuda()
                         negative_sample = negative_sample.cuda()
@@ -412,7 +415,7 @@ class KGEModel(nn.Module):
 #                        r = positive_sample[j,1].item()
 #                        t = positive_sample[j,2].item()
                         s = score.to(torch.device("cpu"))[j]
-                        print( mode, positive_sample[j].numpy(), negative_sample[j].numpy(), s[j].numpy() )
+                        print( mode, ps[j].numpy(), ns[j].numpy(), s[j].numpy() )
                         
                     if dump_all:
                         rels = positive_sample[:,1].to(torch.device("cpu"))
