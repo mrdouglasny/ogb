@@ -2,5 +2,5 @@
 
 # turn output file with entries n n [ ... ] into single lines
 
-sed 's/\] \[//' $* | tr -d '[' | sed 's/\]/\
+sed 's/\] \[/ /' $* | tr -d '[' | sed 's/\]/\
 /' | awk '/# score|brks|---/ {next} /^$/ { print data; data = ""; next } { data = data " " $0 }'

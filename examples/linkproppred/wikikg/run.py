@@ -83,6 +83,8 @@ def parse_args(args=None):
     parser.add_argument('--test_first_sample', type=int, default=-1, help='first negative sample')
     parser.add_argument('--hist_minval', type=float, default=-20.0, help='min histogram')
     parser.add_argument('--hist_maxval', type=float, default=10.0, help='max histogram')
+    
+    parser.add_argument('--print_relation_embedding', action='store_true')
     return parser.parse_args(args)
 
 def override_config(args):

@@ -343,6 +343,22 @@ class KGEModel(nn.Module):
 
         model.eval()
 
+        if dump_all or args.dump_sample>=0:
+            dump = open(args.dump_filename, "w")
+            min_val = args.hist_minval
+            range_val = args.hist_maxval - min_val
+            if args.test_dump_hist > 0:
+                print("brks<-c(", end='', file=dump)
+                print("{:.2f}".format(min_val + 0*range_val /
+                                      args.test_dump_hist), end='', file=dump)
+                for n in range(1, args.test_dump_hist):
+                    print(",{:.2f}".format(
+                        min_val + n*range_val/args.test_dump_hist), end='', file=dump)
+                print(")", file=dump)
+
+        if args.print_relation_embedding:
+            print( self.relation_embedding, file=dump )
+            
         # Prepare dataloader for evaluation
         test_dataloader_head = DataLoader(
             TestDataset(
@@ -374,19 +390,6 @@ class KGEModel(nn.Module):
 
         step = 0
         total_steps = sum([len(dataset) for dataset in test_dataset_list])
-
-        if dump_all or args.dump_sample>=0:
-            dump = open(args.dump_filename, "w")
-            min_val = args.hist_minval
-            range_val = args.hist_maxval - min_val
-            if args.test_dump_hist > 0:
-                print("brks<-c(", end='', file=dump)
-                print("{:.2f}".format(min_val + 0*range_val /
-                                      args.test_dump_hist), end='', file=dump)
-                for n in range(1, args.test_dump_hist):
-                    print(",{:.2f}".format(
-                        min_val + n*range_val/args.test_dump_hist), end='', file=dump)
-                print(")", file=dump)
 
         if args.test_dump_byrel:
             hist_byrel = np.zeros((2,args.nrelation,args.test_dump_hist), dtype=int)
