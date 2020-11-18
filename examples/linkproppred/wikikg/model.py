@@ -415,7 +415,7 @@ class KGEModel(nn.Module):
 #                        r = positive_sample[j,1].item()
 #                        t = positive_sample[j,2].item()
                         s = score.to(torch.device("cpu"))[j]
-                        print( mode, ps[j].numpy(), ns[j].numpy(), s[j].numpy() )
+                        print( step, mode, ps[j].numpy(), ns[j].numpy(), s[j].numpy(), file=dump )
                         
                     if dump_all:
                         rels = positive_sample[:,1].to(torch.device("cpu"))
