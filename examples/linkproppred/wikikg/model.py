@@ -406,7 +406,7 @@ class KGEModel(nn.Module):
                     for metric in batch_results:
                         test_logs[metric].append(batch_results[metric])
 
-                    if args.dump_sample>=0 and args.dump_sample<len(score2):
+                    if args.dump_sample>=0 and args.dump_sample<len(score):
                         j = args.dump_sample
 #                        h = positive_sample[j,0].item()
 #                        r = positive_sample[j,1].item()
