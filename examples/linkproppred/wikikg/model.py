@@ -375,7 +375,7 @@ class KGEModel(nn.Module):
         step = 0
         total_steps = sum([len(dataset) for dataset in test_dataset_list])
 
-        if dump_all:
+        if dump_all or args.dump_sample>=0:
             dump = open(args.dump_filename, "w")
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
@@ -406,8 +406,8 @@ class KGEModel(nn.Module):
                     for metric in batch_results:
                         test_logs[metric].append(batch_results[metric])
 
-                    if dump_sample>=0 and dump_sample<len(score2):
-                        j = dump_sample
+                    if args.dump_sample>=0 and args.dump_sample<len(score2):
+                        j = args.dump_sample
 #                        h = positive_sample[j,0].item()
 #                        r = positive_sample[j,1].item()
 #                        t = positive_sample[j,2].item()
