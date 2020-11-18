@@ -346,7 +346,7 @@ class KGEModel(nn.Module):
 
         model.eval()
 
-        if dump_all or args.dump_sample>=0:
+        if dump_all or args.dump_sample>=0 or args.print_relation_embedding:
             dump = open(args.dump_filename, "w")
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
