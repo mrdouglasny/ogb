@@ -348,7 +348,7 @@ class KGEModel(nn.Module):
 
         model.eval()
 
-        if dump_all or args.dump_sample>=0 or args.print_relation_embedding:
+        if dump_all or args.dump_sample>=0:
             dump = open(args.dump_filename, "w")
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
@@ -361,8 +361,8 @@ class KGEModel(nn.Module):
                         min_val + n*range_val/args.test_dump_hist), end='', file=dump)
                 print(")", file=dump)
 
-        if args.print_relation_embedding:
-            model.print_relation_embedding( dump )
+        if args.print_relation_embedding!='':
+            model.print_relation_embedding( open(args.args.print_relation_embedding, "w") )
             print( 'printed relation embedding' )
             
         # Prepare dataloader for evaluation
