@@ -44,6 +44,7 @@ def parse_args(args=None):
     parser.add_argument('--model', default='TransE', type=str)
     parser.add_argument('-de', '--double_entity_embedding', action='store_true')
     parser.add_argument('-dr', '--double_relation_embedding', action='store_true')
+    parser.add_argument('--test_change_model', action='store_true')
     
     parser.add_argument('-n', '--negative_sample_size', default=128, type=int)
     parser.add_argument('-d', '--hidden_dim', default=500, type=int)
@@ -96,7 +97,8 @@ def override_config(args):
         argparse_dict = json.load(fjson)
     
     args.dataset = argparse_dict['dataset']
-    args.model = argparse_dict['model']
+    if not args.test_change_model:
+        args.model = argparse_dict['model'] 
     args.double_entity_embedding = argparse_dict['double_entity_embedding']
     args.double_relation_embedding = argparse_dict['double_relation_embedding']
     args.hidden_dim = argparse_dict['hidden_dim']

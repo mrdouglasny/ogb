@@ -62,7 +62,7 @@ class KGEModel(nn.Module):
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['BasE', 'TransE', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
+        if model_name not in ['BasE', 'TransE', 'Aligned', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
             raise ValueError('model %s not supported' % model_name)
 
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -161,6 +161,7 @@ class KGEModel(nn.Module):
         model_func = {
             'BasE': self.BasE,
             'TransE': self.TransE,
+            'Aligned': self.Aligned,
             'ConnE': self.ConnE,
             'TransE2': self.TransE,
             'ConnE2': self.ConnE,
@@ -190,6 +191,14 @@ class KGEModel(nn.Module):
 
         score = self.gamma.item() - torch.norm(score, p=self.pnorm, dim=2)
         return score
+
+    def Aligned(self, head, relation, tail, mode):
+        if mode == 'head-batch':
+            score = relation.expand_as(tail)
+        else:
+            score = relation.expand_as(head)
+        cos = nn.CosineSimilarity(dim=2, eps=1e-6)
+        return cos( score, (tail - head) )
 
     def ConnE(self, head, relation, tail, mode):
         score = head - tail

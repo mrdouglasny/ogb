@@ -1,0 +1,30 @@
+New options in the python run.py -
+
+--dump_all, --test_dump_hist, --test_dump_byrel
+	Dump histograms of scores, either 1d or 2d (distinguished by relation)
+
+--dump_sample
+	Dump a full scoring entry from each batch
+
+--print_relation_embedding
+
+--evaluator mrr2
+	print a line for every test with rank, top score, etc.
+
+--test_random_sample
+	set size of negative (or other) random sample in testing
+
+--do_check
+	go through entire dataset (train/valid/test) once.
+	actually this is combo of do_test, do_valid and evaluate_train.
+
+--test_change_model
+	allow using different model (with same parameters) from training
+
+Models:
+	BasE = standard norm distance
+
+To check:
+
+- are TransE vectors in the right direction: this is a score function Aligned (and no negatives)
+and ranking will be different.
