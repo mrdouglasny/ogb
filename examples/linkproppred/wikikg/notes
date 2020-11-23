@@ -1,3 +1,9 @@
+data items:
+
+allranks:
+	testall-transe600-t3a.txt.gz - from testall/testall-transe600-t3a.sh with 40000 negs
+	pair400_all40000.txt.gz - from testall/testall-pair.sh
+
 1. Understand testing and N dependence.
 
 Many runs varying N - fits seem to lead to N^\alpha with \alpha \sim 0.1
@@ -41,18 +47,16 @@ hits@1 not strongly dependent on N.
 
 Cut batch size and run with large N.
 
-2020-11-14 10:20:18 INFO     Test hits@1_list at step 199999: 0.277657
-2020-11-14 10:20:18 INFO     Summary name Test_hits@1_list is illegal; using Test_hits_1_list instead.
-2020-11-14 10:20:18 INFO     Test hits@3_list at step 199999: 0.345486
-2020-11-14 10:20:18 INFO     Summary name Test_hits@3_list is illegal; using Test_hits_3_list instead.
-2020-11-14 10:20:18 INFO     Test hits@10_list at step 199999: 0.382409
-2020-11-14 10:20:18 INFO     Summary name Test_hits@10_list is illegal; using Test_hits_10_list instead.
-2020-11-14 10:20:18 INFO     Test mrr_list at step 199999: 0.317288
-
 Run with large N and dump entire rank distribution.
 Looks more reasonable, about 30% are top ranked among all negatives.
 but it is not uniform, first 100000 only seem to have 2.5% ???
 later groups have many more - probably, depends on relation type !  need to load these.
 
 margin top - next score is log uniform distributed leaving out outliers
+
+log/ogbl-wikikg/PairRE/400-8.0/1605662450.0488842/test.log (1000 negs)
+2020-11-17 21:18:06 INFO     Test hits@1_list at step 199999: 0.512048
+2020-11-17 21:18:06 INFO     Test hits@3_list at step 199999: 0.591830
+2020-11-17 21:18:06 INFO     Test hits@10_list at step 199999: 0.673568
+2020-11-17 21:18:06 INFO     Test mrr_list at step 199999: 0.568592
 
