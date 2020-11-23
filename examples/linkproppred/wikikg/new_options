@@ -21,8 +21,12 @@ New options in the python run.py -
 --test_change_model
 	allow using different model (with same parameters) from training
 
+--test_training
+	treat full training set like a testing set, for statistics
+
 Models:
 	BasE = standard norm distance
+	Aligned = cos similarity of relation vector and tail-head
 
 To check:
 

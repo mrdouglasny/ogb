@@ -169,7 +169,7 @@ def log_metrics(mode, step, metrics, writer):
         
         
 def main(args):
-    if (not args.do_train) and (not args.do_valid) and (not args.do_test) and (not args.evaluate_train):
+    if (not args.do_train) and (not args.do_valid) and (not args.do_test) and (not args.evaluate_train) and (not args.test_training):
         raise ValueError('one of train/val/test mode must be choosed.')
     
     if args.init_checkpoint:
