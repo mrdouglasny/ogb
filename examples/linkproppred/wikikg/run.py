@@ -84,7 +84,7 @@ def parse_args(args=None):
     parser.add_argument('--hist_minval', type=float, default=-20.0, help='min histogram')
     parser.add_argument('--hist_maxval', type=float, default=10.0, help='max histogram')
     
-    parser.add_argument('--print_relation_embedding', type=str)
+    parser.add_argument('--print_relation_embedding', type=str, default='')
     return parser.parse_args(args)
 
 def override_config(args):
