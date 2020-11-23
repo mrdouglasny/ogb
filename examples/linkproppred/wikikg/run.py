@@ -38,6 +38,7 @@ def parse_args(args=None):
     parser.add_argument('--do_valid', action='store_true')
     parser.add_argument('--do_test', action='store_true')
     parser.add_argument('--evaluate_train', action='store_true', help='Evaluate on training data')
+    parser.add_argument('--test_training', action='store_true', help='Evaluate on all training data')
     parser.add_argument('--evaluator', type=str, default='', help='name of evaluator')
     
     parser.add_argument('--dataset', type=str, default='ogbl-wikikg', help='dataset name, default to wikikg')
@@ -354,6 +355,13 @@ def main(args):
         if args.test_random_sample>0:
             args.neg_size_eval_train = args.test_random_sample
         metrics = kge_model.test_step(kge_model, test_triples, args, random_sampling=args.test_random_sample>0, dump_all=args.test_dump_all or args.test_dump_hist>0)
+        log_metrics('Test', step, metrics, writer)
+    
+    if args.test_training:
+        logging.info('Evaluating on Full training Dataset...')
+        if args.test_random_sample>0:
+            args.neg_size_eval_train = args.test_random_sample
+        metrics = kge_model.test_step(kge_model, train_triples, args, random_sampling=args.test_random_sample>0, dump_all=args.test_dump_all or args.test_dump_hist>0)
         log_metrics('Test', step, metrics, writer)
     
     if args.evaluate_train:
