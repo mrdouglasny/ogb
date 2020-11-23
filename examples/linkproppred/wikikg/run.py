@@ -344,7 +344,9 @@ def main(args):
         
     if args.do_valid:
         logging.info('Evaluating on Valid Dataset...')
-        metrics = kge_model.test_step(kge_model, valid_triples, args)
+        if args.test_random_sample>0:
+            args.neg_size_eval_train = args.test_random_sample
+        metrics = kge_model.test_step(kge_model, valid_triples, args, random_sampling=args.test_random_sample>0, dump_all=args.test_dump_all or args.test_dump_hist>0)
         log_metrics('Valid', step, metrics, writer)
     
     if args.do_test:
@@ -360,8 +362,9 @@ def main(args):
         indices = np.random.choice(len(train_triples['head']), args.ntriples_eval_train, replace=False)
         for i in train_triples:
             small_train_triples[i] = train_triples[i][indices]
-        metrics = kge_model.test_step(kge_model, small_train_triples, args, random_sampling=True)
-        log_metrics('Train', step, metrics, writer)
+        if args.test_random_sample>0:
+            args.neg_size_eval_train = args.test_random_sample
+        metrics = kge_model.test_step(kge_model, small_train_triples, args, random_sampling=args.test_random_sample>0, dump_all=args.test_dump_all or args.test_dump_hist>0)        log_metrics('Train', step, metrics, writer)
         
 if __name__ == '__main__':
     main(parse_args())
