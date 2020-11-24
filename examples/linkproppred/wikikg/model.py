@@ -311,7 +311,8 @@ class KGEModel(nn.Module):
                     v = rel[i] + rel[j]
                     rel_v = rel - v
                     score = torch.norm(rel_v, p=self.pnorm, dim=1).to(torch.device("cpu")).detach()
-                    print( rel_v, score )
+                    if i==0 and j==1:
+                        print( rel_v.size(), score.size() )
                     for k in range(len(score)):
                         if score[k]<g:
                             print( i, j, k, score[k].item(), file=dump )
