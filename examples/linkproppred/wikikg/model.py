@@ -299,10 +299,24 @@ class KGEModel(nn.Module):
         return score
 
     def print_relation_embedding(self, dump, args):
-        rel = self.relation_embedding.to(torch.device("cpu")).detach()
-        for r in rel:
-            print( r.numpy(), file=dump )
-                
+        if args.print_relation_option=='list':
+            rel = self.relation_embedding.to(torch.device("cpu")).detach()
+            for r in rel:
+                print( r.numpy(), file=dump )
+        elif args.print_relation_option=='triple-add':
+            g = args.gamma
+            rel = self.relation_embedding.detach()
+            for i in range(len(rel)-1):
+                for j in range(i+1,len(rel)):
+                    v = rel[i] + rel[j]
+                    rel_v = rel - v
+                    score = torch.norm(rel_v, p=self.pnorm, dim=1).to(torch.device("cpu")).detach()
+                    print( rel_v, score )
+                    for k in range(len(score)):
+                        if score[k]<g:
+                            print( i, j, k, score[k].item(), file=dump )
+                            
+                    
     @staticmethod
     def train_step(model, optimizer, train_iterator, args):
         '''

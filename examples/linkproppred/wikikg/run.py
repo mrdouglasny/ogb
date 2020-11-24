@@ -87,6 +87,7 @@ def parse_args(args=None):
     parser.add_argument('--hist_maxval', type=float, default=10.0, help='max histogram')
     
     parser.add_argument('--print_relation_embedding', type=str, default='', help='arg=dumpfile')
+    parser.add_argument('--print_relation_option', type=str, default='list')
     return parser.parse_args(args)
 
 def override_config(args):
