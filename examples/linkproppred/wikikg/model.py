@@ -62,7 +62,7 @@ class KGEModel(nn.Module):
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['BasE', 'TransE', 'Aligned', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
+        if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
             raise ValueError('model %s not supported' % model_name)
 
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -72,8 +72,8 @@ class KGEModel(nn.Module):
             raise ValueError(
                 'ComplEx should use --double_entity_embedding and --double_relation_embedding')
 
-        if model_name == 'PairRE' and not double_relation_embedding:
-            raise ValueError('ComplEx should use --double_relation_embedding')
+        if model_name in ['PairRE','AlignedP'] and not double_relation_embedding:
+            raise ValueError('PairRE should use --double_relation_embedding')
 
         self.evaluator = evaluator
 
@@ -200,6 +200,13 @@ class KGEModel(nn.Module):
         cos = nn.CosineSimilarity(dim=2, eps=1e-6)
         return cos( score, (tail - head) )
 
+    def Aligned1(self, head, relation, tail, mode):
+        if mode == 'head-batch':
+            score = head + (relation - tail)
+        else:
+            score = (head + relation) - tail
+        return torch.norm(score, p=self.pnorm, dim=2)-torch.norm(head-tail, p=self.pnorm, dim=2)
+
     def ConnE(self, head, relation, tail, mode):
         score = head - tail
         relnorm = torch.norm(relation, p=2, dim=2)
@@ -274,6 +281,19 @@ class KGEModel(nn.Module):
 
         score = head * re_head - tail * re_tail
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
+        return score
+
+    def AlignedP(self, head, relation, tail, mode):
+        re_head, re_tail = torch.chunk(relation, 2, dim=2)
+
+        head = F.normalize(head, 2, -1)
+        tail = F.normalize(tail, 2, -1)
+
+        score = head * re_head - tail * re_tail
+        if mode == 'head-batch':
+            score = torch.norm(tail * re_tail, p=1, dim=2)
+        else:
+            score = torch.norm(head * re_head, p=1, dim=2)
         return score
 
     def print_relation_embedding(self, dump):
