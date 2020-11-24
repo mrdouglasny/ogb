@@ -162,6 +162,8 @@ class KGEModel(nn.Module):
             'BasE': self.BasE,
             'TransE': self.TransE,
             'Aligned': self.Aligned,
+            'Aligned1': self.Aligned1,
+            'AlignedP': self.AlignedP,
             'ConnE': self.ConnE,
             'TransE2': self.TransE,
             'ConnE2': self.ConnE,
@@ -296,7 +298,7 @@ class KGEModel(nn.Module):
             score = torch.norm(head * re_head, p=1, dim=2)
         return score
 
-    def print_relation_embedding(self, dump):
+    def print_relation_embedding(self, dump, args):
         rel = self.relation_embedding.to(torch.device("cpu")).detach()
         for r in rel:
             print( r.numpy(), file=dump )
@@ -391,7 +393,7 @@ class KGEModel(nn.Module):
                 print(")", file=dump)
 
         if args.print_relation_embedding!='':
-            model.print_relation_embedding( open(args.print_relation_embedding, "w") )
+            model.print_relation_embedding( open(args.print_relation_embedding, "w"), args )
             print( 'printed relation embedding' )
             
         # Prepare dataloader for evaluation

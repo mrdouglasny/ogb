@@ -27,8 +27,9 @@ New options in the python run.py -
 Models:
 	BasE = standard norm distance
 	Aligned = cos similarity of relation vector and tail-head
+	Aligned1 = ||h-t+r||-||h-t||
+	AlignedP = ||h.r|| or ||t.r||
 
 To check:
 
-- are TransE vectors in the right direction: this is a score function Aligned (and no negatives)
-and ranking will be different.
+- triples of relations => rules.
