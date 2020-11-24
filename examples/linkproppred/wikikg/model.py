@@ -293,9 +293,9 @@ class KGEModel(nn.Module):
 
         score = head * re_head - tail * re_tail
         if mode == 'head-batch':
-            score = torch.norm(tail * re_tail, p=1, dim=2)
-        else:
             score = torch.norm(head * re_head, p=1, dim=2)
+        else:
+            score = torch.norm(tail * re_tail, p=1, dim=2)
         return score
 
     def print_relation_embedding(self, dump, args):

@@ -7,6 +7,8 @@ New options in the python run.py -
 	Dump a full scoring entry from each batch
 
 --print_relation_embedding
+--print_relation_option
+	various relation prints: list, triple_add
 
 --evaluator mrr2
 	print a line for every test with rank, top score, etc.
@@ -20,6 +22,7 @@ New options in the python run.py -
 
 --test_change_model
 	allow using different model (with same parameters) from training
+	need to use this to change most parameters, e.g. batch size
 
 --test_training
 	treat full training set like a testing set, for statistics
