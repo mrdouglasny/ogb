@@ -314,7 +314,7 @@ class KGEModel(nn.Module):
                     if i==0 and j==1:
                         print( rel_v.size(), score.size() )
                     for k in range(len(score)):
-                        if score[k]<g:
+                        if k!=i and k!=j and score[k]<g:
                             print( i, j, k, score[k].item(), file=dump )
                             
                     
