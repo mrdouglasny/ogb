@@ -372,7 +372,7 @@ class KGEModel(nn.Module):
 #            c_loss = F.logsigmoid(self.gamma.item() - negative_score).sum(dim=1)
 #            loss = (positive_sample_loss + negative_sample_loss)/2 + args.contact_alpha*c_loss
 #        else:
-#            loss = (positive_sample_loss + negative_sample_loss)/2
+        loss = (positive_sample_loss + negative_sample_loss)/2
 
         if args.regularization != 0.0:
             # Use L3 regularization for ComplEx and DistMult
