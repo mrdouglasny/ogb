@@ -62,7 +62,7 @@ class KGEModel(nn.Module):
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE']:
+        if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE', 'TransPro']:
             raise ValueError('model %s not supported' % model_name)
 
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -72,7 +72,7 @@ class KGEModel(nn.Module):
             raise ValueError(
                 'ComplEx should use --double_entity_embedding and --double_relation_embedding')
 
-        if model_name in ['PairRE','AlignedP'] and not double_relation_embedding:
+        if model_name in ['PairRE','AlignedP','TransPro'] and not double_relation_embedding:
             raise ValueError('PairRE should use --double_relation_embedding')
 
         self.evaluator = evaluator
@@ -171,6 +171,7 @@ class KGEModel(nn.Module):
             'ComplEx': self.ComplEx,
             'RotatE': self.RotatE,
             'PairRE': self.PairRE,
+            'TransPro: self.TransPro,
         }
 
         if self.model_name in model_func:
@@ -296,6 +297,17 @@ class KGEModel(nn.Module):
             score = torch.norm(head * re_head, p=1, dim=2)
         else:
             score = torch.norm(tail * re_tail, p=1, dim=2)
+        return score
+
+    def TransPro(self, head, relation, tail, mode):
+        relation, projection = torch.chunk(relation, 2, dim=2)
+
+        if mode == 'head-batch':
+            score = head + (relation - tail)
+        else:
+            score = (head + relation) - tail
+
+        score = self.gamma.item() - torch.norm(projection * score, p=self.pnorm, dim=2)
         return score
 
     def print_relation_embedding(self, dump, args):
