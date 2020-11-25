@@ -171,7 +171,7 @@ class KGEModel(nn.Module):
             'ComplEx': self.ComplEx,
             'RotatE': self.RotatE,
             'PairRE': self.PairRE,
-            'TransPro: self.TransPro,
+            'TransPro': self.TransPro,
         }
 
         if self.model_name in model_func:
