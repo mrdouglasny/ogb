@@ -319,8 +319,8 @@ def main(args):
                 warm_up_steps = warm_up_steps * 3
 
             if args.print_relation_steps>0 and step % args.print_relation_steps == 0:
-                kge_model.print_relation_embedding( args.print_relation_embedding % step, args )
-                print( 'printed relations to', args.print_relation_embedding % step )
+                kge_model.print_relation_embedding( args.print_relation_embedding+str(step), args )
+                print( 'printed relations to', args.print_relation_embedding+str(step) )
                 
             if step % args.save_checkpoint_steps == 0 and step > 0: # ~ 41 seconds/saving
                 save_variable_list = {
