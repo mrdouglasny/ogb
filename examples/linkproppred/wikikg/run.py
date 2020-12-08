@@ -89,6 +89,7 @@ def parse_args(args=None):
     parser.add_argument('--print_relation_embedding', type=str, default='', help='arg=dumpfile')
     parser.add_argument('--print_relation_option', type=str, default='list')
     parser.add_argument('--print_relation_steps', type=int, default=0)
+    return parser.parse_args(args)
 
 def override_config(args):
     '''
