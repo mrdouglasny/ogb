@@ -88,7 +88,7 @@ def parse_args(args=None):
     
     parser.add_argument('--print_relation_embedding', type=str, default='', help='arg=dumpfile')
     parser.add_argument('--print_relation_option', type=str, default='list')
-    return parser.parse_args(args)
+    parser.add_argument('--print_relation_steps', type=int, default=0)
 
 def override_config(args):
     '''
@@ -316,7 +316,11 @@ def main(args):
                     lr=current_learning_rate
                 )
                 warm_up_steps = warm_up_steps * 3
-            
+
+            if args.print_relation_steps>0 and step % args.print_relation_steps == 0:
+                kge_model.print_relation_embedding( args.print_relation_embedding+step, args )
+                print( 'printed relations to', args.print_relation_embedding+step )
+                
             if step % args.save_checkpoint_steps == 0 and step > 0: # ~ 41 seconds/saving
                 save_variable_list = {
                     'step': step, 
