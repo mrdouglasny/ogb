@@ -420,10 +420,6 @@ class KGEModel(nn.Module):
                         min_val + n*range_val/args.test_dump_hist), end='', file=dump)
                 print(")", file=dump)
 
-        if args.print_relation_embedding!='':
-            model.print_relation_embedding( args.print_relation_embedding+'_test', args )
-            print( 'printed test relation embedding'  )
-            
         # Prepare dataloader for evaluation
         test_dataloader_head = DataLoader(
             TestDataset(

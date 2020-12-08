@@ -319,8 +319,8 @@ def main(args):
                 warm_up_steps = warm_up_steps * 3
 
             if args.print_relation_steps>0 and step % args.print_relation_steps == 0:
-                kge_model.print_relation_embedding( args.print_relation_embedding+step, args )
-                print( 'printed relations to', args.print_relation_embedding+step )
+                kge_model.print_relation_embedding( args.print_relation_embedding % step, args )
+                print( 'printed relations to', args.print_relation_embedding % step )
                 
             if step % args.save_checkpoint_steps == 0 and step > 0: # ~ 41 seconds/saving
                 save_variable_list = {
@@ -357,6 +357,9 @@ def main(args):
         log_metrics('Valid', step, metrics, writer)
     
     if args.do_test:
+        if args.print_relation_embedding!='':
+            kge_model.print_relation_embedding( args.print_relation_embedding+'_test', args )
+            print( 'printed test relation embedding'  )
         logging.info('Evaluating on Test Dataset...')
         if args.test_random_sample>0:
             args.neg_size_eval_train = args.test_random_sample
