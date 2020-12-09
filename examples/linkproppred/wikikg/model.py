@@ -20,7 +20,7 @@ from ogb.linkproppred import Evaluator
 
 
 class KGEModel(nn.Module):
-    def __init__(self, model_name, nentity, nrelation, hidden_dim, gamma, evaluator,
+    def __init__(self, model_name, nentity, nrelation, hidden_dim, gamma, rel_init_scale, evaluator,
                  double_entity_embedding=False, double_relation_embedding=False):
         super(KGEModel, self).__init__()
         self.model_name = model_name
@@ -57,8 +57,8 @@ class KGEModel(nn.Module):
             torch.zeros(nrelation, self.relation_dim))
         nn.init.uniform_(
             tensor=self.relation_embedding,
-            a=-self.embedding_range.item(),
-            b=self.embedding_range.item()
+            a=-self.embedding_range.item()*rel_init_scale,
+            b=self.embedding_range.item()*rel_init_scale
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function

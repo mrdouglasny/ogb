@@ -57,6 +57,7 @@ def parse_args(args=None):
     parser.add_argument('--test_batch_size', default=4, type=int, help='valid/test batch size')
     parser.add_argument('--uni_weight', action='store_true', 
                         help='Otherwise use subsampling weighting like in word2vec')
+    parser.add_argument('--rel_init_scale', default=1.0, type=float,help='scale initialization of the relation vectors' )
     
     parser.add_argument('-lr', '--learning_rate', default=0.0001, type=float)
     parser.add_argument('-cpu', '--cpu_num', default=10, type=int)
@@ -223,6 +224,7 @@ def main(args):
         nrelation=nrelation,
         hidden_dim=args.hidden_dim,
         gamma=args.gamma,
+        rel_init_scale=args.rel_init_scale,
         double_entity_embedding=args.double_entity_embedding,
         double_relation_embedding=args.double_relation_embedding,
         evaluator=evaluator
