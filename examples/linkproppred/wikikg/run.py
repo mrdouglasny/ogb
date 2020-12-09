@@ -383,7 +383,7 @@ def main(args):
             small_train_triples[i] = train_triples[i][indices]
         if args.test_random_sample>0:
             args.neg_size_eval_train = args.test_random_sample
-        metrics = kge_model.test_step(kge_model, small_train_triples, args, random_sampling=args.test_random_sample>0, dump_all=args.test_dump_all or args.test_dump_hist>0)
+        metrics = kge_model.test_step(kge_model, small_train_triples, args, random_sampling=True, dump_all=args.test_dump_all or args.test_dump_hist>0)
         log_metrics('Train', step, metrics, writer)
         
 if __name__ == '__main__':
