@@ -29,7 +29,7 @@ class KGEModel(nn.Module):
         self.hidden_dim = hidden_dim
         self.epsilon = 2.0
         self.pnorm = 1
-        if model_name in ['TransE2', 'ConnE2', 'PairRE']:
+        if model_name in ['TransE2', 'ConnE2']:
             self.pnorm = 2
         train_relations = rel_init_scale >= 0
         rel_init_scale = abs(rel_init_scale)
@@ -65,7 +65,7 @@ class KGEModel(nn.Module):
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE', 'TransPro']:
+        if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE', 'TransPro', 'HeadRE', 'TailRE']:
             raise ValueError('model %s not supported' % model_name)
 
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -174,6 +174,8 @@ class KGEModel(nn.Module):
             'ComplEx': self.ComplEx,
             'RotatE': self.RotatE,
             'PairRE': self.PairRE,
+            'HeadRE': self.HeadRE,
+            'TailRE': self.TailRE,
             'TransPro': self.TransPro,
         }
 
@@ -286,6 +288,20 @@ class KGEModel(nn.Module):
         tail = F.normalize(tail, 2, -1)
 
         score = head * re_head - tail * re_tail
+        score = self.gamma.item() - torch.norm(score, p=1, dim=2)
+        return score
+
+    def HeadRE(self, head, relation, tail, mode):
+        head = F.normalize(head, 2, -1)
+        tail = F.normalize(tail, 2, -1)
+        score = head * relation - tail
+        score = self.gamma.item() - torch.norm(score, p=1, dim=2)
+        return score
+
+    def TailRE(self, head, relation, tail, mode):
+        head = F.normalize(head, 2, -1)
+        tail = F.normalize(tail, 2, -1)
+        score = head - tail * relation
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
         return score
 
