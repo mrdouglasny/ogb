@@ -56,12 +56,12 @@ class KGEModel(nn.Module):
         )
 
         self.relation_embedding = nn.Parameter(
-            torch.zeros(nrelation, self.relation_dim))
+            torch.zeros(nrelation, self.relation_dim),
+            requires_grad=train_relations)
         nn.init.uniform_(
             tensor=self.relation_embedding,
             a=-self.embedding_range.item()*rel_init_scale,
             b=self.embedding_range.item()*rel_init_scale,
-            requires_grad=train_relations
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
