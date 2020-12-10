@@ -294,6 +294,7 @@ class KGEModel(nn.Module):
         return score
 
     def HeadRE(self, head, relation, tail, mode):
+        hidden_dim = head.size(1)
         re_head, scale_tail = torch.split(relation, [hidden_dim,1], dim=2)
         head = F.normalize(head, 2, -1)
         tail = F.normalize(tail, 2, -1)
@@ -302,6 +303,7 @@ class KGEModel(nn.Module):
         return score
 
     def TailRE(self, head, relation, tail, mode):
+        hidden_dim = tail.size(1)
         re_tail, scale_head = torch.split(relation, [hidden_dim,1], dim=2)
         head = F.normalize(head, 2, -1)
         tail = F.normalize(tail, 2, -1)
