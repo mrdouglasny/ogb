@@ -46,6 +46,8 @@ class KGEModel(nn.Module):
 
         self.entity_dim = hidden_dim*2 if double_entity_embedding else hidden_dim
         self.relation_dim = hidden_dim*2 if double_relation_embedding else hidden_dim
+        if model_name in ['HeadRE', 'TailRE']:
+            self.relation_dim += 1
 
         self.entity_embedding = nn.Parameter(
             torch.zeros(nentity, self.entity_dim))
@@ -292,16 +294,18 @@ class KGEModel(nn.Module):
         return score
 
     def HeadRE(self, head, relation, tail, mode):
+        re_head, scale_tail = torch.chunk(relation, 2, dim=2)
         head = F.normalize(head, 2, -1)
         tail = F.normalize(tail, 2, -1)
-        score = head * relation - tail
+        score = head * relation - (tail * scale_tail)
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
         return score
 
     def TailRE(self, head, relation, tail, mode):
+        re_tail, scale_head = torch.chunk(relation, 2, dim=2)
         head = F.normalize(head, 2, -1)
         tail = F.normalize(tail, 2, -1)
-        score = head - tail * relation
+        score = (head * scale_head) - tail * relation
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
         return score
 
