@@ -297,7 +297,7 @@ class KGEModel(nn.Module):
         re_head, scale_tail = torch.chunk(relation, 2, dim=2)
         head = F.normalize(head, 2, -1)
         tail = F.normalize(tail, 2, -1)
-        score = head * relation - (tail * scale_tail)
+        score = head * re_head - (tail * scale_tail)
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
         return score
 
@@ -305,7 +305,7 @@ class KGEModel(nn.Module):
         re_tail, scale_head = torch.chunk(relation, 2, dim=2)
         head = F.normalize(head, 2, -1)
         tail = F.normalize(tail, 2, -1)
-        score = (head * scale_head) - tail * relation
+        score = (head * scale_head) - tail * re_tail
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
         return score
 
