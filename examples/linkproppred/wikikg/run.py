@@ -297,7 +297,9 @@ def main(args):
     logging.info('negative_adversarial_sampling = %s' % str(args.negative_adversarial_sampling))
     if args.negative_adversarial_sampling:
         logging.info('adversarial_temperature = %f' % args.adversarial_temperature)
-    
+    if args.rel_init_scale != 1.0:
+        logging.info('rel_init_scale = %f' % args.rel_init_scale)
+        
     # Set valid dataloader as it would be evaluated during training
     
     if args.do_train:

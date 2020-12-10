@@ -31,6 +31,8 @@ class KGEModel(nn.Module):
         self.pnorm = 1
         if model_name in ['TransE2', 'ConnE2', 'PairRE']:
             self.pnorm = 2
+        train_relations = rel_init_scale >= 0
+        rel_init_scale = abs(rel_init_scale)
 
         self.gamma = nn.Parameter(
             torch.Tensor([gamma]),
@@ -58,7 +60,8 @@ class KGEModel(nn.Module):
         nn.init.uniform_(
             tensor=self.relation_embedding,
             a=-self.embedding_range.item()*rel_init_scale,
-            b=self.embedding_range.item()*rel_init_scale
+            b=self.embedding_range.item()*rel_init_scale,
+            requires_grad=train_relations
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
