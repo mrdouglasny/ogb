@@ -60,3 +60,33 @@ log/ogbl-wikikg/PairRE/400-8.0/1605662450.0488842/test.log (1000 negs)
 2020-11-17 21:18:06 INFO     Test hits@10_list at step 199999: 0.673568
 2020-11-17 21:18:06 INFO     Test mrr_list at step 199999: 0.568592
 
+PairRE gamma=10 init scale 10
+Test hits@1_list at step 199999: 0.445864
+Test mrr_list at step 199999: 0.485125
+
+PairRE gamma=5 init scale 10
+Test hits@1_list at step 199999: 0.467657
+Test mrr_list at step 199999: 0.515085
+
+PairRE gamma=8 init scale 2
+Test hits@1_list at step 199999: 0.453889
+Test mrr_list at step 199999: 0.496138
+
+PairRE gamma=8 init scale 25 no rel train
+Test hits@1_list at step 199999: 0.202924
+Test mrr_list at step 199999: 0.261045
+
+Original TransE (test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604630634.3180625/train.log)
+2020-11-06 21:01:07 INFO     Test hits@1_list at step 199999: 0.410930
+2020-11-06 21:01:07 INFO     Test hits@3_list at step 199999: 0.442437
+2020-11-06 21:01:07 INFO     Test hits@10_list at step 199999: 0.488185
+2020-11-06 21:01:07 INFO     Test mrr_list at step 199999: 0.441149
+
+TransE with frozen relations
+2020-12-11 08:32:12 INFO     Test hits@1_list at step 199999: 0.411098
+2020-12-11 08:32:12 INFO     Test hits@3_list at step 199999: 0.447372
+2020-12-11 08:32:12 INFO     Test hits@10_list at step 199999: 0.483329
+2020-12-11 08:32:12 INFO     Test mrr_list at step 199999: 0.440558
+
+Very surprising to the point of incredulity.
+

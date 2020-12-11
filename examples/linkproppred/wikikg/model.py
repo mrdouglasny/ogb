@@ -48,6 +48,8 @@ class KGEModel(nn.Module):
         self.relation_dim = hidden_dim*2 if double_relation_embedding else hidden_dim
         if model_name in ['HeadRE', 'TailRE']:
             self.relation_dim += 1
+        if model_name in ['PairSE']:
+            self.relation_dim += 2
 
         self.entity_embedding = nn.Parameter(
             torch.zeros(nentity, self.entity_dim))
@@ -67,7 +69,9 @@ class KGEModel(nn.Module):
         )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
-        if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE', 'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE', 'TransPro', 'HeadRE', 'TailRE']:
+        if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE',
+                              'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE',
+                              'PairSE', 'TransPro', 'HeadRE', 'TailRE']:
             raise ValueError('model %s not supported' % model_name)
 
         if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
@@ -176,6 +180,7 @@ class KGEModel(nn.Module):
             'ComplEx': self.ComplEx,
             'RotatE': self.RotatE,
             'PairRE': self.PairRE,
+            'PairSE': self.PairSE,
             'HeadRE': self.HeadRE,
             'TailRE': self.TailRE,
             'TransPro': self.TransPro,
@@ -290,6 +295,19 @@ class KGEModel(nn.Module):
         tail = F.normalize(tail, 2, -1)
 
         score = head * re_head - tail * re_tail
+        score = self.gamma.item() - torch.norm(score, p=1, dim=2)
+        return score
+
+    def PairSE(self, head, relation, tail, mode):
+        hidden_dim = head.size(2)
+        projections, scales = torch.split(relation, [2*hidden_dim,2], dim=2)
+        re_head, re_tail = torch.chunk(projections, 2, dim=2).detach()
+        scale_head, scale_tail = torch.chunk(scales, 2, dim=2)
+
+        head = F.normalize(head, 2, -1)
+        tail = F.normalize(tail, 2, -1)
+
+        score = head * scale_head * re_head - tail * scale_tail * re_tail
         score = self.gamma.item() - torch.norm(score, p=1, dim=2)
         return score
 
