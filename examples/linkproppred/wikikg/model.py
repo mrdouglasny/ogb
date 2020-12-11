@@ -301,7 +301,7 @@ class KGEModel(nn.Module):
     def PairSE(self, head, relation, tail, mode):
         hidden_dim = head.size(2)
         projections, scales = torch.split(relation, [2*hidden_dim,2], dim=2)
-        re_head, re_tail = torch.chunk(projections, 2, dim=2).detach()
+        re_head, re_tail = torch.chunk(projections.detach(), 2, dim=2)
         scale_head, scale_tail = torch.chunk(scales, 2, dim=2)
 
         head = F.normalize(head, 2, -1)
