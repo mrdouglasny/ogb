@@ -32,6 +32,8 @@ Models:
 	Aligned = cos similarity of relation vector and tail-head
 	Aligned1 = ||h-t+r||-||h-t||
 	AlignedP = ||h.r|| or ||t.r||
+	HeadRE, TailRE - like PairRE but train one vector and use scale for other
+	PairSE - like PairRE with random directions and trained scales
 
 To check:
 

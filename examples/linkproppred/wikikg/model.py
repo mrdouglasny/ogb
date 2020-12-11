@@ -33,7 +33,10 @@ class KGEModel(nn.Module):
             self.pnorm = 2
         train_relations = rel_init_scale >= 0
         rel_init_scale = abs(rel_init_scale)
-
+        train_entities = model_name!='TransEX'
+        if model_name=='TransEX':
+            model_name = 'TransE'
+        
         self.gamma = nn.Parameter(
             torch.Tensor([gamma]),
             requires_grad=False
@@ -52,7 +55,8 @@ class KGEModel(nn.Module):
             self.relation_dim += 2
 
         self.entity_embedding = nn.Parameter(
-            torch.zeros(nentity, self.entity_dim))
+            torch.zeros(nentity, self.entity_dim),
+            requires_grad=train_entities)
         nn.init.uniform_(
             tensor=self.entity_embedding,
             a=-self.embedding_range.item(),
