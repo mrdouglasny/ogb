@@ -113,7 +113,7 @@ class TestDataset(Dataset):
                 negative_sample = torch.cat([torch.LongTensor([tail]), tails])
         elif self.mode == 'relations':
             rels = torch.tensor( range( 0, self.nrelation ) )
-            negative_sample = torch.cat([torch.LongTensor([head]), rels, torch.LongTensor([tail]])
+            negative_sample = torch.cat([torch.LongTensor([head]), rels, torch.LongTensor([tail])])
             
         return positive_sample, negative_sample, self.mode
     
