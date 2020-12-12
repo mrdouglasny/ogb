@@ -169,8 +169,9 @@ class KGEModel(nn.Module):
             ).view(batch_size, negative_sample_size, -1)
 
         elif mode == 'relations':
-            print( sample )
-            batch_size, negative_sample_size = sample.size(0), self.nrelation
+            head_part, tail_part = sample
+            print( head_part.size(), tail_part.size() )
+            batch_size, negative_sample_size = head_part.size(0), self.nrelation
 
             head = torch.index_select(
                 self.entity_embedding,
