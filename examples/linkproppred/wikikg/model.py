@@ -493,7 +493,7 @@ class KGEModel(nn.Module):
                     test_triples,
                     args,
                     'relations',
-                    False_sampling
+                    False
                 ),
                 batch_size=args.test_batch_size,
                 num_workers=max(1, args.cpu_num//2),

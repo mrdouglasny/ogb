@@ -27,6 +27,9 @@ New options in the python run.py -
 --test_training
 	treat full training set like a testing set, for statistics
 
+--swap_relations
+	test mode which checks all relations (should check reversals as well)
+
 Models:
 	BasE = standard norm distance
 	Aligned = cos similarity of relation vector and tail-head
