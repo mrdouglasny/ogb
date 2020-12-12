@@ -191,6 +191,7 @@ class KGEModel(nn.Module):
         model_func = {
             'BasE': self.BasE,
             'TransE': self.TransE,
+            'TransEX': self.TransE,
             'Aligned': self.Aligned,
             'Aligned1': self.Aligned1,
             'AlignedP': self.AlignedP,
@@ -204,7 +205,6 @@ class KGEModel(nn.Module):
             'PairSE': self.PairSE,
             'HeadRE': self.HeadRE,
             'TailRE': self.TailRE,
-            'TransEX': self.TransE,
             'TransPro': self.TransPro,
         }
 
@@ -500,7 +500,7 @@ class KGEModel(nn.Module):
                 collate_fn=TestDataset.collate_fn
             )
             test_dataset_list = [test_dataloader_rel]
-        elif:
+        else:
             test_dataloader_head = DataLoader(
                 TestDataset(
                     test_triples,
