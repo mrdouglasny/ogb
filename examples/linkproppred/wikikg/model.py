@@ -204,6 +204,7 @@ class KGEModel(nn.Module):
             'PairSE': self.PairSE,
             'HeadRE': self.HeadRE,
             'TailRE': self.TailRE,
+            'TransEX': self.TransE,
             'TransPro': self.TransPro,
         }
 
