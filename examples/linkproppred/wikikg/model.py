@@ -176,7 +176,7 @@ class KGEModel(nn.Module):
             head = torch.index_select(
                 self.entity_embedding,
                 dim=0,
-                index=sample[:, 0]
+                index=head_part[:, 0]
             ).unsqueeze(1)
 
             relation = self.relation_embedding.view(batch_size, negative_sample_size, -1)
@@ -184,7 +184,7 @@ class KGEModel(nn.Module):
             tail = torch.index_select(
                 self.entity_embedding,
                 dim=0,
-                index=sample[:, 2]
+                index=head_part[:, 2]
             ).unsqueeze(1)
 
         else:
