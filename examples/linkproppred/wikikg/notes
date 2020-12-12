@@ -54,12 +54,6 @@ later groups have many more - probably, depends on relation type !  need to load
 
 margin top - next score is log uniform distributed leaving out outliers
 
-log/ogbl-wikikg/TransPro/600-5.0/1606322236.644033/train.log
-2020-11-26 11:00:05 INFO     Test hits@1_list at step 199999: 0.428780
-2020-11-26 11:00:05 INFO     Test hits@3_list at step 199999: 0.480266
-2020-11-26 11:00:05 INFO     Test hits@10_list at step 199999: 0.537599
-2020-11-26 11:00:05 INFO     Test mrr_list at step 199999: 0.469284
-
 log/ogbl-wikikg/PairRE/400-8.0/1605662450.0488842/test.log (1000 negs)
 2020-11-17 21:18:06 INFO     Test hits@1_list at step 199999: 0.512048
 2020-11-17 21:18:06 INFO     Test hits@3_list at step 199999: 0.591830
@@ -95,18 +89,5 @@ TransE with frozen relations
 2020-12-11 08:32:12 INFO     Test mrr_list at step 199999: 0.440558
 
 Very surprising to the point of incredulity.
-How to further test it?  Is all the learning in the embeddings in this case?
-Which ones is it getting right, the same ones ?
 
-HeadRE 400 (log/ogbl-wikikg/HeadRE/400-8.0/1607639146.4359264/train.log)
-2020-12-11 09:31:47 INFO     Test hits@1_list at step 199999: 0.407851
-2020-12-11 09:31:47 INFO     Test hits@3_list at step 199999: 0.467634
-2020-12-11 09:31:47 INFO     Test hits@10_list at step 199999: 0.517944
-2020-12-11 09:31:47 INFO     Test mrr_list at step 199999: 0.450545
-
-TailRE 400 (log/ogbl-wikikg/TailRE/400-8.0/1607638682.9158413/train.log)
-2020-12-11 09:24:18 INFO     Test hits@1_list at step 199999: 0.438003
-2020-12-11 09:24:18 INFO     Test hits@3_list at step 199999: 0.484237
-2020-12-11 09:24:18 INFO     Test hits@10_list at step 199999: 0.526620
-2020-12-11 09:24:18 INFO     Test mrr_list at step 199999: 0.472573
-
+--> new test which fixes h and t and scans r. mrr3 ?
