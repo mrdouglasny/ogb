@@ -46,7 +46,7 @@ def parse_args(args=None):
     parser.add_argument('-de', '--double_entity_embedding', action='store_true')
     parser.add_argument('-dr', '--double_relation_embedding', action='store_true')
     parser.add_argument('--test_change_model', action='store_true')
-    
+    parser.add_argument('--swap_relations', action='store_true', help='substitute relation')
     parser.add_argument('-n', '--negative_sample_size', default=128, type=int)
     parser.add_argument('-d', '--hidden_dim', default=500, type=int)
     parser.add_argument('-g', '--gamma', default=12.0, type=float)

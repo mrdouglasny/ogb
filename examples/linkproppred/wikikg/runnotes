@@ -1,0 +1,24 @@
+standard TransE 600 run: 
+	test-n-runs/log/ogbl-wikikg/TransE/600-30.0/1604630634.3180625
+2020-11-06 21:01:07 INFO     Test hits@1_list at step 199999: 0.410930
+2020-11-06 21:01:07 INFO     Test mrr_list at step 199999: 0.441149
+
+? log/ogbl-wikikg/TransE/600-30.0/1607441554.4154897
+
+run not training relations: log/ogbl-wikikg/TransE/600-30.0/1607610066.037687
+2020-12-11 08:32:12 INFO     Test hits@1_list at step 199999: 0.411098
+2020-12-11 08:32:12 INFO     Test mrr_list at step 199999: 0.440558
+
+tdumprel-transe600ini0p0.sh) transe zero norm normalize (mistake but keep it)
+	log/ogbl-wikikg/TransE/600-30.0/1607721797.1800275/
+
+tdumprel-transe600ini0p1.sh) transe low normal
+	log/ogbl-wikikg/TransE/600-30.0/1607784002.949094
+
+don't train relations: log/ogbl-wikikg/TransE/600-30.0/1607610066.037687/
+
+tdumprel-transe600nte.sh) transe don't train embeddings
+	log/ogbl-wikikg/TransEX/600-30.0/1607784298.542306/
+
+try transe with biokg
+

@@ -168,6 +168,23 @@ class KGEModel(nn.Module):
                 index=tail_part.view(-1)
             ).view(batch_size, negative_sample_size, -1)
 
+        elif mode == 'relations':
+            batch_size, negative_sample_size = sample.size(0), self.relation_embedding.size()
+
+            head = torch.index_select(
+                self.entity_embedding,
+                dim=0,
+                index=sample[:, 0]
+            ).unsqueeze(1)
+
+            relation = self.relation_embedding.view(batch_size, negative_sample_size, -1)
+
+            tail = torch.index_select(
+                self.entity_embedding,
+                dim=0,
+                index=sample[:, 2]
+            ).unsqueeze(1)
+
         else:
             raise ValueError('mode %s not supported' % mode)
 
@@ -468,31 +485,44 @@ class KGEModel(nn.Module):
                 print(")", file=dump)
 
         # Prepare dataloader for evaluation
-        test_dataloader_head = DataLoader(
-            TestDataset(
-                test_triples,
-                args,
-                'head-batch',
-                random_sampling
-            ),
-            batch_size=args.test_batch_size,
-            num_workers=max(1, args.cpu_num//2),
-            collate_fn=TestDataset.collate_fn
-        )
 
-        test_dataloader_tail = DataLoader(
-            TestDataset(
-                test_triples,
-                args,
-                'tail-batch',
-                random_sampling
-            ),
-            batch_size=args.test_batch_size,
-            num_workers=max(1, args.cpu_num//2),
-            collate_fn=TestDataset.collate_fn
-        )
-
-        test_dataset_list = [test_dataloader_head, test_dataloader_tail]
+        if args.swap_relations:
+            test_dataloader_rel = DataLoader(
+                TestDataset(
+                    test_triples,
+                    args,
+                    'relations',
+                    False_sampling
+                ),
+                batch_size=args.test_batch_size,
+                num_workers=max(1, args.cpu_num//2),
+                collate_fn=TestDataset.collate_fn
+            )
+            test_dataset_list = [test_dataloader_rel]
+        elif:
+            test_dataloader_head = DataLoader(
+                TestDataset(
+                    test_triples,
+                    args,
+                    'head-batch',
+                    random_sampling
+                ),
+                batch_size=args.test_batch_size,
+                num_workers=max(1, args.cpu_num//2),
+                collate_fn=TestDataset.collate_fn
+            )
+            test_dataloader_tail = DataLoader(
+                TestDataset(
+                    test_triples,
+                    args,
+                    'tail-batch',
+                    random_sampling
+                ),
+                batch_size=args.test_batch_size,
+                num_workers=max(1, args.cpu_num//2),
+                collate_fn=TestDataset.collate_fn
+            )
+            test_dataset_list = [test_dataloader_head, test_dataloader_tail]
 
         test_logs = defaultdict(list)
 
