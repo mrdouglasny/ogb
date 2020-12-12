@@ -95,6 +95,8 @@ TransE with frozen relations
 2020-12-11 08:32:12 INFO     Test mrr_list at step 199999: 0.440558
 
 Very surprising to the point of incredulity.
+How to further test it?  Is all the learning in the embeddings in this case?
+Which ones is it getting right, the same ones ?
 
 HeadRE 400 (log/ogbl-wikikg/HeadRE/400-8.0/1607639146.4359264/train.log)
 2020-12-11 09:31:47 INFO     Test hits@1_list at step 199999: 0.407851

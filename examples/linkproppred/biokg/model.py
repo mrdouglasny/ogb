@@ -30,6 +30,10 @@ class KGEModel(nn.Module):
         self.pnorm = 1
         if model_name in ['TransE2', 'ConnE2']:
             self.pnorm = 2            
+        train_relations = True
+        if model_name == 'TransEXR':
+            train_relations = False
+            model_name = 'TransE'
         
         self.gamma = nn.Parameter(
             torch.Tensor([gamma]), 
@@ -51,7 +55,8 @@ class KGEModel(nn.Module):
             b=self.embedding_range.item()
         )
         
-        self.relation_embedding = nn.Parameter(torch.zeros(nrelation, self.relation_dim))
+        self.relation_embedding = nn.Parameter(torch.zeros(nrelation, self.relation_dim),
+            requires_grad=train_relations)
         nn.init.uniform_(
             tensor=self.relation_embedding, 
             a=-self.embedding_range.item(), 
@@ -151,6 +156,7 @@ class KGEModel(nn.Module):
             
         model_func = {
             'TransE': self.TransE,
+            'TransEXR': self.TransE,
             'ConnE': self.ConnE,
             'TransE2': self.TransE,
             'ConnE2': self.ConnE,
