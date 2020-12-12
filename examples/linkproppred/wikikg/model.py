@@ -178,14 +178,16 @@ class KGEModel(nn.Module):
                 dim=0,
                 index=head_part[:, 0]
             ).unsqueeze(1)
-
-            relation = self.relation_embedding.view(batch_size, negative_sample_size, -1)
-
+            
             tail = torch.index_select(
                 self.entity_embedding,
                 dim=0,
                 index=head_part[:, 2]
             ).unsqueeze(1)
+            print( head.size(), tail.size() )
+
+            relation = self.relation_embedding.view(1, negative_sample_size, -1)
+
 
         else:
             raise ValueError('mode %s not supported' % mode)
