@@ -85,6 +85,7 @@ class TestDataset(Dataset):
         if random_sampling:
             self.neg_size = args.neg_size_eval_train
         self.test_first_sample = args.test_first_sample
+        self.reverse_relations = args.reverse_relations
 
     def __len__(self):
         return self.len
@@ -112,7 +113,7 @@ class TestDataset(Dataset):
                         tails = torch.randint(0, self.nentity, size=(self.neg_size,))
                 negative_sample = torch.cat([torch.LongTensor([tail]), tails])
         elif self.mode == 'relations':
-            if args.reverse_relations:
+            if self.reverse_relations:
                 positive_sample = torch.LongTensor((tail, relation, head))
             rels = torch.tensor( range( 0, 0 ) )
             negative_sample = torch.cat([torch.LongTensor([head]), rels, torch.LongTensor([tail])])
