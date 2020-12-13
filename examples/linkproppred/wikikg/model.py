@@ -170,7 +170,7 @@ class KGEModel(nn.Module):
 
         elif mode == 'relations':
             head_part, tail_part = sample
-            print( head_part.size(), tail_part.size() )
+#            print( head_part.size(), tail_part.size() )
             batch_size, negative_sample_size = head_part.size(0), self.nrelation
 
             head = torch.index_select(
@@ -184,9 +184,9 @@ class KGEModel(nn.Module):
                 dim=0,
                 index=head_part[:, 2]
             ).unsqueeze(1)
-            print( head.size(), tail.size() )
 
             relation = self.relation_embedding.view(1, negative_sample_size, -1)
+            print( head.size(), relation.size(), tail.size() )
 
 
         else:

@@ -19,6 +19,10 @@ don't train relations: log/ogbl-wikikg/TransE/600-30.0/1607610066.037687/
 
 tdumprel-transe600nte.sh) transe don't train embeddings
 	log/ogbl-wikikg/TransEX/600-30.0/1607784298.542306/
+2020-12-12 11:24:56 INFO     Test hits@1_list at step 199999: 0.129777
+2020-12-12 11:24:56 INFO     Test mrr_list at step 199999: 0.171016
+
+PairSE g=8 log/ogbl-wikikg/PairSE/400-8.0/1607698836.1637478 - doesn't work at all.
 
 try transe with biokg
 
