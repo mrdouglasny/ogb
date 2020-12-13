@@ -112,6 +112,8 @@ class TestDataset(Dataset):
                         tails = torch.randint(0, self.nentity, size=(self.neg_size,))
                 negative_sample = torch.cat([torch.LongTensor([tail]), tails])
         elif self.mode == 'relations':
+            if args.reverse_relations:
+                positive_sample = torch.LongTensor((tail, relation, head))
             rels = torch.tensor( range( 0, 0 ) )
             negative_sample = torch.cat([torch.LongTensor([head]), rels, torch.LongTensor([tail])])
             

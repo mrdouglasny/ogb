@@ -186,7 +186,7 @@ class KGEModel(nn.Module):
             ).unsqueeze(1)
 
             relation = self.relation_embedding.view(1, negative_sample_size, -1)
-            print( head.size(), relation.size(), tail.size() )
+#            print( head.size(), relation.size(), tail.size() )
 
 
         else:
