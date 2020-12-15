@@ -189,7 +189,7 @@ def main(args):
 
     
     if args.meta_dict=='':
-        meta = 'dataset_' + (args.dataset) + '/meta_dict.pt'
+        meta = 'dataset_' + re.sub('-','_',args.dataset) + '/meta_dict.pt'
         if os.path.exists(meta):
             args.meta_dict = meta
         
