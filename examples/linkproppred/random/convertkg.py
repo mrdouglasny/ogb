@@ -17,7 +17,19 @@ def parse_args(args=None):
     parser.add_argument('-ep', '--edge_probability', type=float, default=0.1)
     parser.add_argument('-nv', '--n_vertices', type=int)
     parser.add_argument('-nr', '--n_relations', type=int)
+    parser.add_argument('--map_node_file', type=str)
+    parser.add_argument('--map_relation_file', type=str)
     return parser.parse_args(args)
+
+def read_map(file):
+    if file=='':
+        return None
+    map = dict()
+    with open(file, newline='') as csvfile:
+        csvfile.readline()
+        for (idx,name) in csv.reader(csvfile, delimiter=',', quotechar='|'):
+            map[name] = int(idx)
+    return map
 
 args = parse_args()
 dataset_name = args.dataset
@@ -25,6 +37,12 @@ num_vertices = args.n_vertices
 num_relations = args.n_relations
 graph = dict()
 
+node_map = read_map(args.map_node_file)
+relation_map = read_map(args.map_relation_file)
+if node_map!=None and relation_map==None:
+    raise ValueError('need map_relation_file')
+
+    
 if args.mode=='random_gnp':
 # generate a random graph in the object 'graph'
     g = nx.fast_gnp_random_graph(num_vertices, args.edge_probability)
@@ -38,7 +56,10 @@ elif args.mode=='read_triples':
     num_nodes = 0
     with open(args.file, newline='') as csvfile:
         for row in csv.reader(csvfile, delimiter=',', quotechar='|'):
-            (head,relation,tail) = [int(r) for r in row]
+            if node_map!=None:
+                (head,relation,tail) = (node_map(row[0]),relation_map(row[1]),node_map(row[2]))
+            else:
+                (head,relation,tail) = [int(r) for r in row]
             edges.append((head,tail))
             relations.append(relation)
             if head>=num_nodes:
