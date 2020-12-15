@@ -57,7 +57,7 @@ elif args.mode=='read_triples':
     with open(args.file, newline='') as csvfile:
         for row in csv.reader(csvfile, delimiter=',', quotechar='|'):
             if node_map!=None:
-                (head,relation,tail) = (node_map(row[0]),relation_map(row[1]),node_map(row[2]))
+                (head,relation,tail) = (node_map[row[0]],relation_map[row[1]],node_map[row[2]])
             else:
                 (head,relation,tail) = [int(r) for r in row]
             edges.append((head,tail))
