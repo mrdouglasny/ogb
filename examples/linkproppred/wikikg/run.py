@@ -8,6 +8,7 @@ import argparse
 import json
 import logging
 import os
+import os.path
 import random
 
 import numpy as np
@@ -185,9 +186,15 @@ def main(args):
     
     # Write logs to checkpoint and console
     set_logger(args)
+
     
+    if args.meta_dict=='':
+        meta = 'dataset_' + (args.dataset) + '/meta_dict.pt'
+        if os.path.exists(meta):
+            args.meta_dict = meta
+        
     if args.meta_dict!='':
-        meta_dict = torch.load('/home/mrdouglas/ogb/examples/linkproppred/random/dataset_ogbl_random1/meta_dict.pt')
+        meta_dict = torch.load(meta_dict)
         dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator, meta_dict=meta_dict)
     else:
         meta_dict = None
