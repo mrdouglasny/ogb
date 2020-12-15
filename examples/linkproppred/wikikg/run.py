@@ -33,6 +33,7 @@ def parse_args(args=None):
     )
 
     parser.add_argument('--cuda', action='store_true', help='use GPU')
+    parser.add_argument('--meta_dict', type=str, default='', help='name of dictionary')
     
     parser.add_argument('--do_train', action='store_true')
     parser.add_argument('--do_valid', action='store_true')
@@ -185,16 +186,21 @@ def main(args):
     # Write logs to checkpoint and console
     set_logger(args)
     
-    dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator)
-#    dataset = LinkPropPredDataset(name = args.dataset)
+    if args.meta_dict!='':
+        meta_dict = torch.load('/home/mrdouglas/ogb/examples/linkproppred/random/dataset_ogbl_random1/meta_dict.pt')
+        dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator, meta_dict=meta_dict)
+    else:
+        meta_dict = None
+        dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator)
+
     split_dict = dataset.get_edge_split()
-    nentity = dataset.graph['num_nodes']
+    nentity = int(dataset.graph['num_nodes'])
     nrelation = int(max(dataset.graph['edge_reltype'])[0])+1
 
-    if args.evaluator!='':
-        evaluator = Evaluator(name = args.dataset, metric=args.evaluator)
-    else:
-        evaluator = Evaluator(name = args.dataset)
+#    if args.evaluator!='':
+    evaluator = Evaluator(name = args.dataset, metric=args.evaluator, meta_info=meta_dict)
+#    else:
+#        evaluator = Evaluator(name = args.dataset, meta_info=meta_dict)
 
     args.nentity = nentity
     args.nrelation = nrelation
@@ -344,7 +350,7 @@ def main(args):
                 
             if args.do_valid and step % args.valid_steps == 0 and step > 0:
                 logging.info('Evaluating on Valid Dataset...')
-                metrics = kge_model.test_step(kge_model, valid_triples, args)
+                metrics = kge_model.test_step(kge_model, valid_triples, args, random_sampling=args.test_random_sample>0)
                 log_metrics('Valid', step, metrics, writer)
         
         save_variable_list = {
