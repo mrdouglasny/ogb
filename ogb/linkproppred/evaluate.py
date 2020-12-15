@@ -9,10 +9,14 @@ except ImportError:
 
 ### Evaluator for link property prediction
 class Evaluator:
-    def __init__(self, name, metric=''):
+    def __init__(self, name, metric='', meta_info=None):
         self.name = name
 
-        meta_info = pd.read_csv(os.path.join(os.path.dirname(__file__), 'master.csv'), index_col = 0)
+        if meta_info==None:
+            meta_info = pd.read_csv(os.path.join(os.path.dirname(__file__), 'master.csv'), index_col = 0)
+        else:
+            meta_info = { self.name:meta_info }
+
         if not self.name in meta_info:
             print(self.name)
             error_mssg = 'Invalid dataset name {}.\n'.format(self.name)
