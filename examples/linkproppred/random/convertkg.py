@@ -22,7 +22,7 @@ def parse_args(args=None):
     return parser.parse_args(args)
 
 def read_map(file):
-    if file=='':
+    if file==None:
         return None
     map = dict()
     with open(file, newline='') as csvfile:
