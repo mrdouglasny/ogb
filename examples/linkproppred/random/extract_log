@@ -1,15 +1,23 @@
 #!/bin/bash
 # look at train.log or test.log and extract final results.
 
+TMP=/tmp/tmp$$
+
 for dir
 do
 	for FILE in $dir/train.log $dir/test.log
 	do  if [ -r $FILE ]
 	    then
-		OUT=$dir/summary.txt
-		echo $FILE >$OUT
-	    	head -n 100 $FILE | sed -n '1,/Train loss at step 0:/s/.*INFO *//p' >>$OUT
-		tail -n 100 $FILE | grep -v illegal | sed -n '/Evaluating on Test Dataset/,$s/.*INFO *//p' >>$OUT
+		tail -n 100 $FILE | grep -v illegal | sed -n '/Evaluating on Test Dataset/,$s/.*INFO *//p' >$TMP
+		if [ -s $TMP ]
+		then
+		    OUT=$dir/summary.txt
+		    echo $FILE >$OUT
+		    head -n 100 $FILE | sed -n '1,/Train loss at step 0:/s/.*INFO *//p' >>$OUT
+		    cat $TMP >>$OUT
+		fi
 	    fi
 	done
 done
+
+rm -f $TMP
