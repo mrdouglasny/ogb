@@ -149,5 +149,5 @@ print(dataset[0])
 print(dataset.get_edge_split())
 
 ## 9. Zipping and cleaning up
-saver.zip()
-saver.cleanup()
+#saver.zip()
+#saver.cleanup()
