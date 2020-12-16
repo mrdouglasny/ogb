@@ -3,7 +3,7 @@
 
 for dir
 do
-	for FILE in $dir/{train,test}.log
+	for FILE in $dir/train.log $dir/test.log
 	do  if [ -r $FILE ]
 	    then
 		OUT=$dir/summary.txt
