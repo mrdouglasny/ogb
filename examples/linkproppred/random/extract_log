@@ -7,8 +7,9 @@ do
 	do  if [ -r $FILE ]
 	    then
 		OUT=$dir/summary.txt
-	    	head -n 100 $FILE | sed -n '1,/Train loss at step 0:/s/.*INFO *//p' >$OUT
-		tail -n 100 $FILE | grep -v illegal | sed -n '/Evaluating on Test Dataset/,$s/.*INFO *//p' >$OUT
+		echo $FILE >$OUT
+	    	head -n 100 $FILE | sed -n '1,/Train loss at step 0:/s/.*INFO *//p' >>$OUT
+		tail -n 100 $FILE | grep -v illegal | sed -n '/Evaluating on Test Dataset/,$s/.*INFO *//p' >>$OUT
 	    fi
 	done
 done
