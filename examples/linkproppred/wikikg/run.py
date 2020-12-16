@@ -197,6 +197,7 @@ def main(args):
         
     if args.meta_dict!='':
         meta_dict = torch.load(args.meta_dict)
+        print( meta_dict )
         dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator, meta_dict=meta_dict)
     else:
         meta_dict = None
