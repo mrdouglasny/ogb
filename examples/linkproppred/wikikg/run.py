@@ -150,7 +150,8 @@ def set_logger(args):
         log_file = os.path.join(args.save_path or args.init_checkpoint, 'train.log')
     else:
         log_file = os.path.join(args.save_path or args.init_checkpoint, 'test.log')
-
+    print( 'Starting logging to ', log_file )
+    
     logging.basicConfig(
         format='%(asctime)s %(levelname)-8s %(message)s',
         level=logging.INFO,
