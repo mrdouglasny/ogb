@@ -9,7 +9,7 @@ dat <- NULL
 R
 
 cat >$TMP <<'AWK'
-FNR==1 { print "dat[length(dat)] <- list( logfile='" $0 "'"; next }
+FNR==1 { print "dat[length(dat)+1] <- list( logfile='" $0 "'"; next }
 /Parameter/ { next }
 /#/ { sub( "#", "n_" ) }
 NF > 1 && $2+0 != $2 { $2 = "'" $2 "'" }
