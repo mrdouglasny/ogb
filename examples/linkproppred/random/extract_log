@@ -4,7 +4,7 @@
 TMP=/tmp/tmp$$
 
 for dir
-do
+do  if [ -r $dir/exclude.summary ] ; then : ; else
 	for FILE in $dir/train.log $dir/test.log
 	do  if [ -r $FILE ]
 	    then
@@ -18,6 +18,7 @@ do
 		fi
 	    fi
 	done
+    fi
 done
 
 rm -f $TMP
