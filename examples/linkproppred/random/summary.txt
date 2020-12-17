@@ -1,6 +1,6 @@
 # read from log/ogbl-ran1/TransE/100-10.0/1608139995.7164254 log/ogbl-ran1/TransE/100-5.0/1608133504.1443684 log/ogbl-ran1/TransE/200-10.0/1608085018.4423785 log/ogbl-ran1/TransE/200-10.0/1608128180.084753 log/ogbl-ran1/TransE/200-20.0/1608085018.4422233 log/ogbl-ran1/TransE/200-20.0/1608128180.084411 log/ogbl-ran1/TransE/200-30.0/1608085018.441881 log/ogbl-ran1/TransE/200-30.0/1608085018.4425068 log/ogbl-ran1/TransE/200-30.0/1608128180.0838485 log/ogbl-ran1/TransE/200-30.0/1608128180.08464 log/ogbl-ran1/TransE/200-30.0/1608129050.255659
 dat <- NULL
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/100-10.0/1608139995.7164254//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/100-10.0/1608139995.7164254//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -28,7 +28,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/100-10.0/1608139995.7164
 ,Train_hits_10_list_at_step_199999=1.000000
 ,Train_mrr_list_at_step_199999=0.988050
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/100-5.0/1608133504.1443684//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/100-5.0/1608133504.1443684//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -56,7 +56,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/100-5.0/1608133504.14436
 ,Train_hits_10_list_at_step_199999=1.000000
 ,Train_mrr_list_at_step_199999=0.989100
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-10.0/1608085018.4423785//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/200-10.0/1608085018.4423785//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -80,7 +80,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-10.0/1608085018.4423
 ,Test_hits_10_list_at_step_199999=0.636000
 ,Test_mrr_list_at_step_199999=0.630897
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-10.0/1608128180.084753//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/200-10.0/1608128180.084753//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -108,7 +108,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-10.0/1608128180.0847
 ,Train_hits_10_list_at_step_199999=1.000000
 ,Train_mrr_list_at_step_199999=0.989533
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-20.0/1608085018.4422233//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/200-20.0/1608085018.4422233//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -132,7 +132,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-20.0/1608085018.4422
 ,Test_hits_10_list_at_step_199999=0.568000
 ,Test_mrr_list_at_step_199999=0.346607
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-20.0/1608128180.084411//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/200-20.0/1608128180.084411//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -160,7 +160,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-20.0/1608128180.0844
 ,Train_hits_10_list_at_step_199999=1.000000
 ,Train_mrr_list_at_step_199999=0.988217
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608085018.4425068//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608085018.4425068//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -184,7 +184,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608085018.4425
 ,Test_hits_10_list_at_step_199999=0.082667
 ,Test_mrr_list_at_step_199999=0.037805
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608128180.08464//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608128180.08464//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
@@ -212,7 +212,7 @@ dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608128180.0846
 ,Train_hits_10_list_at_step_199999=1.000000
 ,Train_mrr_list_at_step_199999=0.987867
 )
-dat[length(dat)] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608129050.255659//train.log'
+dat[length(dat)+1] <- list( logfile='log/ogbl-ran1/TransE/200-30.0/1608129050.255659//train.log'
 ,Model='TransE'
 ,Dataset='ogbl-ran1'
 ,n_entity=7498
