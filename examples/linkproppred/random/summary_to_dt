@@ -1,0 +1,25 @@
+#!/bin/bash
+# collect summary.txt files, preprocess for R
+
+TMP=/tmp/a$$
+
+cat <<R
+# read from $*
+dat <- NULL
+R
+
+cat >$TMP <<'AWK'
+FNR==1 { print "dat[length(dat)] <- list( logfile='" $0 "'"; next }
+/Parameter/ { next }
+/#/ { sub( "#", "n_" ) }
+NF > 1 && $2+0 != $2 { $2 = "'" $2 "'" }
+NF > 1 { gsub( "[ @]", "_", $1 ); print "," $1 "=" $2 }
+END { print ")" }
+AWK
+
+for i
+do
+	awk -F '[:=] *' -f $TMP $i/summary.txt
+done
+
+rm -f $TMP
