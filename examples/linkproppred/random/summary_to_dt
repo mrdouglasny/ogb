@@ -18,8 +18,7 @@ END { print ")" }
 AWK
 
 for i
-do
-	awk -F '[:=] *' -f $TMP $i/summary.txt
+do  [ -r  $i/summary.txt ] && awk -F '[:=] *' -f $TMP $i/summary.txt
 done
 
 rm -f $TMP
