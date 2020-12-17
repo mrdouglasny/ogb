@@ -1,0 +1,20 @@
+#!/bin/bash
+# go through a set of runs and redo the tests
+
+RETEST=$1 ; shift
+
+cuda=1
+maxcuda=7
+
+for i
+do  if [[ -r $i/checkpoint ]] && [[ -r $i/summary.txt ]]
+    then if [[ -r $i/retest.$RETEST ]] ; then :
+    	 else
+	     CUDA_VISIBLE_DEVICES=$cuda \
+		nohup python run.py --cuda --do_test \
+		--init $i --evaluator $RETEST >$i/retest.$RETEST 2>&1 &
+	     cuda=$((cuda+1))
+	     [[ $cuda > $maxcuda ]] && exit 0
+	 fi
+    fi
+done
