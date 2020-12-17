@@ -13,8 +13,9 @@ do  if [[ -r $i/checkpoint ]] && [[ -r $i/summary.txt ]]
     	 else
 	     CUDA_VISIBLE_DEVICES=$cuda \
 		nohup python run.py --cuda --do_test $RETEST_OPTIONS \
-		--init $i --evaluator $RETEST >$i/retest.$RETEST
-	     awk '!on && /score/ {on=1;print} on && !/score/ {print}' $i/retest.$RETEST >$i/retest.$RETEST.2
+		--init $i --evaluator $RETEST >$i/retest.$RETEST.new || exit 1
+	     awk '!on && /score/ {on=1;print} on && !/score/ {print}' $i/retest.$RETEST.new >$i/retest.$RETEST
+	     mv 
 #	     cuda=$((cuda+1))
 #	     [[ $cuda > $maxcuda ]] && exit 0
 	 fi
