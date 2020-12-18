@@ -131,9 +131,13 @@ We need to split up the edges.
 split_idx = dict()
 num_edges = graph['edge_index'].shape[1]
 if args.test_upto>0:
-    split_idx['test'] = range(args.test_upto)
-    split_idx['train'] = range(args.test_upto,num_edges)
-    split_idx['valid'] = range(args.test_upto) 
+    if args.test_upto>num_edges:
+        raise ValueError('test_upto larger than', num_edges)
+    # split the first group (structured) edges into 20% test/valid and 80% train
+    perm = np.random.permutation(args.test_upto)
+    split_idx['test'] = perm[:int(0.2*args.test_upto)]
+    split_idx['valid'] = split_idx['test']
+    split_idx['train'] = np.random.permutation(np.concatenate((perm[int(0.2*args.test_upto):],np.arange(args.test_upto,num_edges))))
 else:
     perm = np.random.permutation(num_edges)
     split_idx['train'] = perm[:int(0.8*num_edges)]
