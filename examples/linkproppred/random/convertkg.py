@@ -1,8 +1,11 @@
 from ogb.io import DatasetSaver
+from ogb.linkproppred import LinkPropPredDataset
 import numpy as np
 import networkx as nx
 import argparse
+from torch import load
 import os
+import re
 import csv
 
 def parse_args(args=None):
@@ -12,6 +15,9 @@ def parse_args(args=None):
     )
 
     parser.add_argument('dataset', type=str)
+    parser.add_argument('-t', '--do_test', action='store_true')
+    parser.add_argument('--prel', action='store_true')
+    parser.add_argument('--test_upto', type=int, default=0)
     parser.add_argument('-f', '--file', type=str)
     parser.add_argument('-m', '--mode', type=str)
     parser.add_argument('-ep', '--edge_probability', type=float, default=0.1)
@@ -33,6 +39,22 @@ def read_map(file):
 
 args = parse_args()
 dataset_name = args.dataset
+
+if args.do_test:
+    meta = 'dataset_' + re.sub('-','_',args.dataset) + '/meta_dict.pt'
+    meta_dict = load(meta)
+    dataset = LinkPropPredDataset(dataset_name, meta_dict = meta_dict)
+    dsplit = dataset.get_edge_split()
+    if args.prel:
+        np.set_printoptions(threshold=np.inf)
+        print('test.relations <- c(')
+        print(re.sub('[\[\]]', '', np.array2string( dsplit['test']['relation'], separator=', ' )))
+        print(')')
+    else:
+        print(dataset[0])
+        print(dsplit)
+    exit(0)
+
 num_vertices = args.n_vertices
 num_relations = args.n_relations
 graph = dict()
@@ -108,10 +130,16 @@ We need to split up the edges.
 '''
 split_idx = dict()
 num_edges = graph['edge_index'].shape[1]
-perm = np.random.permutation(num_edges)
-split_idx['train'] = perm[:int(0.8*num_edges)]
-split_idx['valid'] = perm[int(0.8*num_edges): int(0.9*num_edges)]
-split_idx['test'] = perm[int(0.9*num_edges):]
+if args.test_upto>0:
+    split_idx['test'] = range(args.test_upto)
+    split_idx['train'] = range(args.test_upto,num_edges)
+    split_idx['valid'] = range(args.test_upto) 
+else:
+    perm = np.random.permutation(num_edges)
+    split_idx['train'] = perm[:int(0.8*num_edges)]
+    split_idx['valid'] = perm[int(0.8*num_edges): int(0.9*num_edges)]
+    split_idx['test'] = perm[int(0.9*num_edges):]
+
 # need to generate the triples with these indices, graph is not otherwise used (?)
 split_triples = { k: make_triples(graph,split_idx[k]) for k in split_idx.keys() }
 # should add test negatives but do random ones now.
