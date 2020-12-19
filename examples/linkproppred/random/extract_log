@@ -4,7 +4,10 @@
 TMP=/tmp/tmp$$
 
 for dir
-do  if [ -r $dir/exclude.summary ] ; then : ; else
+do  case $dir in
+    *.log) dir=`dirname $dir` ;;
+    esac
+    if [ -r $dir/exclude.summary ] ; then : ; else
 	for FILE in $dir/train.log $dir/test.log
 	do  if [ -r $FILE ]
 	    then
@@ -15,6 +18,7 @@ do  if [ -r $dir/exclude.summary ] ; then : ; else
 		    echo $FILE >$OUT
 		    head -n 100 $FILE | sed -n '1,/Train loss at step 0:/s/.*INFO *//p' >>$OUT
 		    cat $TMP >>$OUT
+		    ls -l $OUT
 		fi
 	    fi
 	done

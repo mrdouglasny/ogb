@@ -4,7 +4,7 @@
 RETEST=$1 ; shift
 RETEST_OPTIONS="--test_random_sample 500 --ntriples_eval_train 5000"
 
-cuda=1
+cuda=5
 maxcuda=7
 
 for i
@@ -12,10 +12,9 @@ do  if [[ -r $i/checkpoint ]] && [[ -r $i/summary.txt ]]
     then if [[ -r $i/retest.$RETEST ]] ; then :
     	 else
 	     CUDA_VISIBLE_DEVICES=$cuda \
-		nohup python run.py --cuda --do_test $RETEST_OPTIONS \
-		--init $i --evaluator $RETEST >$i/retest.$RETEST.new || exit 1
+		python run.py --cuda --do_test $RETEST_OPTIONS \
+		--init $i --evaluator $RETEST >$i/retest.$RETEST.new || echo Failed
 	     awk '!on && /score/ {on=1;print} on && !/score/ {print}' $i/retest.$RETEST.new >$i/retest.$RETEST
-	     mv 
 #	     cuda=$((cuda+1))
 #	     [[ $cuda > $maxcuda ]] && exit 0
 	 fi
