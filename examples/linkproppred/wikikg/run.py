@@ -108,10 +108,10 @@ def override_config(args):
     if not args.test_change_model:
         args.model = argparse_dict['model'] 
         args.test_batch_size = argparse_dict['test_batch_size']
+        args.gamma = argparse_dict['gamma']
     args.double_entity_embedding = argparse_dict['double_entity_embedding']
     args.double_relation_embedding = argparse_dict['double_relation_embedding']
     args.hidden_dim = argparse_dict['hidden_dim']
-    args.gamma = argparse_dict['gamma']
     
 def save_model(model, optimizer, save_variable_list, args):
     '''
