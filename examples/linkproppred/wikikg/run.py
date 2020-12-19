@@ -111,6 +111,7 @@ def override_config(args):
     args.double_entity_embedding = argparse_dict['double_entity_embedding']
     args.double_relation_embedding = argparse_dict['double_relation_embedding']
     args.hidden_dim = argparse_dict['hidden_dim']
+    args.gamma = argparse_dict['gamma']
     
 def save_model(model, optimizer, save_variable_list, args):
     '''
