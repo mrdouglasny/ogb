@@ -122,7 +122,7 @@ print(graph)
 num_edges = graph['edge_index'].shape[1]
 if args.shuffle_edge_types>0.0:
     print( 'old edge_types', graph['edge_reltype'][:,0] )
-    old_edge_reltype = graph['edge_reltype']
+    old_edge_reltype = np.copy( graph['edge_reltype'] )
     select = np.random.sample(size=num_edges) < args.shuffle_edge_types
     sh_types = np.extract( select, graph['edge_reltype'][:,0] )
     np.random.shuffle( sh_types )
