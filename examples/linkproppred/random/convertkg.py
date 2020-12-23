@@ -127,7 +127,7 @@ if args.shuffle_edge_types>0.0:
     sh_types = np.extract( select, graph['edge_reltype'][:,0] )
     np.random.shuffle( sh_types )
     np.putmask( graph['edge_reltype'][:,0], select, sh_types )
-    print( 'shuffle', sh_types.len(), 'out of', num_edges )
+    print( 'shuffle', len(sh_types), 'out of', num_edges )
     print( 'new', graph['edge_reltype'][:,0] )
     n_changed = 0
     for i in range(num_edges):
