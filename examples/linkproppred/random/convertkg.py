@@ -22,6 +22,7 @@ def parse_args(args=None):
     parser.add_argument('-m', '--mode', type=str)
     parser.add_argument('-s', '--subsample', type=float, default=0.8)
     parser.add_argument('--shuffle_edge_types', type=float, default=0.0)
+    parser.add_argument('--collapse_edge_types', type=int, default=0, help='reduce edge types to n mod N')
     parser.add_argument('-ep', '--edge_probability', type=float, default=0.1)
     parser.add_argument('-nv', '--n_vertices', type=int)
     parser.add_argument('-nr', '--n_relations', type=int)
@@ -121,13 +122,25 @@ print(graph)
 num_edges = graph['edge_index'].shape[1]
 if args.shuffle_edge_types>0.0:
     print( 'old edge_types', graph['edge_reltype'][:,0] )
+    old_edge_reltype = graph['edge_reltype']
     select = np.random.sample(size=num_edges) < args.shuffle_edge_types
     sh_types = np.extract( select, graph['edge_reltype'][:,0] )
     np.random.shuffle( sh_types )
     np.putmask( graph['edge_reltype'][:,0], select, sh_types )
     print( 'shuffle', sh_types.len(), 'out of', num_edges )
     print( 'new', graph['edge_reltype'][:,0] )
+    n_changed = 0
+    for i in range(num_edges):
+        if old_edge_reltype[i,0] != graph['edge_reltype'][i,0]:
+            n_changed += 1
+    print ('n_changed =', n_changed, '/', num_edges )
 
+if args.collapse_edge_types>0:
+    N = args.collapse_edge_types
+    for i in range(num_edges):
+        graph['edge_reltype'][i,0] = graph['edge_reltype'][i,0] % N
+    print( 'new', graph['edge_reltype'][:,0] )
+        
 def make_triples( graph, idx ):
     triples = dict()
     triples['head'] = graph['edge_index'][0,idx]
