@@ -207,6 +207,7 @@ def main(args):
 
     split_dict = dataset.get_edge_split()
     if args.print_split_dict:
+        np.set_printoptions(threshold=sys.maxsize)
         print(split_dict)
     nentity = int(dataset.graph['num_nodes'])
     nrelation = int(max(dataset.graph['edge_reltype'])[0])+1
