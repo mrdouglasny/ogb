@@ -22,9 +22,9 @@ args = parse_args()
 data = np.load(args.infile)
 
 if args.print_norms:
-    with open(args.outfile, 'w'):
-        print( 'norms:', np.linalg.norm(data, ord=1, axis=1) )
+    with open(args.outfile, 'w') as out:
+        print( 'norms:', np.linalg.norm(data, ord=1, axis=1), file=out )
         motif = data[1,]+data[2,]-data[3,]
-        print( 'motif:', np.linalg.norm(motif, ord=1) )    
+        print( 'motif:', np.linalg.norm(motif, ord=1), file=out )    
 else:
     np.savetxt(args.outfile, data, fmt='%.8e', header='Read from ' + args.infile)
