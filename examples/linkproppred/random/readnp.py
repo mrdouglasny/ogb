@@ -23,7 +23,7 @@ data = np.load(args.infile)
 
 if args.print_norms:
     print( 'norms:', np.linalg.norm(data, ord=1, axis=1) )
-    motif = data[0,]+data[1,]-data[2,]
+    motif = data[1,]+data[2,]-data[3,]
     print( 'motif:', np.linalg.norm(motif, ord=1) )    
 else:
     np.savetxt(args.outfile, data, fmt='%.8e', header='Read from ' + args.infile)
