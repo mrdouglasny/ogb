@@ -94,6 +94,7 @@ def parse_args(args=None):
     parser.add_argument('--print_relation_embedding', type=str, default='', help='arg=dumpfile')
     parser.add_argument('--print_relation_option', type=str, default='list')
     parser.add_argument('--print_relation_steps', type=int, default=0)
+    parser.add_argument('--print_split_dict', action='store_true')
     return parser.parse_args(args)
 
 def override_config(args):
@@ -205,6 +206,8 @@ def main(args):
         dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator)
 
     split_dict = dataset.get_edge_split()
+    if args.print_split_dict:
+        print(split_dict)
     nentity = int(dataset.graph['num_nodes'])
     nrelation = int(max(dataset.graph['edge_reltype'])[0])+1
 
