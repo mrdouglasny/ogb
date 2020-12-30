@@ -19,4 +19,4 @@ def parse_args(args=None):
 args = parse_args()
 
 data = np.load(args.infile)
-np.savetxt(args.outfile, data)
+np.savetxt(args.outfile, data, fmt='%.8e')
