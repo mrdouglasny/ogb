@@ -22,7 +22,7 @@ args = parse_args()
 data = np.load(args.infile)
 
 if args.print_norms:
-    with open(outfile, 'w'):
+    with open(args.outfile, 'w'):
         print( 'norms:', np.linalg.norm(data, ord=1, axis=1) )
         motif = data[1,]+data[2,]-data[3,]
         print( 'motif:', np.linalg.norm(motif, ord=1) )    
