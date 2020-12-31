@@ -11,7 +11,7 @@ do  case $dir in
 	for FILE in $dir/train.log $dir/test.log
 	do  if [ -r $FILE ]
 	    then
-		tail -n 100 $FILE | grep -v illegal | sed -n '/Evaluating on Test Dataset/,$s/.*INFO *//p' >$TMP
+		tail -n 200 $FILE | grep -v illegal | sed -n '/Evaluating on Test Dataset/,$s/.*INFO *//p' >$TMP
 		if [ -s $TMP ]
 		then
 		    OUT=$dir/summary.txt
