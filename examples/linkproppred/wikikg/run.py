@@ -11,7 +11,7 @@ import re
 import os
 import os.path
 import random
-import sys
+#import sys
 
 import numpy as np
 import torch
@@ -207,9 +207,9 @@ def main(args):
         dataset = LinkPropPredDataset(name = args.dataset, metric=args.evaluator)
 
     split_dict = dataset.get_edge_split()
-    if args.print_split_dict:
-        np.set_printoptions(threshold=sys.maxsize)
-        print(split_dict)
+#    if args.print_split_dict:
+#        np.set_printoptions(threshold=sys.maxsize)
+#        print(split_dict)
     nentity = int(dataset.graph['num_nodes'])
     nrelation = int(max(dataset.graph['edge_reltype'])[0])+1
 
