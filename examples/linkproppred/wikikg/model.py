@@ -537,6 +537,10 @@ class KGEModel(nn.Module):
         if args.test_dump_byrel:
             hist_byrel = np.zeros((2,args.nrelation,args.test_dump_hist), dtype=int)
 
+        if args.test_log_steps<0:
+            step = 1
+            args.test_log_steps = total_steps
+            
         with torch.no_grad():
             for test_dataset in test_dataset_list:
                 for positive_sample, negative_sample, mode in test_dataset:
