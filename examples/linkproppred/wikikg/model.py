@@ -615,7 +615,7 @@ class KGEModel(nn.Module):
                                     vals = break_list * hist_byrel[i][j]
                                     valsq = break_list * vals
                                     m =  vals.sum() / num
-                                    sd = valsq.sum() / num - m^2
+                                    sd = valsq.sum() / num - m*m
                                     print(step, i, j, m, sd, hist_byrel[i][j].tolist(), file=dump)
 
                     step += 1
