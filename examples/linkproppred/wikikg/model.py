@@ -612,6 +612,8 @@ class KGEModel(nn.Module):
                             for i in range(2):
                                 for j in range(args.nrelation):
                                     num = hist_byrel[i][j].sum()
+                                    if num<1:
+                                        print( 'strange num', i, j, hist_byrel[i][j] )
                                     vals = break_list * hist_byrel[i][j]
                                     valsq = break_list * vals
                                     m =  vals.sum() / num
