@@ -481,12 +481,13 @@ class KGEModel(nn.Module):
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
             if args.test_dump_hist > 0:
+                break_list = np.zeros(args.test_dump_hist, dtype=float)
+                for n in range(0, args.test_dump_hist):
+                    break_list[n] = min_val + n*range_val/args.test_dump_hist
                 print("# brks<-c(", end='', file=dump)
-                print("{:.2f}".format(min_val + 0*range_val /
-                                      args.test_dump_hist), end='', file=dump)
-                for n in range(1, args.test_dump_hist):
-                    print(",{:.2f}".format(
-                        min_val + n*range_val/args.test_dump_hist), end='', file=dump)
+                print("{:.2f}".format(break_list[0]), end='', file=dump)
+                 for n in range(1, args.test_dump_hist):
+                    print(",{:.2f}".format(break_list[n]), end='', file=dump)
                 print(")", file=dump)
 
         # Prepare dataloader for evaluation
@@ -610,9 +611,9 @@ class KGEModel(nn.Module):
                             print('step neg relation mean sd hist', file=dump)
                             for i in range(2):
                                 for j in range(args.nrelation):
-                                    m = hist_byrel[i][j].mean()
-                                    sd = hist_byrel[i][j].std()
-                                    print(step, i, j, m, sd, hist_byrel[i][j].tolist(), file=dump)
+                                    vals = break_list * hist_byrel[i][j]
+                                    print(step, i, j, vals.mean(), vals.std(),
+                                          hist_byrel[i][j].tolist(), file=dump)
 
                     step += 1
 
