@@ -607,7 +607,7 @@ class KGEModel(nn.Module):
                         logging.info('Evaluating the model... (%d/%d)' %
                                      (step, total_steps))
                         if step>0 and args.test_dump_byrel:
-                            print('step neg relation hist', file=dump)
+                            print('step neg relation mean sd hist', file=dump)
                             for i in range(2):
                                 for j in range(args.nrelation):
                                     m = hist_byrel[i][j].mean()
