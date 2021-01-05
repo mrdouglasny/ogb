@@ -481,7 +481,7 @@ class KGEModel(nn.Module):
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
             if args.test_dump_hist > 0:
-                print("brks<-c(", end='', file=dump)
+                print("# brks<-c(", end='', file=dump)
                 print("{:.2f}".format(min_val + 0*range_val /
                                       args.test_dump_hist), end='', file=dump)
                 for n in range(1, args.test_dump_hist):
