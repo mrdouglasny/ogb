@@ -611,9 +611,12 @@ class KGEModel(nn.Module):
                             print('step neg relation mean sd hist', file=dump)
                             for i in range(2):
                                 for j in range(args.nrelation):
+                                    num = hist_byrel[i][j].sum()
                                     vals = break_list * hist_byrel[i][j]
-                                    print(step, i, j, vals.mean(), vals.std(),
-                                          hist_byrel[i][j].tolist(), file=dump)
+                                    valsq = break_list * vals
+                                    m =  vals.sum() / num
+                                    sd = valsq.sum() / num - m^2
+                                    print(step, i, j, m, sd, hist_byrel[i][j].tolist(), file=dump)
 
                     step += 1
 
