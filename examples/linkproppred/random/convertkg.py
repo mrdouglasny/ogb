@@ -19,7 +19,7 @@ def parse_args(args=None):
     parser.add_argument('--print_relations', action='store_true')
     parser.add_argument('--test_upto', type=int, default=0)
     parser.add_argument('-f', '--file', type=str)
-    parser.add_argument('-m', '--mode', type=str)
+    parser.add_argument('-m', '--mode', type=str, help='read_triples,read_two_files,random_gnp')
     parser.add_argument('-s', '--subsample', type=float, default=0.8)
     parser.add_argument('--shuffle_edge_types', type=float, default=0.0)
     parser.add_argument('--collapse_edge_types', type=int, default=0, help='reduce edge types to n mod N')
