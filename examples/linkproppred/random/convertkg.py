@@ -215,7 +215,7 @@ with open(os.path.join(mapping_path, 'args.txt'), mode='w') as out:
     print( args, file=out )
 with open(os.path.join(mapping_path, 'split_idx.txt'), mode='w') as out:
     np.set_printoptions(threshold=sys.maxsize)
-    for k in split_idx.keys:
+    for k in split_idx.keys():
         print( k, split_idx[k].tolist(), file=out )
     
 #os.system( 'cp ' + __file__ + ' generate_' + dataset_name + '.py' )
