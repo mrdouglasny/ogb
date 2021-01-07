@@ -18,6 +18,8 @@ def parse_args(args=None):
     parser.add_argument('dataset', type=str)
     parser.add_argument('-t', '--do_test', action='store_true')
     parser.add_argument('--print_relations', action='store_true')
+    parser.add_argument('--select_head', type=int, default=-1)
+    parser.add_argument('--select_tail', type=int, default=-1)
     parser.add_argument('--test_upto', type=int, default=0)
     parser.add_argument('-f', '--file', type=str)
     parser.add_argument('-m', '--mode', type=str, help='read_triples,read_two_files,random_gnp')
@@ -54,6 +56,13 @@ if args.do_test:
         print('test.relations <- c(')
         print(re.sub('[\[\]]', '', np.array2string( dsplit['test']['relation'], separator=', ' )))
         print(')')
+    elif args.select_head>=0 or args.select_tail>=0:
+        for k in dsplit.keys():
+            for i in range(len(dsplit[k])):
+                (h,t,r) = (dsplit[k]['head'][i],dsplit[k]['tail'][i],dsplit[k]['relation'][i])
+                if args.select_head<0 or args.select_head==h:
+                    if args.select_tail<0 or args.select_tail==t:
+                        print( k, '(', h, ',', r, ',', t, ')' )
     else:
         print(dataset[0])
         print(dsplit)
