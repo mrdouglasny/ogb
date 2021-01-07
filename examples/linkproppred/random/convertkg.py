@@ -58,7 +58,7 @@ if args.do_test:
         print(')')
     elif args.select_head>=0 or args.select_tail>=0:
         for k in dsplit.keys():
-            for i in range(len(dsplit[k])):
+            for i in range(len(dsplit[k]['head'])):
                 (h,t,r) = (dsplit[k]['head'][i],dsplit[k]['tail'][i],dsplit[k]['relation'][i])
                 if args.select_head<0 or args.select_head==h:
                     if args.select_tail<0 or args.select_tail==t:
