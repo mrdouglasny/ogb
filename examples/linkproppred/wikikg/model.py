@@ -80,7 +80,6 @@ class KGEModel(nn.Module):
                 a=-self.embedding_range.item()*rel_init_scale,
                 b=self.embedding_range.item()*rel_init_scale,
             )
-            print( self.tensor_weights.size() )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
         if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE',
@@ -398,9 +397,9 @@ class KGEModel(nn.Module):
         print( head_h.size(), tail_t.size(), relation.size() )
         
         if mode == 'head-batch':
-            score = torch.einsum( 'htr,bh,t,r->b', self.tensor_weights, head_h, tail_t, relation )
+            score = torch.einsum( 'htr,bnh,bit,bir->bn', self.tensor_weights, head_h, tail_t, relation )
         else:
-            score = torch.einsum( 'htr,h,bt,r->b', self.tensor_weights, head_h, tail_t, relation )
+            score = torch.einsum( 'htr,bih,bnt,bir->bn', self.tensor_weights, head_h, tail_t, relation )
             
         print( score.size() )
         return self.gamma.item() - score
