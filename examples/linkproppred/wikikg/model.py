@@ -393,7 +393,7 @@ class KGEModel(nn.Module):
     def Groups(self, head, relation, tail, mode):
         head_h, head_t = torch.chunk(head, 2, dim=2)
         tail_h, tail_t = torch.chunk(tail, 2, dim=2)
-        WR = torch.matmul( tensor_weights, relation )
+        WR = torch.matmul( self.tensor_weights, relation )
         print( WR.size() )
         print( torch.matmul( WR, tail_t ).size() )
         
