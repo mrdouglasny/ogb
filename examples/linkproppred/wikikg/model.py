@@ -72,13 +72,22 @@ class KGEModel(nn.Module):
             b=self.embedding_range.item()*rel_init_scale,
         )
 
+        if model_name in ['TuckER', 'Groups']:
+            self.tensor_weights = nn.Parameter(
+                torch.zeros(self.hidden_dim,self.hidden_dim,self.hidden_dim)) # head x tail x rel
+            nn.init.uniform_(
+                tensor=self.tensor_weights,
+                a=-self.embedding_range.item()*rel_init_scale,
+                b=self.embedding_range.item()*rel_init_scale,
+            )
+
         # Do not forget to modify this line when you add a new model in the "forward" function
         if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE',
                               'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE',
-                              'PairSE', 'TransPro', 'HeadRE', 'TailRE']:
+                              'PairSE', 'TransPro', 'HeadRE', 'TailRE', 'TuckER', 'Groups' ]:
             raise ValueError('model %s not supported' % model_name)
 
-        if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
+        if model_name in ['RotatE','Groups'] and (not double_entity_embedding or double_relation_embedding):
             raise ValueError('RotatE should use --double_entity_embedding')
 
         if model_name == 'ComplEx' and (not double_entity_embedding or not double_relation_embedding):
@@ -210,6 +219,8 @@ class KGEModel(nn.Module):
             'HeadRE': self.HeadRE,
             'TailRE': self.TailRE,
             'TransPro': self.TransPro,
+#            'TuckER': self.TuckER,
+            'Groups': self.Groups,
         }
 
         if self.model_name in model_func:
@@ -378,6 +389,21 @@ class KGEModel(nn.Module):
 
         score = self.gamma.item() - torch.norm(projection * score, p=self.pnorm, dim=2)
         return score
+
+    def Groups(self, head, relation, tail, mode):
+        head_h, head_t = torch.chunk(head, 2, dim=2)
+        tail_h, tail_t = torch.chunk(tail, 2, dim=2)
+        WR = torch.matmul( tensor_weights, relation )
+        print( WR.size() )
+        print( torch.matmul( WR, tail_t ).size() )
+        
+        if mode == 'head-batch':
+            score = torch.matmul( head_h, torch.matmul( WR, tail_t ) )
+        else:
+            score = torch.matmul( torch.matmul( head_h, WR ), tail_t ) )
+            
+        print( score.size() )
+        return self.gamma.item() - score.sum(dim=2)
 
     def print_relation_embedding(self, filename, args):
         dump = open(filename,"w")
