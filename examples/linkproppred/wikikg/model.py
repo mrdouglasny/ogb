@@ -400,7 +400,7 @@ class KGEModel(nn.Module):
         if mode == 'head-batch':
             score = torch.matmul( head_h, torch.matmul( WR, tail_t ) )
         else:
-            score = torch.matmul( torch.matmul( head_h, WR ), tail_t ) )
+            score = torch.matmul( torch.matmul( head_h, WR ), tail_t )
             
         print( score.size() )
         return self.gamma.item() - score.sum(dim=2)
