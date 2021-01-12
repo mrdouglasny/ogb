@@ -80,6 +80,7 @@ class KGEModel(nn.Module):
                 a=-self.embedding_range.item()*rel_init_scale,
                 b=self.embedding_range.item()*rel_init_scale,
             )
+            print( self.tensor_weights.size() )
 
         # Do not forget to modify this line when you add a new model in the "forward" function
         if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE',
@@ -88,7 +89,7 @@ class KGEModel(nn.Module):
             raise ValueError('model %s not supported' % model_name)
 
         if model_name in ['RotatE','Groups'] and (not double_entity_embedding or double_relation_embedding):
-            raise ValueError('RotatE should use --double_entity_embedding')
+            raise ValueError('%s should use --double_entity_embedding' % model_name)
 
         if model_name == 'ComplEx' and (not double_entity_embedding or not double_relation_embedding):
             raise ValueError(
@@ -393,6 +394,7 @@ class KGEModel(nn.Module):
     def Groups(self, head, relation, tail, mode):
         head_h, head_t = torch.chunk(head, 2, dim=2)
         tail_h, tail_t = torch.chunk(tail, 2, dim=2)
+
         WR = torch.matmul( self.tensor_weights, relation )
         print( WR.size() )
         print( torch.matmul( WR, tail_t ).size() )
