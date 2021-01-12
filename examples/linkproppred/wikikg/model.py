@@ -395,17 +395,15 @@ class KGEModel(nn.Module):
         head_h, head_t = torch.chunk(head, 2, dim=2)
         tail_h, tail_t = torch.chunk(tail, 2, dim=2)
 
-        WR = torch.matmul( self.tensor_weights, relation )
-        print( WR.size() )
-        print( torch.matmul( WR, tail_t ).size() )
+        print( head_h.size(), tail_t.size(), relation.size() )
         
         if mode == 'head-batch':
-            score = torch.matmul( head_h, torch.matmul( WR, tail_t ) )
+            score = torch.einsum( 'htr,bh,t,r->b', self.tensor_weights, head_h, tail_t, relation )
         else:
-            score = torch.matmul( torch.matmul( head_h, WR ), tail_t )
+            score = torch.einsum( 'htr,h,bt,r->b', self.tensor_weights, head_h, tail_t, relation )
             
         print( score.size() )
-        return self.gamma.item() - score.sum(dim=2)
+        return self.gamma.item() - score
 
     def print_relation_embedding(self, filename, args):
         dump = open(filename,"w")
