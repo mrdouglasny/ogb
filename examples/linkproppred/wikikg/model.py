@@ -219,7 +219,7 @@ class KGEModel(nn.Module):
             'HeadRE': self.HeadRE,
             'TailRE': self.TailRE,
             'TransPro': self.TransPro,
-#            'TuckER': self.TuckER,
+            'TuckER': self.TuckER,
             'Groups': self.Groups,
         }
 
@@ -398,6 +398,14 @@ class KGEModel(nn.Module):
             score = torch.einsum( 'htr,bnh,bit,bir->bn', self.tensor_weights, head_h, tail_t, relation )
         else:
             score = torch.einsum( 'htr,bih,bnt,bir->bn', self.tensor_weights, head_h, tail_t, relation )
+            
+        return self.gamma.item() - score
+
+    def TuckER(self, head, relation, tail, mode):
+        if mode == 'head-batch':
+            score = torch.einsum( 'htr,bnh,bit,bir->bn', self.tensor_weights, head, tail, relation )
+        else:
+            score = torch.einsum( 'htr,bih,bnt,bir->bn', self.tensor_weights, head, tail, relation )
             
         return self.gamma.item() - score
 
