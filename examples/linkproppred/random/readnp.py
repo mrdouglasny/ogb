@@ -18,13 +18,17 @@ def parse_args(args=None):
     parser.add_argument('-px', '--print_normsx', action='store_true')
     parser.add_argument('-P', '--PairRE', action='store_true')
     parser.add_argument('-t', '--tensor', action='store_true')
+    parser.add_argument('-cht', '--compare_head_tail', action='store_true')
+    parser.add_argument('-s', '--sample', type=float, default=1.0 )
     return parser.parse_args(args)
 
+def split_head_tail(v):
+    d = v.shape[1]
+    return (v[:,0:(d//2)], v[:,(d//2):d])
+    
 def motif(v):
     if args.PairRE:
-        d = v.shape[1]
-        h = v[:,0:(d//2)]
-        t = v[:,(d//2):d]
+        (h, t) = split_head_tail(v)
         return h[0,:]*h[1,:]*t[2,:] - t[0,:]*t[1,:]*h[2,:]
     else:
         return v[0,:]+v[1,:]-v[2,:]
@@ -32,6 +36,12 @@ def motif(v):
 args = parse_args()
 
 data = np.load(args.infile)
+
+if args.sample<1.0:
+    n_orig = data.shape[0]
+    select = np.random.sample(size=n_orig) < args.sample
+    data = np.extract( select, data )
+    print( 'sampled', data.shape[0], 'out of', n_orig )
 
 if args.print_norms:
     with open(args.outfile, 'w') as out:
@@ -42,6 +52,10 @@ if args.print_norms:
 #        if args.print_pair:
 
 elif args.tensor:
+    if args.compare_head_tail:
+        (h, t) = split_head_tail(data)
+        for i in range(data.shape[0]):
+            print( i, '|h|=', np.linarg.norm(h[i,:],1), '|t|=', np.linarg.norm(t[i,:],1), '|h-t|=', np.linarg.norm(h[i,:]-t[i,:],1),
     s = np.array2string( data, precision=8, threshold=np.inf, suppress_small=True )
     with open(args.outfile, 'w') as out:
         print( s, file=out )
