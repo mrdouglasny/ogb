@@ -40,7 +40,7 @@ data = np.load(args.infile)
 if args.sample<1.0:
     n_orig = data.shape[0]
     select = np.random.sample(size=n_orig) < args.sample
-    data = np.extract( select, data )
+    data = np.compress( select, data, axis=0 )
     print( 'sampled', data.shape[0], 'out of', n_orig )
 
 if args.print_norms:
