@@ -42,7 +42,7 @@ if args.print_norms:
 #        if args.print_pair:
 
 elif args.tensor:
-    s = np.array2string( data, format='%.8e', threshold=np.inf, suppress_small=True )
+    s = np.array2string( data, precision=8, threshold=np.inf, suppress_small=True )
     with open(args.outfile, 'w') as out:
         print( s, file=out )
 else:
