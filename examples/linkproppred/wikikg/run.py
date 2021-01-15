@@ -144,7 +144,7 @@ def save_model(model, optimizer, save_variable_list, args):
         relation_embedding
     )
 
-    if argparse_dict.model in ['TuckER', 'Groups']:
+    if args.model in ['TuckER', 'Groups']:
         tensor_weights = model.tensor_weights.detach().cpu().numpy()
         np.save(
             os.path.join(args.save_path, 'tensor_weights'), 
