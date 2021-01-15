@@ -17,6 +17,7 @@ def parse_args(args=None):
     parser.add_argument('-pn', '--print_norms', action='store_true')
     parser.add_argument('-px', '--print_normsx', action='store_true')
     parser.add_argument('-P', '--PairRE', action='store_true')
+    parser.add_argument('-t', '--tensor', action='store_true')
     return parser.parse_args(args)
 
 def motif(v):
@@ -40,5 +41,9 @@ if args.print_norms:
             print( 'motif2:', np.linalg.norm(motif(data[4:7,:]), ord=1), file=out )    
 #        if args.print_pair:
 
+elif args.tensor:
+    s = np.array2string( data, format='%.8e', threshold=numpy.inf, suppress_small=true )
+    with open(args.outfile, 'w') as out:
+        print( s, file=out )
 else:
     np.savetxt(args.outfile, data, fmt='%.8e', header='Read from ' + args.infile)
