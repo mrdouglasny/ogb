@@ -55,7 +55,7 @@ elif args.compare_head_tail:
     (h, t) = split_head_tail(data)
     with open(args.outfile, 'w') as out:
         for i in range(data.shape[0]):
-            print( i, '|h|=', np.linarg.norm(h[i,:],1), '|t|=', np.linarg.norm(t[i,:],1), '|h-t|=', np.linarg.norm(h[i,:]-t[i,:],1), file=out )
+            print( i, '|h|=', np.linalg.norm(h[i,:],1), '|t|=', np.linalg.norm(t[i,:],1), '|h-t|=', np.linalg.norm(h[i,:]-t[i,:],1), file=out )
 
 elif args.tensor:
     s = np.array2string( data, precision=8, threshold=np.inf, suppress_small=True )
