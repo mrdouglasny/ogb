@@ -1,0 +1,162 @@
+log/ogbl-wikikg/PairRE/200-6.0/1605145692.4410686/train.log
+Model: PairRE
+Dataset: ogbl-wikikg
+#entity: 2500604
+#relation: 535
+#train: 16109182
+#valid: 429456
+#test: 598543
+Model Parameter Configuration:
+Parameter gamma: torch.Size([1]), require_grad = False
+Parameter embedding_range: torch.Size([1]), require_grad = False
+Parameter entity_embedding: torch.Size([2500604, 200]), require_grad = True
+Parameter relation_embedding: torch.Size([535, 400]), require_grad = True
+Loading checkpoint log/ogbl-wikikg/PairRE/200-6.0/1605113775.5368366/...
+Start Training...
+init_step = 199999
+batch_size = 512
+negative_adversarial_sampling = 1
+hidden_dim = 200
+gamma = 6.000000
+negative_adversarial_sampling = True
+adversarial_temperature = 1.000000
+learning_rate = 0
+Evaluating on Valid Dataset...
+Evaluating the model... (0/26842)
+Evaluating the model... (1000/26842)
+Evaluating the model... (2000/26842)
+Evaluating the model... (3000/26842)
+Evaluating the model... (4000/26842)
+Evaluating the model... (5000/26842)
+Evaluating the model... (6000/26842)
+Evaluating the model... (7000/26842)
+Evaluating the model... (8000/26842)
+Evaluating the model... (9000/26842)
+Evaluating the model... (10000/26842)
+Evaluating the model... (11000/26842)
+Evaluating the model... (12000/26842)
+Evaluating the model... (13000/26842)
+Evaluating the model... (14000/26842)
+Evaluating the model... (15000/26842)
+Evaluating the model... (16000/26842)
+Evaluating the model... (17000/26842)
+Evaluating the model... (18000/26842)
+Evaluating the model... (19000/26842)
+Evaluating the model... (20000/26842)
+Evaluating the model... (21000/26842)
+Evaluating the model... (22000/26842)
+Evaluating the model... (23000/26842)
+Evaluating the model... (24000/26842)
+Evaluating the model... (25000/26842)
+Evaluating the model... (26000/26842)
+Valid hits@1_list at step 199999: 0.497015
+Summary name Valid_hits@1_list is illegal; using Valid_hits_1_list instead.
+Valid hits@3_list at step 199999: 0.572620
+Summary name Valid_hits@3_list is illegal; using Valid_hits_3_list instead.
+Valid hits@10_list at step 199999: 0.643709
+Summary name Valid_hits@10_list is illegal; using Valid_hits_10_list instead.
+Valid mrr_list at step 199999: 0.550022
+Evaluating on Test Dataset...
+Evaluating the model... (0/37410)
+Evaluating the model... (1000/37410)
+Evaluating the model... (2000/37410)
+Evaluating the model... (3000/37410)
+Evaluating the model... (4000/37410)
+Evaluating the model... (5000/37410)
+Evaluating the model... (6000/37410)
+Evaluating the model... (7000/37410)
+Evaluating the model... (8000/37410)
+Evaluating the model... (9000/37410)
+Evaluating the model... (10000/37410)
+Evaluating the model... (11000/37410)
+Evaluating the model... (12000/37410)
+Evaluating the model... (13000/37410)
+Evaluating the model... (14000/37410)
+Evaluating the model... (15000/37410)
+Evaluating the model... (16000/37410)
+Evaluating the model... (17000/37410)
+Evaluating the model... (18000/37410)
+Evaluating the model... (19000/37410)
+Evaluating the model... (20000/37410)
+Evaluating the model... (21000/37410)
+Evaluating the model... (22000/37410)
+Evaluating the model... (23000/37410)
+Evaluating the model... (24000/37410)
+Evaluating the model... (25000/37410)
+Evaluating the model... (26000/37410)
+Evaluating the model... (27000/37410)
+Evaluating the model... (28000/37410)
+Evaluating the model... (29000/37410)
+Evaluating the model... (30000/37410)
+Evaluating the model... (31000/37410)
+Evaluating the model... (32000/37410)
+Evaluating the model... (33000/37410)
+Evaluating the model... (34000/37410)
+Evaluating the model... (35000/37410)
+Evaluating the model... (36000/37410)
+Evaluating the model... (37000/37410)
+Test hits@1_list at step 199999: 0.358696
+Summary name Test_hits@1_list is illegal; using Test_hits_1_list instead.
+Test hits@3_list at step 199999: 0.417483
+Summary name Test_hits@3_list is illegal; using Test_hits_3_list instead.
+Evaluating on Test Dataset...
+Evaluating the model... (0/37410)
+Evaluating the model... (1000/37410)
+Evaluating the model... (2000/37410)
+Evaluating the model... (3000/37410)
+Evaluating the model... (4000/37410)
+Evaluating the model... (5000/37410)
+Evaluating the model... (6000/37410)
+Evaluating the model... (7000/37410)
+Evaluating the model... (8000/37410)
+Evaluating the model... (9000/37410)
+Evaluating the model... (10000/37410)
+Evaluating the model... (11000/37410)
+Evaluating the model... (12000/37410)
+Evaluating the model... (13000/37410)
+Evaluating the model... (14000/37410)
+Evaluating the model... (15000/37410)
+Evaluating the model... (16000/37410)
+Evaluating the model... (17000/37410)
+Evaluating the model... (18000/37410)
+Evaluating the model... (19000/37410)
+Evaluating the model... (20000/37410)
+Evaluating the model... (21000/37410)
+Evaluating the model... (22000/37410)
+Evaluating the model... (23000/37410)
+Evaluating the model... (24000/37410)
+Evaluating the model... (25000/37410)
+Evaluating the model... (26000/37410)
+Evaluating the model... (27000/37410)
+Evaluating the model... (28000/37410)
+Evaluating the model... (29000/37410)
+Evaluating the model... (30000/37410)
+Evaluating the model... (31000/37410)
+Evaluating the model... (32000/37410)
+Evaluating the model... (33000/37410)
+Evaluating the model... (34000/37410)
+Evaluating the model... (35000/37410)
+Evaluating the model... (36000/37410)
+Evaluating the model... (37000/37410)
+Test hits@1_list at step 199999: 0.358696
+Test hits@3_list at step 199999: 0.417483
+Test hits@10_list at step 199999: 0.461542
+Test mrr_list at step 199999: 0.397683
+Evaluating on Training Dataset...
+Evaluating the model... (0/12500)
+Evaluating the model... (1000/12500)
+Evaluating the model... (2000/12500)
+Evaluating the model... (3000/12500)
+Evaluating the model... (4000/12500)
+Evaluating the model... (5000/12500)
+Evaluating the model... (6000/12500)
+Evaluating the model... (7000/12500)
+Evaluating the model... (8000/12500)
+Evaluating the model... (9000/12500)
+Evaluating the model... (10000/12500)
+Evaluating the model... (11000/12500)
+Evaluating the model... (12000/12500)
+Train hits@1_list at step 199999: 0.577182
+Train hits@3_list at step 199999: 0.642862
+Train hits@10_list at step 199999: 0.699377
+Train mrr_list at step 199999: 0.621274

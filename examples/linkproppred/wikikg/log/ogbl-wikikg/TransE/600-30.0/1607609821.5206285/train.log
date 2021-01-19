@@ -1,0 +1,7 @@
+2020-12-10 09:17:52 INFO     Model: TransE
+2020-12-10 09:17:52 INFO     Dataset: ogbl-wikikg
+2020-12-10 09:17:52 INFO     #entity: 2500604
+2020-12-10 09:17:52 INFO     #relation: 535
+2020-12-10 09:17:52 INFO     #train: 16109182
+2020-12-10 09:17:52 INFO     #valid: 429456
+2020-12-10 09:17:52 INFO     #test: 598543
