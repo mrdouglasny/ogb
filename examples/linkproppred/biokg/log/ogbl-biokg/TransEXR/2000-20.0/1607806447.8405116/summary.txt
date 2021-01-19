@@ -1,0 +1,116 @@
+log/ogbl-biokg/TransEXR/2000-20.0/1607806447.8405116/train.log
+Model: TransEXR
+Dataset: ogbl-biokg
+#entity: 93773
+#relation: 51
+#train: 4762678
+#valid: 162886
+#test: 162870
+Model Parameter Configuration:
+Parameter gamma: torch.Size([1]), require_grad = False
+Parameter embedding_range: torch.Size([1]), require_grad = False
+Parameter entity_embedding: torch.Size([93773, 2000]), require_grad = True
+Parameter relation_embedding: torch.Size([51, 2000]), require_grad = False
+Ramdomly Initializing TransEXR Model...
+Start Training...
+init_step = 0
+batch_size = 512
+negative_adversarial_sampling = 1
+hidden_dim = 2000
+gamma = 20.000000
+negative_adversarial_sampling = True
+adversarial_temperature = 1.000000
+learning_rate = 0
+Evaluating on Valid Dataset...
+Evaluating the model... (0/10182)
+Evaluating the model... (1000/10182)
+Evaluating the model... (2000/10182)
+Evaluating the model... (3000/10182)
+Evaluating the model... (4000/10182)
+Evaluating the model... (5000/10182)
+Evaluating the model... (6000/10182)
+Evaluating the model... (7000/10182)
+Evaluating the model... (8000/10182)
+Evaluating the model... (9000/10182)
+Evaluating the model... (10000/10182)
+Valid hits@1_list at step 0: 0.002004
+Summary name Valid_hits@1_list is illegal; using Valid_hits_1_list instead.
+Valid hits@3_list at step 0: 0.006188
+Summary name Valid_hits@3_list is illegal; using Valid_hits_3_list instead.
+Valid hits@10_list at step 0: 0.020201
+Summary name Valid_hits@10_list is illegal; using Valid_hits_10_list instead.
+Valid mrr_list at step 0: 0.013750
+Evaluating on Test Dataset...
+Evaluating the model... (0/10180)
+Evaluating the model... (1000/10180)
+Evaluating the model... (2000/10180)
+Evaluating the model... (3000/10180)
+Evaluating the model... (4000/10180)
+Evaluating the model... (5000/10180)
+Evaluating the model... (6000/10180)
+Evaluating the model... (7000/10180)
+Evaluating the model... (8000/10180)
+Evaluating the model... (9000/10180)
+Evaluating the model... (10000/10180)
+Test hits@1_list at step 0: 0.001817
+Summary name Test_hits@1_list is illegal; using Test_hits_1_list instead.
+Test hits@3_list at step 0: 0.005913
+Summary name Test_hits@3_list is illegal; using Test_hits_3_list instead.
+Test hits@10_list at step 0: 0.020163
+Summary name Test_hits@10_list is illegal; using Test_hits_10_list instead.
+Test mrr_list at step 0: 0.013542
+Evaluating on Training Dataset...
+Evaluating the model... (0/12500)
+Evaluating the model... (1000/12500)
+Evaluating the model... (2000/12500)
+Evaluating the model... (3000/12500)
+Evaluating the model... (4000/12500)
+Evaluating the model... (5000/12500)
+Evaluating the model... (6000/12500)
+Evaluating the model... (7000/12500)
+Evaluating the model... (8000/12500)
+Evaluating the model... (9000/12500)
+Evaluating the model... (10000/12500)
+Evaluating the model... (11000/12500)
+Evaluating the model... (12000/12500)
+Train hits@1_list at step 0: 0.001950
+Summary name Train_hits@1_list is illegal; using Train_hits_1_list instead.
+Train hits@3_list at step 0: 0.006005
+Summary name Train_hits@3_list is illegal; using Train_hits_3_list instead.
+Train hits@10_list at step 0: 0.020327
+Summary name Train_hits@10_list is illegal; using Train_hits_10_list instead.
+Train mrr_list at step 0: 0.013659
+Evaluating on Test Dataset...
+Evaluating the model... (0/10180)
+Evaluating the model... (1000/10180)
+Evaluating the model... (2000/10180)
+Evaluating the model... (3000/10180)
+Evaluating the model... (4000/10180)
+Evaluating the model... (5000/10180)
+Evaluating the model... (6000/10180)
+Evaluating the model... (7000/10180)
+Evaluating the model... (8000/10180)
+Evaluating the model... (9000/10180)
+Evaluating the model... (10000/10180)
+Test hits@1_list at step 0: 0.001817
+Test hits@3_list at step 0: 0.005913
+Test hits@10_list at step 0: 0.020163
+Test mrr_list at step 0: 0.013542
+Evaluating on Training Dataset...
+Evaluating the model... (0/12500)
+Evaluating the model... (1000/12500)
+Evaluating the model... (2000/12500)
+Evaluating the model... (3000/12500)
+Evaluating the model... (4000/12500)
+Evaluating the model... (5000/12500)
+Evaluating the model... (6000/12500)
+Evaluating the model... (7000/12500)
+Evaluating the model... (8000/12500)
+Evaluating the model... (9000/12500)
+Evaluating the model... (10000/12500)
+Evaluating the model... (11000/12500)
+Evaluating the model... (12000/12500)
+Train hits@1_list at step 0: 0.001950
+Train hits@3_list at step 0: 0.006005
+Train hits@10_list at step 0: 0.020327
+Train mrr_list at step 0: 0.013659

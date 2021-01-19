@@ -1,0 +1,81 @@
+2020-12-12 15:54:20 INFO     Model: TransEXR
+2020-12-12 15:54:20 INFO     Dataset: ogbl-biokg
+2020-12-12 15:54:20 INFO     #entity: 93773
+2020-12-12 15:54:20 INFO     #relation: 51
+2020-12-12 15:54:20 INFO     #train: 4762678
+2020-12-12 15:54:20 INFO     #valid: 162886
+2020-12-12 15:54:20 INFO     #test: 162870
+2020-12-12 15:54:40 INFO     Model Parameter Configuration:
+2020-12-12 15:54:40 INFO     Parameter gamma: torch.Size([1]), require_grad = False
+2020-12-12 15:54:40 INFO     Parameter embedding_range: torch.Size([1]), require_grad = False
+2020-12-12 15:54:40 INFO     Parameter entity_embedding: torch.Size([93773, 2000]), require_grad = True
+2020-12-12 15:54:40 INFO     Parameter relation_embedding: torch.Size([51, 2000]), require_grad = False
+2020-12-12 15:54:43 INFO     Ramdomly Initializing TransEXR Model...
+2020-12-12 15:54:43 INFO     Start Training...
+2020-12-12 15:54:43 INFO     init_step = 0
+2020-12-12 15:54:43 INFO     batch_size = 512
+2020-12-12 15:54:43 INFO     negative_adversarial_sampling = 1
+2020-12-12 15:54:43 INFO     hidden_dim = 2000
+2020-12-12 15:54:43 INFO     gamma = 20.000000
+2020-12-12 15:54:43 INFO     negative_adversarial_sampling = True
+2020-12-12 15:54:43 INFO     adversarial_temperature = 1.000000
+2020-12-12 15:54:43 INFO     learning_rate = 0
+2020-12-12 15:54:49 INFO     Evaluating on Valid Dataset...
+2020-12-12 15:54:49 INFO     Evaluating the model... (0/10182)
+2020-12-12 15:54:52 INFO     Evaluating the model... (1000/10182)
+2020-12-12 15:54:56 INFO     Evaluating the model... (2000/10182)
+2020-12-12 15:55:00 INFO     Evaluating the model... (3000/10182)
+2020-12-12 15:55:03 INFO     Evaluating the model... (4000/10182)
+2020-12-12 15:55:07 INFO     Evaluating the model... (5000/10182)
+2020-12-12 15:55:11 INFO     Evaluating the model... (6000/10182)
+2020-12-12 15:55:15 INFO     Evaluating the model... (7000/10182)
+2020-12-12 15:55:18 INFO     Evaluating the model... (8000/10182)
+2020-12-12 15:55:22 INFO     Evaluating the model... (9000/10182)
+2020-12-12 15:55:26 INFO     Evaluating the model... (10000/10182)
+2020-12-12 15:55:27 INFO     Valid hits@1_list at step 0: 0.002004
+2020-12-12 15:55:27 INFO     Summary name Valid_hits@1_list is illegal; using Valid_hits_1_list instead.
+2020-12-12 15:55:27 INFO     Valid hits@3_list at step 0: 0.006188
+2020-12-12 15:55:27 INFO     Summary name Valid_hits@3_list is illegal; using Valid_hits_3_list instead.
+2020-12-12 15:55:27 INFO     Valid hits@10_list at step 0: 0.020201
+2020-12-12 15:55:27 INFO     Summary name Valid_hits@10_list is illegal; using Valid_hits_10_list instead.
+2020-12-12 15:55:27 INFO     Valid mrr_list at step 0: 0.013750
+2020-12-12 15:55:27 INFO     Evaluating on Test Dataset...
+2020-12-12 15:55:27 INFO     Evaluating the model... (0/10180)
+2020-12-12 15:55:30 INFO     Evaluating the model... (1000/10180)
+2020-12-12 15:55:34 INFO     Evaluating the model... (2000/10180)
+2020-12-12 15:55:38 INFO     Evaluating the model... (3000/10180)
+2020-12-12 15:55:42 INFO     Evaluating the model... (4000/10180)
+2020-12-12 15:55:45 INFO     Evaluating the model... (5000/10180)
+2020-12-12 15:55:49 INFO     Evaluating the model... (6000/10180)
+2020-12-12 15:55:52 INFO     Evaluating the model... (7000/10180)
+2020-12-12 15:55:56 INFO     Evaluating the model... (8000/10180)
+2020-12-12 15:55:59 INFO     Evaluating the model... (9000/10180)
+2020-12-12 15:56:02 INFO     Evaluating the model... (10000/10180)
+2020-12-12 15:56:03 INFO     Test hits@1_list at step 0: 0.001817
+2020-12-12 15:56:03 INFO     Summary name Test_hits@1_list is illegal; using Test_hits_1_list instead.
+2020-12-12 15:56:03 INFO     Test hits@3_list at step 0: 0.005913
+2020-12-12 15:56:03 INFO     Summary name Test_hits@3_list is illegal; using Test_hits_3_list instead.
+2020-12-12 15:56:03 INFO     Test hits@10_list at step 0: 0.020163
+2020-12-12 15:56:03 INFO     Summary name Test_hits@10_list is illegal; using Test_hits_10_list instead.
+2020-12-12 15:56:03 INFO     Test mrr_list at step 0: 0.013542
+2020-12-12 15:56:03 INFO     Evaluating on Training Dataset...
+2020-12-12 15:56:03 INFO     Evaluating the model... (0/12500)
+2020-12-12 15:56:07 INFO     Evaluating the model... (1000/12500)
+2020-12-12 15:56:11 INFO     Evaluating the model... (2000/12500)
+2020-12-12 15:56:15 INFO     Evaluating the model... (3000/12500)
+2020-12-12 15:56:18 INFO     Evaluating the model... (4000/12500)
+2020-12-12 15:56:22 INFO     Evaluating the model... (5000/12500)
+2020-12-12 15:56:26 INFO     Evaluating the model... (6000/12500)
+2020-12-12 15:56:30 INFO     Evaluating the model... (7000/12500)
+2020-12-12 15:56:33 INFO     Evaluating the model... (8000/12500)
+2020-12-12 15:56:38 INFO     Evaluating the model... (9000/12500)
+2020-12-12 15:56:41 INFO     Evaluating the model... (10000/12500)
+2020-12-12 15:56:45 INFO     Evaluating the model... (11000/12500)
+2020-12-12 15:56:48 INFO     Evaluating the model... (12000/12500)
+2020-12-12 15:56:50 INFO     Train hits@1_list at step 0: 0.001950
+2020-12-12 15:56:50 INFO     Summary name Train_hits@1_list is illegal; using Train_hits_1_list instead.
+2020-12-12 15:56:50 INFO     Train hits@3_list at step 0: 0.006005
+2020-12-12 15:56:50 INFO     Summary name Train_hits@3_list is illegal; using Train_hits_3_list instead.
+2020-12-12 15:56:50 INFO     Train hits@10_list at step 0: 0.020327
+2020-12-12 15:56:50 INFO     Summary name Train_hits@10_list is illegal; using Train_hits_10_list instead.
+2020-12-12 15:56:50 INFO     Train mrr_list at step 0: 0.013659
