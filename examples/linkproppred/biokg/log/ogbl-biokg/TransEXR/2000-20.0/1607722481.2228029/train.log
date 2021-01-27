@@ -1,0 +1,22 @@
+2020-12-11 16:34:52 INFO     Model: TransEXR
+2020-12-11 16:34:52 INFO     Dataset: ogbl-biokg
+2020-12-11 16:34:52 INFO     #entity: 93773
+2020-12-11 16:34:52 INFO     #relation: 51
+2020-12-11 16:34:52 INFO     #train: 4762678
+2020-12-11 16:34:52 INFO     #valid: 162886
+2020-12-11 16:34:52 INFO     #test: 162870
+2020-12-11 16:35:08 INFO     Model Parameter Configuration:
+2020-12-11 16:35:08 INFO     Parameter gamma: torch.Size([1]), require_grad = False
+2020-12-11 16:35:08 INFO     Parameter embedding_range: torch.Size([1]), require_grad = False
+2020-12-11 16:35:08 INFO     Parameter entity_embedding: torch.Size([93773, 2000]), require_grad = True
+2020-12-11 16:35:08 INFO     Parameter relation_embedding: torch.Size([51, 2000]), require_grad = False
+2020-12-11 16:35:11 INFO     Ramdomly Initializing TransEXR Model...
+2020-12-11 16:35:11 INFO     Start Training...
+2020-12-11 16:35:11 INFO     init_step = 0
+2020-12-11 16:35:11 INFO     batch_size = 512
+2020-12-11 16:35:11 INFO     negative_adversarial_sampling = 1
+2020-12-11 16:35:11 INFO     hidden_dim = 2000
+2020-12-11 16:35:11 INFO     gamma = 20.000000
+2020-12-11 16:35:11 INFO     negative_adversarial_sampling = True
+2020-12-11 16:35:11 INFO     adversarial_temperature = 1.000000
+2020-12-11 16:35:11 INFO     learning_rate = 0

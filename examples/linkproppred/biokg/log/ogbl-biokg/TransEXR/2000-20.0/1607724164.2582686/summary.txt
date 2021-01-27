@@ -1,0 +1,60 @@
+log/ogbl-biokg/TransEXR/2000-20.0/1607724164.2582686/train.log
+Model: TransEXR
+Dataset: ogbl-biokg
+#entity: 93773
+#relation: 51
+#train: 4762678
+#valid: 162886
+#test: 162870
+Model Parameter Configuration:
+Parameter gamma: torch.Size([1]), require_grad = False
+Parameter embedding_range: torch.Size([1]), require_grad = False
+Parameter entity_embedding: torch.Size([93773, 2000]), require_grad = True
+Parameter relation_embedding: torch.Size([51, 2000]), require_grad = False
+Ramdomly Initializing TransEXR Model...
+Start Training...
+init_step = 0
+batch_size = 512
+negative_adversarial_sampling = 1
+hidden_dim = 2000
+gamma = 20.000000
+negative_adversarial_sampling = True
+adversarial_temperature = 1.000000
+learning_rate = 0
+Train positive_sample_loss at step 0: 0.115601
+Train negative_sample_loss at step 0: 2.301217
+Train loss at step 0: 1.208409
+Evaluating on Test Dataset...
+Evaluating the model... (0/10180)
+Evaluating the model... (1000/10180)
+Evaluating the model... (2000/10180)
+Evaluating the model... (3000/10180)
+Evaluating the model... (4000/10180)
+Evaluating the model... (5000/10180)
+Evaluating the model... (6000/10180)
+Evaluating the model... (7000/10180)
+Evaluating the model... (8000/10180)
+Evaluating the model... (9000/10180)
+Evaluating the model... (10000/10180)
+Test hits@1_list at step 299999: 0.637456
+Test hits@3_list at step 299999: 0.828446
+Test hits@10_list at step 299999: 0.929969
+Test mrr_list at step 299999: 0.745395
+Evaluating on Training Dataset...
+Evaluating the model... (0/12500)
+Evaluating the model... (1000/12500)
+Evaluating the model... (2000/12500)
+Evaluating the model... (3000/12500)
+Evaluating the model... (4000/12500)
+Evaluating the model... (5000/12500)
+Evaluating the model... (6000/12500)
+Evaluating the model... (7000/12500)
+Evaluating the model... (8000/12500)
+Evaluating the model... (9000/12500)
+Evaluating the model... (10000/12500)
+Evaluating the model... (11000/12500)
+Evaluating the model... (12000/12500)
+Train hits@1_list at step 299999: 0.362002
+Train hits@3_list at step 299999: 0.601133
+Train hits@10_list at step 299999: 0.833895
+Train mrr_list at step 299999: 0.515786

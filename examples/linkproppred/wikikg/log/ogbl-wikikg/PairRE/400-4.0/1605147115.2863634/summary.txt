@@ -1,0 +1,87 @@
+log/ogbl-wikikg/PairRE/400-4.0/1605147115.2863634/train.log
+Model: PairRE
+Dataset: ogbl-wikikg
+#entity: 2500604
+#relation: 535
+#train: 16109182
+#valid: 429456
+#test: 598543
+Model Parameter Configuration:
+Parameter gamma: torch.Size([1]), require_grad = False
+Parameter embedding_range: torch.Size([1]), require_grad = False
+Parameter entity_embedding: torch.Size([2500604, 400]), require_grad = True
+Parameter relation_embedding: torch.Size([535, 800]), require_grad = True
+Ramdomly Initializing PairRE Model...
+Start Training...
+init_step = 0
+batch_size = 512
+negative_adversarial_sampling = 1
+hidden_dim = 400
+gamma = 4.000000
+negative_adversarial_sampling = True
+adversarial_temperature = 1.000000
+learning_rate = 0
+Train positive_sample_loss at step 0: 0.021971
+Train negative_sample_loss at step 0: 3.828536
+Train loss at step 0: 1.925253
+Evaluating on Test Dataset...
+Evaluating the model... (0/37410)
+Evaluating the model... (1000/37410)
+Evaluating the model... (2000/37410)
+Evaluating the model... (3000/37410)
+Evaluating the model... (4000/37410)
+Evaluating the model... (5000/37410)
+Evaluating the model... (6000/37410)
+Evaluating the model... (7000/37410)
+Evaluating the model... (8000/37410)
+Evaluating the model... (9000/37410)
+Evaluating the model... (10000/37410)
+Evaluating the model... (11000/37410)
+Evaluating the model... (12000/37410)
+Evaluating the model... (13000/37410)
+Evaluating the model... (14000/37410)
+Evaluating the model... (15000/37410)
+Evaluating the model... (16000/37410)
+Evaluating the model... (17000/37410)
+Evaluating the model... (18000/37410)
+Evaluating the model... (19000/37410)
+Evaluating the model... (20000/37410)
+Evaluating the model... (21000/37410)
+Evaluating the model... (22000/37410)
+Evaluating the model... (23000/37410)
+Evaluating the model... (24000/37410)
+Evaluating the model... (25000/37410)
+Evaluating the model... (26000/37410)
+Evaluating the model... (27000/37410)
+Evaluating the model... (28000/37410)
+Evaluating the model... (29000/37410)
+Evaluating the model... (30000/37410)
+Evaluating the model... (31000/37410)
+Evaluating the model... (32000/37410)
+Evaluating the model... (33000/37410)
+Evaluating the model... (34000/37410)
+Evaluating the model... (35000/37410)
+Evaluating the model... (36000/37410)
+Evaluating the model... (37000/37410)
+Test hits@1_list at step 199999: 0.476977
+Test hits@3_list at step 199999: 0.553666
+Test hits@10_list at step 199999: 0.635765
+Test mrr_list at step 199999: 0.532517
+Evaluating on Training Dataset...
+Evaluating the model... (0/12500)
+Evaluating the model... (1000/12500)
+Evaluating the model... (2000/12500)
+Evaluating the model... (3000/12500)
+Evaluating the model... (4000/12500)
+Evaluating the model... (5000/12500)
+Evaluating the model... (6000/12500)
+Evaluating the model... (7000/12500)
+Evaluating the model... (8000/12500)
+Evaluating the model... (9000/12500)
+Evaluating the model... (10000/12500)
+Evaluating the model... (11000/12500)
+Evaluating the model... (12000/12500)
+Train hits@1_list at step 199999: 0.652987
+Train hits@3_list at step 199999: 0.730465
+Train hits@10_list at step 199999: 0.806455
+Train mrr_list at step 199999: 0.705471

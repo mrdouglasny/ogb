@@ -15,7 +15,9 @@ def check():
     try:
         is_outdated, latest = check_outdated('ogb', __version__)
         if is_outdated:
-            logging.warning(
+# this spoils the usual logging
+#            logging.warning(
+             print(
                 f'The OGB package is out of date. Your version is '
                 f'{__version__}, while the latest version is {latest}.')
     except Exception:

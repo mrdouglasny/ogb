@@ -72,14 +72,23 @@ class KGEModel(nn.Module):
             b=self.embedding_range.item()*rel_init_scale,
         )
 
+        if model_name in ['TuckER', 'Groups']:
+            self.tensor_weights = nn.Parameter(
+                torch.zeros(self.hidden_dim,self.hidden_dim,self.hidden_dim)) # head x tail x rel
+            nn.init.uniform_(
+                tensor=self.tensor_weights,
+                a=-self.embedding_range.item()*rel_init_scale,
+                b=self.embedding_range.item()*rel_init_scale,
+            )
+
         # Do not forget to modify this line when you add a new model in the "forward" function
         if model_name not in ['BasE', 'TransE', 'Aligned', 'Aligned1', 'AlignedP', 'ConnE',
                               'TransE2', 'ConnE2', 'DistMult', 'ComplEx', 'RotatE', 'PairRE',
-                              'PairSE', 'TransPro', 'HeadRE', 'TailRE']:
+                              'PairSE', 'TransPro', 'HeadRE', 'TailRE', 'TuckER', 'Groups' ]:
             raise ValueError('model %s not supported' % model_name)
 
-        if model_name == 'RotatE' and (not double_entity_embedding or double_relation_embedding):
-            raise ValueError('RotatE should use --double_entity_embedding')
+        if model_name in ['RotatE','Groups'] and (not double_entity_embedding or double_relation_embedding):
+            raise ValueError('%s should use --double_entity_embedding' % model_name)
 
         if model_name == 'ComplEx' and (not double_entity_embedding or not double_relation_embedding):
             raise ValueError(
@@ -210,6 +219,8 @@ class KGEModel(nn.Module):
             'HeadRE': self.HeadRE,
             'TailRE': self.TailRE,
             'TransPro': self.TransPro,
+            'TuckER': self.TuckER,
+            'Groups': self.Groups,
         }
 
         if self.model_name in model_func:
@@ -379,6 +390,25 @@ class KGEModel(nn.Module):
         score = self.gamma.item() - torch.norm(projection * score, p=self.pnorm, dim=2)
         return score
 
+    def Groups(self, head, relation, tail, mode):
+        head_h, head_t = torch.chunk(head, 2, dim=2)
+        tail_h, tail_t = torch.chunk(tail, 2, dim=2)
+
+        if mode == 'head-batch':
+            score = torch.einsum( 'htr,bnh,bit,bir->bn', self.tensor_weights, head_h, tail_t, relation )
+        else:
+            score = torch.einsum( 'htr,bih,bnt,bir->bn', self.tensor_weights, head_h, tail_t, relation )
+            
+        return self.gamma.item() - score
+
+    def TuckER(self, head, relation, tail, mode):
+        if mode == 'head-batch':
+            score = torch.einsum( 'htr,bnh,bit,bir->bn', self.tensor_weights, head, tail, relation )
+        else:
+            score = torch.einsum( 'htr,bih,bnt,bir->bn', self.tensor_weights, head, tail, relation )
+            
+        return self.gamma.item() - score
+
     def print_relation_embedding(self, filename, args):
         dump = open(filename,"w")
         if args.print_relation_option=='list':
@@ -481,12 +511,13 @@ class KGEModel(nn.Module):
             min_val = args.hist_minval
             range_val = args.hist_maxval - min_val
             if args.test_dump_hist > 0:
-                print("brks<-c(", end='', file=dump)
-                print("{:.2f}".format(min_val + 0*range_val /
-                                      args.test_dump_hist), end='', file=dump)
+                break_list = np.zeros(args.test_dump_hist, dtype=float)
+                for n in range(0, args.test_dump_hist):
+                    break_list[n] = min_val + n*range_val/args.test_dump_hist
+                print("# brks<-c(", end='', file=dump)
+                print("{:.2f}".format(break_list[0]), end='', file=dump)
                 for n in range(1, args.test_dump_hist):
-                    print(",{:.2f}".format(
-                        min_val + n*range_val/args.test_dump_hist), end='', file=dump)
+                    print(",{:.2f}".format(break_list[n]), end='', file=dump)
                 print(")", file=dump)
 
         # Prepare dataloader for evaluation
@@ -537,6 +568,10 @@ class KGEModel(nn.Module):
         if args.test_dump_byrel:
             hist_byrel = np.zeros((2,args.nrelation,args.test_dump_hist), dtype=int)
 
+        if args.test_log_steps<0:
+            step = 1
+            args.test_log_steps = total_steps
+            
         with torch.no_grad():
             for test_dataset in test_dataset_list:
                 for positive_sample, negative_sample, mode in test_dataset:
@@ -603,11 +638,16 @@ class KGEModel(nn.Module):
                         logging.info('Evaluating the model... (%d/%d)' %
                                      (step, total_steps))
                         if step>0 and args.test_dump_byrel:
-                            print('--- step', step, file=dump)
+                            print('step neg relation mean sd hist', file=dump)
                             for i in range(2):
                                 for j in range(args.nrelation):
-                                    print(i, j, hist_byrel[i][j], file=dump)
-                            print('---', file=dump)
+                                    num = hist_byrel[i][j].sum()
+                                    if num>=1:
+                                        vals = break_list * hist_byrel[i][j]
+                                        valsq = break_list * vals
+                                        m =  vals.sum() / num
+                                        sd = valsq.sum() / num - m*m
+                                        print(step, i, j, m, sd, hist_byrel[i][j].tolist(), file=dump)
 
                     step += 1
 

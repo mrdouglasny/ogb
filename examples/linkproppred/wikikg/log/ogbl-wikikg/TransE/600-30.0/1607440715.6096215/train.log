@@ -1,0 +1,22 @@
+2020-12-08 10:19:18 INFO     Model: TransE
+2020-12-08 10:19:18 INFO     Dataset: ogbl-wikikg
+2020-12-08 10:19:18 INFO     #entity: 2500604
+2020-12-08 10:19:18 INFO     #relation: 535
+2020-12-08 10:19:18 INFO     #train: 16109182
+2020-12-08 10:19:18 INFO     #valid: 429456
+2020-12-08 10:19:18 INFO     #test: 598543
+2020-12-08 10:20:54 INFO     Model Parameter Configuration:
+2020-12-08 10:20:54 INFO     Parameter gamma: torch.Size([1]), require_grad = False
+2020-12-08 10:20:54 INFO     Parameter embedding_range: torch.Size([1]), require_grad = False
+2020-12-08 10:20:54 INFO     Parameter entity_embedding: torch.Size([2500604, 600]), require_grad = True
+2020-12-08 10:20:54 INFO     Parameter relation_embedding: torch.Size([535, 600]), require_grad = True
+2020-12-08 10:21:00 INFO     Ramdomly Initializing TransE Model...
+2020-12-08 10:21:00 INFO     Start Training...
+2020-12-08 10:21:00 INFO     init_step = 0
+2020-12-08 10:21:00 INFO     batch_size = 512
+2020-12-08 10:21:00 INFO     negative_adversarial_sampling = 1
+2020-12-08 10:21:00 INFO     hidden_dim = 600
+2020-12-08 10:21:00 INFO     gamma = 30.000000
+2020-12-08 10:21:00 INFO     negative_adversarial_sampling = True
+2020-12-08 10:21:00 INFO     adversarial_temperature = 1.000000
+2020-12-08 10:21:00 INFO     learning_rate = 0

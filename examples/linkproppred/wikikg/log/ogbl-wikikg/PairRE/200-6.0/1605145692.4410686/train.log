@@ -1,0 +1,124 @@
+2020-11-11 20:48:58 INFO     Model: PairRE
+2020-11-11 20:48:58 INFO     Dataset: ogbl-wikikg
+2020-11-11 20:48:58 INFO     #entity: 2500604
+2020-11-11 20:48:58 INFO     #relation: 535
+2020-11-11 20:48:58 INFO     #train: 16109182
+2020-11-11 20:48:58 INFO     #valid: 429456
+2020-11-11 20:48:58 INFO     #test: 598543
+2020-11-11 20:50:37 INFO     Model Parameter Configuration:
+2020-11-11 20:50:37 INFO     Parameter gamma: torch.Size([1]), require_grad = False
+2020-11-11 20:50:37 INFO     Parameter embedding_range: torch.Size([1]), require_grad = False
+2020-11-11 20:50:37 INFO     Parameter entity_embedding: torch.Size([2500604, 200]), require_grad = True
+2020-11-11 20:50:37 INFO     Parameter relation_embedding: torch.Size([535, 400]), require_grad = True
+2020-11-11 20:50:41 INFO     Loading checkpoint log/ogbl-wikikg/PairRE/200-6.0/1605113775.5368366/...
+2020-11-11 20:50:47 INFO     Start Training...
+2020-11-11 20:50:47 INFO     init_step = 199999
+2020-11-11 20:50:47 INFO     batch_size = 512
+2020-11-11 20:50:47 INFO     negative_adversarial_sampling = 1
+2020-11-11 20:50:47 INFO     hidden_dim = 200
+2020-11-11 20:50:47 INFO     gamma = 6.000000
+2020-11-11 20:50:47 INFO     negative_adversarial_sampling = True
+2020-11-11 20:50:47 INFO     adversarial_temperature = 1.000000
+2020-11-11 20:50:47 INFO     learning_rate = 0
+2020-11-11 20:51:30 INFO     Evaluating on Valid Dataset...
+2020-11-11 20:51:30 INFO     Evaluating the model... (0/26842)
+2020-11-11 20:51:34 INFO     Evaluating the model... (1000/26842)
+2020-11-11 20:51:38 INFO     Evaluating the model... (2000/26842)
+2020-11-11 20:51:41 INFO     Evaluating the model... (3000/26842)
+2020-11-11 20:51:45 INFO     Evaluating the model... (4000/26842)
+2020-11-11 20:51:48 INFO     Evaluating the model... (5000/26842)
+2020-11-11 20:51:52 INFO     Evaluating the model... (6000/26842)
+2020-11-11 20:51:55 INFO     Evaluating the model... (7000/26842)
+2020-11-11 20:51:59 INFO     Evaluating the model... (8000/26842)
+2020-11-11 20:52:02 INFO     Evaluating the model... (9000/26842)
+2020-11-11 20:52:05 INFO     Evaluating the model... (10000/26842)
+2020-11-11 20:52:09 INFO     Evaluating the model... (11000/26842)
+2020-11-11 20:52:12 INFO     Evaluating the model... (12000/26842)
+2020-11-11 20:52:16 INFO     Evaluating the model... (13000/26842)
+2020-11-11 20:52:21 INFO     Evaluating the model... (14000/26842)
+2020-11-11 20:52:25 INFO     Evaluating the model... (15000/26842)
+2020-11-11 20:52:28 INFO     Evaluating the model... (16000/26842)
+2020-11-11 20:52:31 INFO     Evaluating the model... (17000/26842)
+2020-11-11 20:52:35 INFO     Evaluating the model... (18000/26842)
+2020-11-11 20:52:38 INFO     Evaluating the model... (19000/26842)
+2020-11-11 20:52:42 INFO     Evaluating the model... (20000/26842)
+2020-11-11 20:52:46 INFO     Evaluating the model... (21000/26842)
+2020-11-11 20:52:50 INFO     Evaluating the model... (22000/26842)
+2020-11-11 20:52:53 INFO     Evaluating the model... (23000/26842)
+2020-11-11 20:52:56 INFO     Evaluating the model... (24000/26842)
+2020-11-11 20:53:00 INFO     Evaluating the model... (25000/26842)
+2020-11-11 20:53:03 INFO     Evaluating the model... (26000/26842)
+2020-11-11 20:53:07 INFO     Valid hits@1_list at step 199999: 0.497015
+2020-11-11 20:53:07 INFO     Summary name Valid_hits@1_list is illegal; using Valid_hits_1_list instead.
+2020-11-11 20:53:07 INFO     Valid hits@3_list at step 199999: 0.572620
+2020-11-11 20:53:07 INFO     Summary name Valid_hits@3_list is illegal; using Valid_hits_3_list instead.
+2020-11-11 20:53:07 INFO     Valid hits@10_list at step 199999: 0.643709
+2020-11-11 20:53:07 INFO     Summary name Valid_hits@10_list is illegal; using Valid_hits_10_list instead.
+2020-11-11 20:53:07 INFO     Valid mrr_list at step 199999: 0.550022
+2020-11-11 20:53:07 INFO     Evaluating on Test Dataset...
+2020-11-11 20:53:07 INFO     Evaluating the model... (0/37410)
+2020-11-11 20:53:18 INFO     Evaluating the model... (1000/37410)
+2020-11-11 20:53:28 INFO     Evaluating the model... (2000/37410)
+2020-11-11 20:53:38 INFO     Evaluating the model... (3000/37410)
+2020-11-11 20:53:49 INFO     Evaluating the model... (4000/37410)
+2020-11-11 20:53:58 INFO     Evaluating the model... (5000/37410)
+2020-11-11 20:54:09 INFO     Evaluating the model... (6000/37410)
+2020-11-11 20:54:19 INFO     Evaluating the model... (7000/37410)
+2020-11-11 20:54:30 INFO     Evaluating the model... (8000/37410)
+2020-11-11 20:54:40 INFO     Evaluating the model... (9000/37410)
+2020-11-11 20:54:50 INFO     Evaluating the model... (10000/37410)
+2020-11-11 20:55:00 INFO     Evaluating the model... (11000/37410)
+2020-11-11 20:55:11 INFO     Evaluating the model... (12000/37410)
+2020-11-11 20:55:21 INFO     Evaluating the model... (13000/37410)
+2020-11-11 20:55:32 INFO     Evaluating the model... (14000/37410)
+2020-11-11 20:55:43 INFO     Evaluating the model... (15000/37410)
+2020-11-11 20:55:53 INFO     Evaluating the model... (16000/37410)
+2020-11-11 20:56:04 INFO     Evaluating the model... (17000/37410)
+2020-11-11 20:56:14 INFO     Evaluating the model... (18000/37410)
+2020-11-11 20:56:25 INFO     Evaluating the model... (19000/37410)
+2020-11-11 20:56:35 INFO     Evaluating the model... (20000/37410)
+2020-11-11 20:56:45 INFO     Evaluating the model... (21000/37410)
+2020-11-11 20:56:55 INFO     Evaluating the model... (22000/37410)
+2020-11-11 20:57:05 INFO     Evaluating the model... (23000/37410)
+2020-11-11 20:57:14 INFO     Evaluating the model... (24000/37410)
+2020-11-11 20:57:24 INFO     Evaluating the model... (25000/37410)
+2020-11-11 20:57:33 INFO     Evaluating the model... (26000/37410)
+2020-11-11 20:57:43 INFO     Evaluating the model... (27000/37410)
+2020-11-11 20:57:53 INFO     Evaluating the model... (28000/37410)
+2020-11-11 20:58:02 INFO     Evaluating the model... (29000/37410)
+2020-11-11 20:58:12 INFO     Evaluating the model... (30000/37410)
+2020-11-11 20:58:22 INFO     Evaluating the model... (31000/37410)
+2020-11-11 20:58:31 INFO     Evaluating the model... (32000/37410)
+2020-11-11 20:58:41 INFO     Evaluating the model... (33000/37410)
+2020-11-11 20:58:50 INFO     Evaluating the model... (34000/37410)
+2020-11-11 20:59:00 INFO     Evaluating the model... (35000/37410)
+2020-11-11 20:59:09 INFO     Evaluating the model... (36000/37410)
+2020-11-11 20:59:18 INFO     Evaluating the model... (37000/37410)
+2020-11-11 20:59:23 INFO     Test hits@1_list at step 199999: 0.358696
+2020-11-11 20:59:23 INFO     Summary name Test_hits@1_list is illegal; using Test_hits_1_list instead.
+2020-11-11 20:59:23 INFO     Test hits@3_list at step 199999: 0.417483
+2020-11-11 20:59:23 INFO     Summary name Test_hits@3_list is illegal; using Test_hits_3_list instead.
+2020-11-11 20:59:23 INFO     Test hits@10_list at step 199999: 0.461542
+2020-11-11 20:59:23 INFO     Summary name Test_hits@10_list is illegal; using Test_hits_10_list instead.
+2020-11-11 20:59:23 INFO     Test mrr_list at step 199999: 0.397683
+2020-11-11 20:59:23 INFO     Evaluating on Training Dataset...
+2020-11-11 20:59:24 INFO     Evaluating the model... (0/12500)
+2020-11-11 20:59:33 INFO     Evaluating the model... (1000/12500)
+2020-11-11 20:59:43 INFO     Evaluating the model... (2000/12500)
+2020-11-11 20:59:53 INFO     Evaluating the model... (3000/12500)
+2020-11-11 21:00:03 INFO     Evaluating the model... (4000/12500)
+2020-11-11 21:00:14 INFO     Evaluating the model... (5000/12500)
+2020-11-11 21:00:24 INFO     Evaluating the model... (6000/12500)
+2020-11-11 21:00:35 INFO     Evaluating the model... (7000/12500)
+2020-11-11 21:00:45 INFO     Evaluating the model... (8000/12500)
+2020-11-11 21:00:55 INFO     Evaluating the model... (9000/12500)
+2020-11-11 21:01:05 INFO     Evaluating the model... (10000/12500)
+2020-11-11 21:01:15 INFO     Evaluating the model... (11000/12500)
+2020-11-11 21:01:25 INFO     Evaluating the model... (12000/12500)
+2020-11-11 21:01:30 INFO     Train hits@1_list at step 199999: 0.577182
+2020-11-11 21:01:30 INFO     Summary name Train_hits@1_list is illegal; using Train_hits_1_list instead.
+2020-11-11 21:01:30 INFO     Train hits@3_list at step 199999: 0.642862
+2020-11-11 21:01:30 INFO     Summary name Train_hits@3_list is illegal; using Train_hits_3_list instead.
+2020-11-11 21:01:30 INFO     Train hits@10_list at step 199999: 0.699377
+2020-11-11 21:01:30 INFO     Summary name Train_hits@10_list is illegal; using Train_hits_10_list instead.
+2020-11-11 21:01:30 INFO     Train mrr_list at step 199999: 0.621274
