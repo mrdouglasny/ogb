@@ -210,7 +210,7 @@ else:
     if args.noise_first_row > -1:
         # all noise edges go into training data
         noise_idx = np.arange(args.noise_first_row, num_edges)
-        split_idx['train'] = np.concatentate([split_idx['train'], noise_idx])
+        split_idx['train'] = np.concatenate([split_idx['train'], noise_idx])
 
 # need to generate the triples with these indices, graph is not otherwise used (?)
 split_triples = { k: make_triples(graph,split_idx[k]) for k in split_idx.keys() }
