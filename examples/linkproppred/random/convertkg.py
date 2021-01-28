@@ -198,14 +198,16 @@ if args.test_upto>0:
     split_idx['valid'] = split_idx['test']
     split_idx['train'] = np.random.permutation(np.concatenate((perm[int(test_frac*args.test_upto):],np.arange(args.test_upto,num_edges))))
 else:
-    perm = np.random.permutation(args.noise_first_row if args.noise_first_row > -1 else num_edges)
+    num_split_edges = args.noise_first_row if args.noise_first_row > -1 else num_edges
+
+    perm = np.random.permutation(num_split_edges)
     if train_frac>0.8:
         raise ValueError('train_frac>0.8 not yet implemented')
     valid_frac = train_frac+0.1
     test_frac = train_frac+0.2
-    split_idx['train'] = perm[:int(train_frac*num_edges)]
-    split_idx['valid'] = perm[int(train_frac*num_edges):int(valid_frac*num_edges)]
-    split_idx['test'] = perm[int(valid_frac*num_edges):int(test_frac*num_edges)]
+    split_idx['train'] = perm[:int(train_frac*num_split_edges)]
+    split_idx['valid'] = perm[int(train_frac*num_split_edges):int(valid_frac*num_split_edges)]
+    split_idx['test'] = perm[int(valid_frac*num_split_edges):int(test_frac*num_split_edges)]
 
     if args.noise_first_row > -1:
         # all noise edges go into training data
