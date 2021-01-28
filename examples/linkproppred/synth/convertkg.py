@@ -32,7 +32,6 @@ def parse_args(args=None):
     parser.add_argument('-nr', '--n_relations', type=int)
     parser.add_argument('--map_node_file', type=str)
     parser.add_argument('--map_relation_file', type=str)
-    parser.add_argument('--noise_first_row', type=int, default=-1, help='the row in a csv file where the first occurance of a noise motif exists')
     return parser.parse_args(args)
 
 def read_map(file):
@@ -198,7 +197,7 @@ if args.test_upto>0:
     split_idx['valid'] = split_idx['test']
     split_idx['train'] = np.random.permutation(np.concatenate((perm[int(test_frac*args.test_upto):],np.arange(args.test_upto,num_edges))))
 else:
-    perm = np.random.permutation(args.noise_first_row if args.noise_first_row > -1 else num_edges)
+    perm = np.random.permutation(num_edges)
     if train_frac>0.8:
         raise ValueError('train_frac>0.8 not yet implemented')
     valid_frac = train_frac+0.1
@@ -206,11 +205,6 @@ else:
     split_idx['train'] = perm[:int(train_frac*num_edges)]
     split_idx['valid'] = perm[int(train_frac*num_edges):int(valid_frac*num_edges)]
     split_idx['test'] = perm[int(valid_frac*num_edges):int(test_frac*num_edges)]
-
-    if args.noise_first_row > -1:
-        # all noise edges go into training data
-        noise_idx = np.arange(args.noise_first_row, num_edges)
-        split_idx['train'] = np.concatentate([split_idx['train'], noise_idx])
 
 # need to generate the triples with these indices, graph is not otherwise used (?)
 split_triples = { k: make_triples(graph,split_idx[k]) for k in split_idx.keys() }
