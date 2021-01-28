@@ -35,7 +35,7 @@ def parse_args(args=None):
         usage='train.py [<args>] [-h | --help]'
     )
 
-    parser.add_argument('--cuda', action='store_true', help='use GPU')
+    parser.add_argument('--cuda', type=int, default=-1, help='gpu ID (-1 for cpu)')
     parser.add_argument('--meta_dict', type=str, default='', help='name of dictionary')
     
     parser.add_argument('--do_train', action='store_true')
@@ -264,8 +264,8 @@ def main(args):
     for name, param in kge_model.named_parameters():
         logging.info('Parameter %s: %s, require_grad = %s' % (name, str(param.size()), str(param.requires_grad)))
 
-    if args.cuda:
-        kge_model = kge_model.cuda()
+    if args.cuda > -1:
+        kge_model = kge_model.cuda(args.cuda)
     
     if args.do_train:
         # Set training dataloader iterator
