@@ -8,7 +8,7 @@ GIT_PATH=/scratch/aewood/git/ogb/examples/linkproppred/random
 MODEL_PATH=${DATA_PATH}/models/ComplEx/graph$GRAPH_NUM
 
 
-_CD_ = $pwd
+_CD_=$pwd
 
 cd $DATA_PATH
 
