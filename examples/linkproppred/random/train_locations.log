@@ -1,9 +1,9 @@
-TransE graphs1-4 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic
-ComplEx graph1-3 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic
-ComplEx graph4   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic
+TransE graphs1-4 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic/models/TransE/graph{n}
+ComplEx graph1-3 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic/models/ComplEx/graph{n}
+ComplEx graph4   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic/models/ComplEx/graph{n}
 
-ConnE graph1-2   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic
-ConnE graph3-4   => TODO
+ConnE graph1-2   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic/models/ConnE/graph{n}
+ConnE graph3-4   => peterchin5 @ /scratch/aewood/ogb_graphs/synthetic/models/ConnE/graph{n}
 
 RotatE graph1-4  => TODO
-PairRE graph1-4  => TODO
+PairRE graph1-4  => peterchin5 @ /scratch/aewood/ogb_graphs/synthetic/models/PairRE/graph{n}
