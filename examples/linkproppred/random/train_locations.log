@@ -1,0 +1,9 @@
+TransE graphs1-4 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic
+ComplEx graph1-3 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic
+ComplEx graph4   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic
+
+ConnE graph1-2   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic
+ConnE graph3-4   => TODO
+
+RotatE graph1-4  => TODO
+PairRE graph1-4  => TODO
