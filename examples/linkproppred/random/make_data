@@ -1,0 +1,23 @@
+#!/bin/bash
+
+GIT_ROOT=/scratch/aewood/git/ogb/examples/linkproppred/random
+DATA_ROOT=/scratch/aewood/ogb_graphs/synthetic
+
+_CD_ = $pwd
+
+cd $DATA_ROOT
+
+# make random-graph1
+python $GIT_ROOT/convertkg.py ogbl-rand1 --mode read_triples --file $DATA_ROOT/random_graph_1.csv --noise_first_row 7497
+
+# make random-graph2
+python $GIT_ROOT/convertkg.py ogbl-rand2 --mode read_triples --file $DATA_ROOT/random_graph_2.csv --noise_first_row 7497
+
+# make random-graph3
+python $GIT_ROOT/convertkg.py ogbl-rand3 --mode read_triples --file $DATA_ROOT/random_graph_3.csv --noise_first_row 7497
+
+# make random-graph4
+python $GIT_ROOT/convertkg.py ogbl-rand4 --mode read_triples --file $DATA_ROOT/random_graph_4.csv --noise_first_row 4494
+
+cd $_CD_
+
