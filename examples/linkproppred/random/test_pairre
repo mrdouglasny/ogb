@@ -6,11 +6,8 @@ START=$3
 NUM_NEG_SAMPLES=$4
 STEP_SIZE=$5
 
-# DATA_PATH=/scratch/aewood/ogb_graphs/synthetic
-# GIT_PATH=/scratch/aewood/git/ogb/examples/linkproppred/random
-
-DATA_PATH=/scratch/ogb/synthetic
-GIT_PATH=~/git/bu/research/ogb/examples/linkproppred/random
+DATA_PATH=/scratch/aewood/ogb_graphs/synthetic
+GIT_PATH=/scratch/aewood/git/ogb/examples/linkproppred/random
 MODEL_PATH=${DATA_PATH}/models/PairRE/graph$GRAPH_NUM
 
 
