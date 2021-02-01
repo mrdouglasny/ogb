@@ -96,7 +96,7 @@ elif args.mode=='read_triples':
             if node_map!=None:
                 (head,relation,tail) = (node_map[row[0]],relation_map[row[1]],node_map[row[2]])
             else:
-                (head,relation,tail) = [int(r) for r in row]
+                (head,relation,tail) = [int(float(r)) for r in row] # some files store large ints as 1e+05 or something which needs to be parsed as a float, then cast to an int
             edges.append((head,tail))
             relations.append(relation)
             if head>=num_nodes:

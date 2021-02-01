@@ -7,6 +7,8 @@ _CD_ = $pwd
 
 cd $DATA_ROOT
 
+#### 10k vertex graphs
+
 # make random-graph1
 python $GIT_ROOT/convertkg.py ogbl-rand1 --mode read_triples --file $DATA_ROOT/random_graph_1.csv --noise_first_row 7497
 
@@ -18,6 +20,16 @@ python $GIT_ROOT/convertkg.py ogbl-rand3 --mode read_triples --file $DATA_ROOT/r
 
 # make random-graph4
 python $GIT_ROOT/convertkg.py ogbl-rand4 --mode read_triples --file $DATA_ROOT/random_graph_4.csv --noise_first_row 4494
+
+
+#### 100k vertex graphs
+python $GIT_ROOT/convertkg.py ogbl-100k-rand1 --mode read_triples --file $DATA_ROOT/RG1_10.csv --noise_first_row 749991
+
+python $GIT_ROOT/convertkg.py ogbl-100k-rand2 --mode read_triples --file $DATA_ROOT/RG2_10.csv --noise_first_row 749991
+
+python $GIT_ROOT/convertkg.py ogbl-100k-rand3 --mode read_triples --file $DATA_ROOT/RG3_10.csv --noise_first_row 749991
+
+python $GIT_ROOT/convertkg.py ogbl-100k-rand4 --mode read_triples --file $DATA_ROOT/RG4_10.csv --noise_first_row 449994
 
 cd $_CD_
 
