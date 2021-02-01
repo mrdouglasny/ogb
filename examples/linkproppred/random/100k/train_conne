@@ -13,7 +13,7 @@ _CD_=$pwd
 cd $DATA_PATH
 
 
-python ${GIT_PATH}/run.py --dataset ogbl-rand${GRAPH_NUM} --model ConnE --print_on_screen --do_train --cuda --save_path ${MODEL_PATH} --save_checkpoint_steps 1000
+python ${GIT_PATH}/run.py --dataset ogbl-100k-rand${GRAPH_NUM} --model ConnE --print_on_screen --do_train --cuda --save_path ${MODEL_PATH} --save_checkpoint_steps 1000
 
 cd $_CD_
 
