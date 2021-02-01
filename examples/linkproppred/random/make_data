@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# GIT_ROOT=/scratch/aewood/git/ogb/examples/linkproppred/random
-# DATA_ROOT=/scratch/aewood/ogb_graphs/synthetic
-
-GIT_ROOT=~/git/bu/research/ogb/examples/linkproppred/random
-DATA_ROOT=/scratch/ogb/synthetic
+GIT_ROOT=/scratch/aewood/git/ogb/examples/linkproppred/random
+DATA_ROOT=/scratch/aewood/ogb_graphs/synthetic
 
 _CD_ = $pwd
 
