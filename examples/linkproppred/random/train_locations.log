@@ -10,6 +10,17 @@ RotatE graph1-4  => peterchin5 @ /scratch/aewood/ogb_graphs/synthetic/models/10k
 PairRE graph1-4  => peterchin5 @ /scratch/aewood/ogb_graphs/synthetic/models/10k/PairRE/graph{n}
 
 
+#### base experiments:
+
+TransE graph1-8  => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic/models/base/TransE/p-{p}
+ComplEx graph1-8 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic/models/base/ComplEx/p-{p}
+
+ConnE graph1-8   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic/models/base/ConnE/p-{p}
+PairRE graph1-8  => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic/models/base/PairRE/p-{p}
+
+RotatE graph1-3  => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic/models/base/RotatE/p-{p}
+RotatE graph4-6  => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic/models/base/RotatE/p-{p}
+
 #### 100k vertex experiments:
 
 TransE graphs1-4 => peterchin4 @ /scratch/aewood/ogb_graphs/synthetic/models/100k/TransE/graph{n}
