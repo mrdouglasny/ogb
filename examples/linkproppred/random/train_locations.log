@@ -9,3 +9,7 @@ ConnE graph1-4   => peterchin3 @ /scratch/aewood/ogb_graphs/synthetic/models/Con
 RotatE graph1-4  => peterchin5 @ /scratch/aewood/ogb_graphs/synthetic/models/RotatE/graph{n}
 PairRE graph1-4  => peterchin5 @ /scratch/aewood/ogb_graphs/synthetic/models/PairRE/graph{n}
 
+
+100k vertex experiments:
+
+

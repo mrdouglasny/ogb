@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export CUDA_VISIBLE_DEVICES=$1
+GRAPH_NUM=$2
+
+DATA_PATH=/scratch/aewood/ogb_graphs/synthetic
+GIT_PATH=/scratch/aewood/git/ogb/examples/linkproppred/random
+MODEL_PATH=${DATA_PATH}/models/10k/ComplEx/graph$GRAPH_NUM
+
+
+_CD_=$pwd
+
+cd $DATA_PATH
+
+python ${GIT_PATH}/run.py --dataset ogbl-rand${GRAPH_NUM} --model ComplEx --print_on_screen --do_train --cuda --save_path ${MODEL_PATH} --save_checkpoint_steps 1000 --double_relation_embedding --double_entity_embedding
+
+cd $_CD_
+

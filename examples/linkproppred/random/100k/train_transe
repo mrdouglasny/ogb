@@ -5,7 +5,7 @@ GRAPH_NUM=$2
 
 DATA_PATH=/scratch/aewood/ogb_graphs/synthetic
 GIT_PATH=/scratch/aewood/git/ogb/examples/linkproppred/random
-MODEL_PATH=${DATA_PATH}/models/TransE/graph$GRAPH_NUM
+MODEL_PATH=${DATA_PATH}/models/100k/TransE/graph$GRAPH_NUM
 
 
 _CD_=$pwd
