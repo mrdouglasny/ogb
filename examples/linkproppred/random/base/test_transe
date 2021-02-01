@@ -1,0 +1,26 @@
+#!/bin/bash
+
+export CUDA_VISIBLE_DEVICES=$1
+p=$2
+START=$3
+NUM_NEG_SAMPLES=$4
+STEP_SIZE=$5
+
+DATA_PATH=/scratch/aewood/ogb_graphs/synthetic
+GIT_PATH=/scratch/aewood/git/ogb/examples/linkproppred/random
+MODEL_PATH=${DATA_PATH}/models/base/TransE/p-$p
+
+
+_CD_=$pwd
+
+cd $DATA_PATH
+
+for ((n = ${START}; n <= ${NUM_NEG_SAMPLES}; n += ${STEP_SIZE}))
+do
+    echo "${n}"
+
+    (python ${GIT_PATH}/run.py --dataset ogbl-base-p-${p} --model TransE --print_on_screen --do_test --cuda --init_checkpoint ${MODEL_PATH} --test_random_sample ${n})
+done
+
+cd $_CD_
+

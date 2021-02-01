@@ -96,6 +96,9 @@ elif args.mode=='read_triples':
             if node_map!=None:
                 (head,relation,tail) = (node_map[row[0]],relation_map[row[1]],node_map[row[2]])
             else:
+                # ignore empty rows and ignore rows that are comments
+                if len(row) == 0 or row[0].startswith("#") or row[0].startswith("%"):
+                    continue
                 (head,relation,tail) = [int(float(r)) for r in row] # some files store large ints as 1e+05 or something which needs to be parsed as a float, then cast to an int
             edges.append((head,tail))
             relations.append(relation)
