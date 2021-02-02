@@ -2,6 +2,7 @@
 
 export CUDA_VISIBLE_DEVICES=$1
 p=$2
+gamma=$3
 
 DATA_PATH=/scratch/aewood/ogb_graphs/synthetic
 GIT_PATH=/scratch/aewood/git/ogb/examples/linkproppred/random
@@ -12,7 +13,7 @@ _CD_=$pwd
 
 cd $DATA_PATH
 
-python ${GIT_PATH}/run.py --dataset ogbl-base-p-${p} --model TransE --print_on_screen --do_train --cuda --save_path ${MODEL_PATH} --save_checkpoint_steps 1000
+python ${GIT_PATH}/run.py --dataset ogbl-base-p-${p} --model TransE --gamma $gamma --print_on_screen --do_train --cuda --save_path ${MODEL_PATH} --save_checkpoint_steps 1000
 
 cd $_CD_
 
