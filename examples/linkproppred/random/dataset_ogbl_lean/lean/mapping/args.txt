@@ -1,0 +1,1 @@
+Namespace(collapse_edge_types=0, dataset='ogbl-lean', do_test=False, edge_probability=0.1, file='/home/lean/Harvard-tutoring/src/meetings/basics_cr.dump', map_node_file=None, map_relation_file=None, mode='leanlib', n_relations=None, n_vertices=None, print_relations=False, select_head=-1, select_tail=-1, shuffle_edge_types=0.0, subsample=0.8, test_upto=0)
